@@ -7,25 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		727E7E3B1CD67F620089F93C /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 727E7E3A1CD67F620089F93C /* Camera.cpp */; };
-		727E7E431CE9187E0089F93C /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 727E7E411CE9187E0089F93C /* Ray.cpp */; };
-		727E7E461CE96E050089F93C /* ImageBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 727E7E441CE96E050089F93C /* ImageBuffer.cpp */; };
-		727E7E491CEB603B0089F93C /* ImageFilePng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 727E7E471CEB603B0089F93C /* ImageFilePng.cpp */; };
-		727E7E4C1CF28FA60089F93C /* Primitive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 727E7E4A1CF28FA60089F93C /* Primitive.cpp */; };
-		727E7E4F1CF427B50089F93C /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 727E7E4D1CF427B50089F93C /* Sphere.cpp */; };
-		727E7E521CF572E70089F93C /* Sampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 727E7E501CF572E70089F93C /* Sampler.cpp */; };
-		727E7E551CF6A12E0089F93C /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 727E7E531CF6A12E0089F93C /* Material.cpp */; };
-		727E7E581CF958660089F93C /* Mandelbulb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 727E7E561CF958660089F93C /* Mandelbulb.cpp */; };
-		727E7E5E1CF9ECEE0089F93C /* DistanceField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 727E7E5C1CF9ECEE0089F93C /* DistanceField.cpp */; };
-		72A714C41CBB3FD300E5B321 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A714C31CBB3FD300E5B321 /* main.cpp */; };
 		72A714D21CBB486200E5B321 /* libIlmImf.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714CC1CBB486200E5B321 /* libIlmImf.6.dylib */; };
 		72A714D31CBB486200E5B321 /* libIlmThread.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714CD1CBB486200E5B321 /* libIlmThread.6.dylib */; };
 		72A714D41CBB486200E5B321 /* libHalf.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714CE1CBB486200E5B321 /* libHalf.6.dylib */; };
 		72A714D51CBB486200E5B321 /* libIex.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714CF1CBB486200E5B321 /* libIex.6.dylib */; };
 		72A714D61CBB486200E5B321 /* libImath.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714D01CBB486200E5B321 /* libImath.6.dylib */; };
 		72A714D71CBB486200E5B321 /* libltdl.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714D11CBB486200E5B321 /* libltdl.7.dylib */; };
-		72C9840E1D1607250085A686 /* ImageFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72C9840C1D1607250085A686 /* ImageFile.cpp */; };
-		72C984111D1607760085A686 /* ImageFileExr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72C9840F1D1607760085A686 /* ImageFileExr.cpp */; };
 		72FFE2D11D28A4D8008EA6C6 /* libtbb.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72FFE2CE1D28A4D8008EA6C6 /* libtbb.dylib */; };
 		72FFE2D21D28A4D8008EA6C6 /* libtbbmalloc_proxy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72FFE2CF1D28A4D8008EA6C6 /* libtbbmalloc_proxy.dylib */; };
 		72FFE2D31D28A4D8008EA6C6 /* libtbbmalloc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72FFE2D01D28A4D8008EA6C6 /* libtbbmalloc.dylib */; };
@@ -44,39 +31,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		727E7E391CD67F620089F93C /* Camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
-		727E7E3A1CD67F620089F93C /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
-		727E7E411CE9187E0089F93C /* Ray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ray.cpp; sourceTree = "<group>"; };
-		727E7E421CE9187E0089F93C /* Ray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Ray.hpp; sourceTree = "<group>"; };
-		727E7E441CE96E050089F93C /* ImageBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageBuffer.cpp; sourceTree = "<group>"; };
-		727E7E451CE96E050089F93C /* ImageBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageBuffer.hpp; sourceTree = "<group>"; };
-		727E7E471CEB603B0089F93C /* ImageFilePng.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFilePng.cpp; sourceTree = "<group>"; };
-		727E7E481CEB603B0089F93C /* ImageFilePng.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFilePng.hpp; sourceTree = "<group>"; };
-		727E7E4A1CF28FA60089F93C /* Primitive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Primitive.cpp; sourceTree = "<group>"; };
-		727E7E4B1CF28FA60089F93C /* Primitive.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Primitive.hpp; sourceTree = "<group>"; };
-		727E7E4D1CF427B50089F93C /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
-		727E7E4E1CF427B50089F93C /* Sphere.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sphere.hpp; sourceTree = "<group>"; };
-		727E7E501CF572E70089F93C /* Sampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sampler.cpp; sourceTree = "<group>"; };
-		727E7E511CF572E70089F93C /* Sampler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sampler.hpp; sourceTree = "<group>"; };
-		727E7E531CF6A12E0089F93C /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
-		727E7E541CF6A12E0089F93C /* Material.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Material.hpp; sourceTree = "<group>"; };
-		727E7E561CF958660089F93C /* Mandelbulb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mandelbulb.cpp; sourceTree = "<group>"; };
-		727E7E571CF958660089F93C /* Mandelbulb.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Mandelbulb.hpp; sourceTree = "<group>"; };
-		727E7E5C1CF9ECEE0089F93C /* DistanceField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DistanceField.cpp; sourceTree = "<group>"; };
-		727E7E5D1CF9ECEE0089F93C /* DistanceField.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DistanceField.hpp; sourceTree = "<group>"; };
 		72A714C01CBB3FD300E5B321 /* FracRndr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FracRndr; sourceTree = BUILT_PRODUCTS_DIR; };
-		72A714C31CBB3FD300E5B321 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		72A714CC1CBB486200E5B321 /* libIlmImf.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIlmImf.6.dylib; path = /opt/local/lib/libIlmImf.6.dylib; sourceTree = "<absolute>"; };
 		72A714CD1CBB486200E5B321 /* libIlmThread.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIlmThread.6.dylib; path = /opt/local/lib/libIlmThread.6.dylib; sourceTree = "<absolute>"; };
 		72A714CE1CBB486200E5B321 /* libHalf.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libHalf.6.dylib; path = /opt/local/lib/libHalf.6.dylib; sourceTree = "<absolute>"; };
 		72A714CF1CBB486200E5B321 /* libIex.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIex.6.dylib; path = /opt/local/lib/libIex.6.dylib; sourceTree = "<absolute>"; };
 		72A714D01CBB486200E5B321 /* libImath.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libImath.6.dylib; path = /opt/local/lib/libImath.6.dylib; sourceTree = "<absolute>"; };
 		72A714D11CBB486200E5B321 /* libltdl.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libltdl.7.dylib; path = /opt/local/lib/libltdl.7.dylib; sourceTree = "<absolute>"; };
-		72A714DA1CBB573100E5B321 /* frMath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = frMath.h; sourceTree = "<group>"; };
-		72C9840C1D1607250085A686 /* ImageFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFile.cpp; sourceTree = "<group>"; };
-		72C9840D1D1607250085A686 /* ImageFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFile.hpp; sourceTree = "<group>"; };
-		72C9840F1D1607760085A686 /* ImageFileExr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFileExr.cpp; sourceTree = "<group>"; };
-		72C984101D1607760085A686 /* ImageFileExr.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFileExr.hpp; sourceTree = "<group>"; };
 		72FFE2CE1D28A4D8008EA6C6 /* libtbb.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtbb.dylib; path = ../../../../../opt/local/lib/libtbb.dylib; sourceTree = "<group>"; };
 		72FFE2CF1D28A4D8008EA6C6 /* libtbbmalloc_proxy.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtbbmalloc_proxy.dylib; path = ../../../../../opt/local/lib/libtbbmalloc_proxy.dylib; sourceTree = "<group>"; };
 		72FFE2D01D28A4D8008EA6C6 /* libtbbmalloc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtbbmalloc.dylib; path = ../../../../../opt/local/lib/libtbbmalloc.dylib; sourceTree = "<group>"; };
@@ -106,7 +67,6 @@
 			isa = PBXGroup;
 			children = (
 				72A714D81CBB4D5800E5B321 /* libs */,
-				72A714C21CBB3FD300E5B321 /* FracRndr */,
 				72A714C11CBB3FD300E5B321 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -117,39 +77,6 @@
 				72A714C01CBB3FD300E5B321 /* FracRndr */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		72A714C21CBB3FD300E5B321 /* FracRndr */ = {
-			isa = PBXGroup;
-			children = (
-				727E7E5C1CF9ECEE0089F93C /* DistanceField.cpp */,
-				727E7E5D1CF9ECEE0089F93C /* DistanceField.hpp */,
-				727E7E391CD67F620089F93C /* Camera.hpp */,
-				727E7E3A1CD67F620089F93C /* Camera.cpp */,
-				727E7E4A1CF28FA60089F93C /* Primitive.cpp */,
-				727E7E4B1CF28FA60089F93C /* Primitive.hpp */,
-				727E7E4D1CF427B50089F93C /* Sphere.cpp */,
-				727E7E4E1CF427B50089F93C /* Sphere.hpp */,
-				727E7E501CF572E70089F93C /* Sampler.cpp */,
-				727E7E511CF572E70089F93C /* Sampler.hpp */,
-				727E7E441CE96E050089F93C /* ImageBuffer.cpp */,
-				727E7E451CE96E050089F93C /* ImageBuffer.hpp */,
-				72A714C31CBB3FD300E5B321 /* main.cpp */,
-				727E7E561CF958660089F93C /* Mandelbulb.cpp */,
-				727E7E571CF958660089F93C /* Mandelbulb.hpp */,
-				72A714DA1CBB573100E5B321 /* frMath.h */,
-				727E7E411CE9187E0089F93C /* Ray.cpp */,
-				727E7E421CE9187E0089F93C /* Ray.hpp */,
-				727E7E471CEB603B0089F93C /* ImageFilePng.cpp */,
-				727E7E481CEB603B0089F93C /* ImageFilePng.hpp */,
-				72C9840F1D1607760085A686 /* ImageFileExr.cpp */,
-				72C984101D1607760085A686 /* ImageFileExr.hpp */,
-				727E7E531CF6A12E0089F93C /* Material.cpp */,
-				727E7E541CF6A12E0089F93C /* Material.hpp */,
-				72C9840C1D1607250085A686 /* ImageFile.cpp */,
-				72C9840D1D1607250085A686 /* ImageFile.hpp */,
-			);
-			path = FracRndr;
 			sourceTree = "<group>";
 		};
 		72A714D81CBB4D5800E5B321 /* libs */ = {
@@ -224,19 +151,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				727E7E521CF572E70089F93C /* Sampler.cpp in Sources */,
-				72C9840E1D1607250085A686 /* ImageFile.cpp in Sources */,
-				727E7E431CE9187E0089F93C /* Ray.cpp in Sources */,
-				727E7E4C1CF28FA60089F93C /* Primitive.cpp in Sources */,
-				72C984111D1607760085A686 /* ImageFileExr.cpp in Sources */,
-				727E7E461CE96E050089F93C /* ImageBuffer.cpp in Sources */,
-				727E7E3B1CD67F620089F93C /* Camera.cpp in Sources */,
-				727E7E4F1CF427B50089F93C /* Sphere.cpp in Sources */,
-				72A714C41CBB3FD300E5B321 /* main.cpp in Sources */,
-				727E7E491CEB603B0089F93C /* ImageFilePng.cpp in Sources */,
-				727E7E551CF6A12E0089F93C /* Material.cpp in Sources */,
-				727E7E5E1CF9ECEE0089F93C /* DistanceField.cpp in Sources */,
-				727E7E581CF958660089F93C /* Mandelbulb.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
