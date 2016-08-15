@@ -377,6 +377,7 @@ int main(int argc, const char * argv[]) {
     //renderScene();
     //testFileExr();
     //testFileExrMM();
+    // git test
     renderScene1();
     
     //testSphereHit();
