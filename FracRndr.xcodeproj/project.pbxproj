@@ -13,6 +13,9 @@
 		72A714D51CBB486200E5B321 /* libIex.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714CF1CBB486200E5B321 /* libIex.6.dylib */; };
 		72A714D61CBB486200E5B321 /* libImath.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714D01CBB486200E5B321 /* libImath.6.dylib */; };
 		72A714D71CBB486200E5B321 /* libltdl.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714D11CBB486200E5B321 /* libltdl.7.dylib */; };
+		72D9F7301DB2F04B005451FC /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F72F1DB2F04B005451FC /* Scene.cpp */; };
+		72D9F7371DBC0143005451FC /* Film.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7351DBC0143005451FC /* Film.cpp */; };
+		72D9F7391DBC016E005451FC /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7381DBC016E005451FC /* Renderer.cpp */; };
 		72E7F3831D60DAF20051109E /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72E7F3761D60DAF20051109E /* Camera.cpp */; };
 		72E7F3841D60DAF20051109E /* DistanceField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72E7F3771D60DAF20051109E /* DistanceField.cpp */; };
 		72E7F3851D60DAF20051109E /* ImageBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72E7F3781D60DAF20051109E /* ImageBuffer.cpp */; };
@@ -51,6 +54,13 @@
 		72A714CF1CBB486200E5B321 /* libIex.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIex.6.dylib; path = /opt/local/lib/libIex.6.dylib; sourceTree = "<absolute>"; };
 		72A714D01CBB486200E5B321 /* libImath.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libImath.6.dylib; path = /opt/local/lib/libImath.6.dylib; sourceTree = "<absolute>"; };
 		72A714D11CBB486200E5B321 /* libltdl.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libltdl.7.dylib; path = /opt/local/lib/libltdl.7.dylib; sourceTree = "<absolute>"; };
+		72D9F72E1DB2DB5E005451FC /* Scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Scene.hpp; path = include/Scene.hpp; sourceTree = "<group>"; };
+		72D9F72F1DB2F04B005451FC /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Scene.cpp; path = src/Scene.cpp; sourceTree = "<group>"; };
+		72D9F7311DB2F4D5005451FC /* Background.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Background.hpp; path = include/Background.hpp; sourceTree = "<group>"; };
+		72D9F7351DBC0143005451FC /* Film.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Film.cpp; path = src/Film.cpp; sourceTree = "<group>"; };
+		72D9F7381DBC016E005451FC /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Renderer.cpp; path = src/Renderer.cpp; sourceTree = "<group>"; };
+		72D9F73A1DBC017D005451FC /* Renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Renderer.hpp; path = include/Renderer.hpp; sourceTree = "<group>"; };
+		72D9F73B1DBC0AF6005451FC /* Film.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Film.hpp; path = include/Film.hpp; sourceTree = "<group>"; };
 		72E7F3691D60DAE20051109E /* Camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Camera.hpp; path = include/Camera.hpp; sourceTree = "<group>"; };
 		72E7F36A1D60DAE20051109E /* DistanceField.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DistanceField.hpp; path = include/DistanceField.hpp; sourceTree = "<group>"; };
 		72E7F36B1D60DAE20051109E /* frMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = frMath.h; path = include/frMath.h; sourceTree = "<group>"; };
@@ -140,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				72E7F3761D60DAF20051109E /* Camera.cpp */,
+				72D9F7381DBC016E005451FC /* Renderer.cpp */,
 				72E7F3771D60DAF20051109E /* DistanceField.cpp */,
 				72E7F3781D60DAF20051109E /* ImageBuffer.cpp */,
 				72E7F3791D60DAF20051109E /* ImageFile.cpp */,
@@ -148,10 +159,12 @@
 				72E7F37C1D60DAF20051109E /* main.cpp */,
 				72E7F37D1D60DAF20051109E /* Mandelbulb.cpp */,
 				72E7F37E1D60DAF20051109E /* Material.cpp */,
+				72D9F72F1DB2F04B005451FC /* Scene.cpp */,
 				72E7F37F1D60DAF20051109E /* Primitive.cpp */,
 				72E7F3801D60DAF20051109E /* Ray.cpp */,
 				72E7F3811D60DAF20051109E /* Sampler.cpp */,
 				72E7F3821D60DAF20051109E /* Sphere.cpp */,
+				72D9F7351DBC0143005451FC /* Film.cpp */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -159,6 +172,8 @@
 		72E7F3681D60DA760051109E /* include */ = {
 			isa = PBXGroup;
 			children = (
+				72D9F73B1DBC0AF6005451FC /* Film.hpp */,
+				72D9F73A1DBC017D005451FC /* Renderer.hpp */,
 				72E7F3691D60DAE20051109E /* Camera.hpp */,
 				72E7F36A1D60DAE20051109E /* DistanceField.hpp */,
 				72E7F36B1D60DAE20051109E /* frMath.h */,
@@ -172,6 +187,8 @@
 				72E7F3731D60DAE20051109E /* Ray.hpp */,
 				72E7F3741D60DAE20051109E /* Sampler.hpp */,
 				72E7F3751D60DAE20051109E /* Sphere.hpp */,
+				72D9F72E1DB2DB5E005451FC /* Scene.hpp */,
+				72D9F7311DB2F4D5005451FC /* Background.hpp */,
 			);
 			name = include;
 			sourceTree = "<group>";
@@ -202,7 +219,7 @@
 		72A714B81CBB3FD300E5B321 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Charles-Felix";
 				TargetAttributes = {
 					72A714BF1CBB3FD300E5B321 = {
@@ -233,13 +250,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				72E7F3831D60DAF20051109E /* Camera.cpp in Sources */,
+				72D9F7371DBC0143005451FC /* Film.cpp in Sources */,
 				72E7F3861D60DAF20051109E /* ImageFile.cpp in Sources */,
 				72E7F3851D60DAF20051109E /* ImageBuffer.cpp in Sources */,
+				72D9F7391DBC016E005451FC /* Renderer.cpp in Sources */,
 				72E7F3881D60DAF20051109E /* ImageFilePng.cpp in Sources */,
 				72E7F3891D60DAF20051109E /* main.cpp in Sources */,
 				72E7F38A1D60DAF20051109E /* Mandelbulb.cpp in Sources */,
 				72E7F3841D60DAF20051109E /* DistanceField.cpp in Sources */,
 				72E7F38D1D60DAF20051109E /* Ray.cpp in Sources */,
+				72D9F7301DB2F04B005451FC /* Scene.cpp in Sources */,
 				72E7F38E1D60DAF20051109E /* Sampler.cpp in Sources */,
 				72E7F3871D60DAF20051109E /* ImageFileExr.cpp in Sources */,
 				72E7F38F1D60DAF20051109E /* Sphere.cpp in Sources */,
@@ -265,8 +285,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -309,8 +331,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
