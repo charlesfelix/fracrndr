@@ -33,3 +33,5 @@ scenes/
 *.exe
 *.out
 *.app
+
+*.xcuserstate
