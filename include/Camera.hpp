@@ -20,11 +20,14 @@ namespace Fr{
         PerspectiveProjection();
     };
     
+    
+    
     class Camera
     {
     public:
         
         Camera(float focal = 1.f, float aspect_ratio = 1.f, float fov = Radians::fromDegrees(45.0), float near = 0.0001, float far = 100000000.f);
+        
         
         V3f worldToCamera(const V3f & wpos) const;
         V3f cameraToWorld(const V3f & wpos) const;
@@ -33,7 +36,8 @@ namespace Fr{
         
         V2f project(const V3f & wpos) const;
         Ray unproject(const V2f & ndc_pos) const;
-        
+        Ray unproject(const V2f & ndc_pos, float dx, float dy, Ray & r_dx, Ray & r_dy) const;
+
         V3f getPosition() const;
         void setPosition(const V3f &pos);
         

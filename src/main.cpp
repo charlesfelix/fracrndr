@@ -18,6 +18,10 @@
 #include "Material.hpp"
 #include "Mandelbulb.hpp"
 #include "DistanceField.hpp"
+#include "Scene.hpp"
+#include "Film.hpp"
+#include "Renderer.hpp"
+
 
 //TODO: Ray Differentials
 //TODO: UVs & Pattern material to test Ray differentials
@@ -31,25 +35,6 @@ public:
     
 };
 
-class Background
-{
-public:
-    Background(const std::shared_ptr<ImageBuffer> & imgbuf_ptr):m_imgbuf_ptr(imgbuf_ptr)
-    {
-    }
-    C4f color ( const Ray & r ) const
-    {
-        V3f d = r.direction.normalized();
-        float u = .5f*(1.f + atan2(d.x,-d.z) / M_PI);
-        float v = acos(d.y) / M_PI;
-        
-        return m_imgbuf_ptr->getPixel(u*(m_imgbuf_ptr->width()-1), v*(m_imgbuf_ptr->height()-1));
-    }
-    
-    
-private:
-    std::shared_ptr<ImageBuffer> m_imgbuf_ptr;
-};
 
 C4f color ( const Ray & r,const PrimitiveList & prim_list, const Background & bg)
 {
@@ -189,8 +174,8 @@ void renderScene1()
     
     Background bg(uffizi_ptr);
     
-    size_t w = 512;
-    size_t h = 256;
+    size_t w = 512*2;
+    size_t h = 256*2;
     ImageBuffer buf(w,h,Fr::C4f(0.f,0.f,0.f,1.f));
     float aspect_ratio = w/float(h);
     Camera cam = Camera(1.f,aspect_ratio);
@@ -200,7 +185,7 @@ void renderScene1()
     std::shared_ptr<Material> m1 = std::shared_ptr<Material>(new SimpleMetal(C3f(.8f,.8f,.8f)));
     std::shared_ptr<Material> m2 = std::shared_ptr<Material>(new Lambertian(C3f(0.6,0.6,0.6)));
     std::shared_ptr<Material> m3 = std::shared_ptr<Material>(new Glass(1.4,.2f));
-    std::shared_ptr<Material> m4 = std::shared_ptr<Material>(new Glass(0.f,.2f));
+    std::shared_ptr<Material> m4 = std::shared_ptr<Material>(new Glass(1.4f,.2f));
     
     PrimitiveList prim_list;
     
@@ -208,7 +193,7 @@ void renderScene1()
     //prim_list.addPrimitive(p0);
     
     std::shared_ptr<Primitive> p1 = std::shared_ptr<Primitive>(new Sphere(V3f(0.6f,0.f,0.f),0.5f,m3));
-    prim_list.addPrimitive(p1);
+    //prim_list.addPrimitive(p1);
     std::shared_ptr<Primitive> p2 = std::shared_ptr<Primitive>(new Sphere(V3f(0.6f,0.f,0.f),0.25f,m4));
     prim_list.addPrimitive(p2);
     
@@ -216,17 +201,16 @@ void renderScene1()
     prim_list.addPrimitive(p4);
     
     std::shared_ptr<Primitive> p3 = std::shared_ptr<Primitive>(new Sphere(V3f(-0.75f,0.f,0.f),0.3f,m3));
-    //prim_list.addPrimitive(p3);
+    prim_list.addPrimitive(p3);
     
     
     const float w_step = 1.f/float(w);
     const float h_step = 1.f/float(h);
     V2f ndc(0.f,0.f);
-    size_t n_samples = 2;
+    size_t n_samples = 100;
     float avger = 1.f/float(n_samples);
     float progress_increment = 1.f/float(h);
     tbb::atomic<float> progress = 0.f;
-    
     //tbb::task_scheduler_init init(2);
     tbb::parallel_for(size_t(0),size_t(h),size_t(1),[&,sampler](size_t y){
         for (size_t x = 0; x < w; ++x)
@@ -253,7 +237,7 @@ void renderScene1()
     });
     
     ImageFileExr fout;
-    fout.write("/Users/charles-felix/Documents/Development/FracRndr/Images/render_scene_glass2.exr",buf);
+    fout.write("/Users/charles-felix/Documents/Development/FracRndr/Images/render_scene_glass4.exr",buf);
     
 }
 
@@ -276,7 +260,7 @@ void renderScene2()
     std::shared_ptr<Material> m1 = std::shared_ptr<Material>(new SimpleMetal(C3f(.8f,.8f,.8f)));
     std::shared_ptr<Material> m2 = std::shared_ptr<Material>(new Lambertian(C3f(0.6,0.6,0.6)));
     std::shared_ptr<Material> m3 = std::shared_ptr<Material>(new SimpleMetal(C3f(0.6,0.6,0.6),.2f));
-
+    
     PrimitiveList prim_list;
     SphereDE sde(V3f(0.0f,0.f,0.f),3.0f,0.001);
     Mandelbulb mb = Mandelbulb(8, V3f(0.f,0.f,0.f), V3f(0.f,0.f,0.f),10);
@@ -286,10 +270,10 @@ void renderScene2()
     
     std::shared_ptr<Primitive> p1 = std::shared_ptr<Primitive>(new Sphere(V3f(0.0f,0.f,0.f),3.0f,m1));
     //prim_list.addPrimitive(p1);
-
+    
     std::shared_ptr<Primitive> p2 = std::shared_ptr<Primitive>(new Sphere(V3f(0.5f,-100.5f,0.f),100.f,m2));
     prim_list.addPrimitive(p2);
-
+    
     std::shared_ptr<Primitive> p3 = std::shared_ptr<Primitive>(new Sphere(V3f(-1.75f,0.f,0.f),.8f,m1));
     prim_list.addPrimitive(p3);
     
@@ -367,6 +351,64 @@ testSphereHit()
     std::cout << "intersection " << hit << " " << t << std::endl;
 }
 
+void testScene()
+{
+
+    const char *file_in = "/Users/charles-felix/Documents/Development/FracRndr/Images/uffizi-large.exr";
+    
+    std::shared_ptr<ImageBuffer> uffizi_ptr = std::make_shared<ImageBuffer>(1,1);
+    ImageFileExr().read(file_in,*uffizi_ptr);
+    
+    std::shared_ptr<Background> bg = std::make_shared<Background>(uffizi_ptr);
+    
+    std::shared_ptr<Camera> camera = std::make_shared<Camera>(1.f,2.f);
+    camera->setPosition({0.f,0.f,2.f});
+    
+    size_t w = 500;
+    size_t h = w/2;
+    
+    std::shared_ptr<Film> film = std::make_shared<Film>(w,h);
+    
+    
+    std::shared_ptr<Scene> scene = std::make_shared<Scene>();
+    
+    
+    std::shared_ptr<Material> m0 = std::shared_ptr<Material>(new Lambertian(C3f(0.5,0.5,0.5)));
+    std::shared_ptr<Material> m1 = std::shared_ptr<Material>(new SimpleMetal(C3f(.8f,.8f,.8f)));
+    std::shared_ptr<Material> m2 = std::shared_ptr<Material>(new Lambertian(C3f(0.6,0.6,0.6)));
+    
+    std::shared_ptr<PrimitiveList> prim_list = std::make_shared<PrimitiveList>();
+    
+    std::shared_ptr<Primitive> p0 = std::shared_ptr<Primitive>(new Sphere(V3f(-0.2f,0.f,0.f),0.25f,m1));
+    
+    std::shared_ptr<Primitive> p1 = std::shared_ptr<Primitive>(new Sphere(V3f(0.6f,0.f,0.f),0.5f,m0));
+    
+    std::shared_ptr<Primitive> p2 = std::shared_ptr<Primitive>(new Sphere(V3f(0.6f,0.f,0.f),0.25f,m2));
+    
+    std::shared_ptr<Primitive> p4 = std::shared_ptr<Primitive>(new Sphere(V3f(0.5f,-100.5f,0.f),100.f,m2));
+    
+    std::shared_ptr<Primitive> p3 = std::shared_ptr<Primitive>(new Sphere(V3f(-0.75f,0.f,0.f),0.3f,m2));
+
+    
+    prim_list->addPrimitive(p4);
+    prim_list->addPrimitive(p1);
+    prim_list->addPrimitive(p0);
+    
+//    prim_list->addPrimitive(p0);
+    //prim_list->addPrimitive(p2);
+    //prim_list->addPrimitive(p3);
+
+    scene->setBackground(bg);
+    scene->setPrimitives(prim_list);
+    
+    
+    Renderer rndr;
+    rndr.setCamera(camera);
+    rndr.setFilm(film);
+    rndr.setScene(scene);
+    rndr.render();
+    
+}
 
 void testTbb()
 {
@@ -377,8 +419,9 @@ int main(int argc, const char * argv[]) {
     //renderScene();
     //testFileExr();
     //testFileExrMM();
-    renderScene1();
-    
+    // git test
+    //renderScene1();
+    testScene();
     //testSphereHit();
     return 0;
 }

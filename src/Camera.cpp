@@ -60,11 +60,35 @@ V2f Camera::project(const V3f & wpos) const
 
 Ray Camera::unproject(const V2f & ndc_pos) const
 {
-    V3f origin = cameraToWorld(ndcToCamera(ndc_pos));
-    V3f dir = origin - getPosition();
+    V3f screen_pos = cameraToWorld(ndcToCamera(ndc_pos));
+    const V3f cam_pos = getPosition();
+    V3f dir = screen_pos - cam_pos;
     dir.normalize();
-    return Ray(origin,dir);
+    return Ray(cam_pos,dir);
 }
+
+Ray Camera::unproject(const V2f & ndc_pos, float dx, float dy, Ray & ray_dx, Ray & ray_dy) const
+{
+    V3f screen_pos = cameraToWorld(ndcToCamera(ndc_pos));
+    V3d screen_pos_dx = cameraToWorld(ndcToCamera(ndc_pos + V2f(dx,0.f)));
+    V3d screen_pos_dy = cameraToWorld(ndcToCamera(ndc_pos + V2f(0.f,dy)));
+
+    const V3f cam_pos = getPosition();
+    V3f dir = screen_pos - cam_pos;
+    dir.normalize();
+    
+    V3f dir_dx = screen_pos_dx - cam_pos;
+    dir_dx.normalize();
+    ray_dx = Ray(cam_pos,dir_dx);
+    
+    V3f dir_dy = screen_pos_dy - cam_pos;
+    dir_dy.normalize();
+    ray_dy = Ray(cam_pos,dir_dy);
+    
+    
+    return Ray(cam_pos,dir);
+}
+
 
 V3f Camera::getPosition() const
 {

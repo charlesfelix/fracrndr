@@ -30,9 +30,9 @@ namespace Fr {
     typedef Imath::V2i           V2i;
     typedef Imath::V2f           V2f;
     typedef Imath::V2d           V2d;
-    typedef Imath::C3f           C3f;
+    typedef Imath::Color3<float> C3f;
     typedef Imath::Color3<half>  C3h;
-    typedef Imath::C4f           C4f;
+    typedef Imath::Color4<float> C4f;
     typedef Imath::V3i           V3i;
     typedef Imath::Vec3<half>    V3h;
     typedef Imath::V3f           V3f;
