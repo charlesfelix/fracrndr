@@ -15,12 +15,12 @@ Scene::Scene()
 
 }
 
-std::shared_ptr<const Background> Scene::getBackground() const
+Background::ConstPtr Scene::getBackground() const
 {
     return m_background;
 }
 
-std::shared_ptr<const Primitive> Scene::getPrimitives() const
+Primitive::ConstPtr Scene::getPrimitives() const
 {
     return m_primitives;
 }
@@ -35,12 +35,12 @@ bool Scene::hit(const Ray & ray, HitRecord & hit_record) const
     return m_primitives->hit(ray,0,MAXFLOAT,hit_record);
 }
 
-void Scene::setPrimitives(const std::shared_ptr<Primitive> & primitives)
+void Scene::setPrimitives(const Primitive::Ptr & primitives)
 {
     m_primitives = primitives;
 }
 
-void Scene::setBackground(const std::shared_ptr<Background> & background)
+void Scene::setBackground(const Background::Ptr & background)
 {
     m_background = background;
 }

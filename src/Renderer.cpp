@@ -12,8 +12,15 @@
 #include "Renderer.hpp"
 #include "Material.hpp"
 #include "Sampler.hpp"
+#include "Parser.hpp"
 
 using namespace Fr;
+
+
+RenderGlobals::RenderGlobals():m_aa(1),m_output_file("/tmp/render.exr")
+{
+    
+}
 
 void Renderer::outputProgress(float progress) const
 {
@@ -43,23 +50,28 @@ Renderer::Renderer()
     
 }
 
-std::shared_ptr<const Camera> Renderer::getCamera() const
+void Renderer::setRenderGlobals(const Fr::RenderGlobals &rg)
+{
+    m_render_globals = rg;
+}
+
+Camera::ConstPtr Renderer::getCamera() const
 {
     return m_camera;
 }
 
-void Renderer::setCamera(const std::shared_ptr<Camera> &camera)
+void Renderer::setCamera(const Camera::Ptr &camera)
 {
     m_camera = camera;
 }
 
 
-std::shared_ptr<const Film> Renderer::getFilm() const
+Film::ConstPtr Renderer::getFilm() const
 {
     return m_film;
 }
 
-void Renderer::setFilm(const std::shared_ptr<Film> & film)
+void Renderer::setFilm(const Film::Ptr & film)
 {
     m_film = film;
 }
@@ -70,12 +82,12 @@ std::shared_ptr<const Scene> Renderer::getScene() const
     return m_scene;
 }
 
-void Renderer::setScene(const std::shared_ptr<Scene> & scene)
+void Renderer::setScene(const Scene::Ptr & scene)
 {
     m_scene = scene;
 }
 
-C4f Renderer::Li(const Fr::Ray &r, std::shared_ptr<const Primitive> primitives, const Background &bg) const {
+C4f Renderer::Li(const Fr::Ray &r, Primitive::ConstPtr primitives, const Background &bg) const {
     
     // terminate the ray
     if (r.depth>4 ) return C4f(0.f,0.f,0.f,0.f);
@@ -103,10 +115,12 @@ C4f Renderer::Li(const Fr::Ray &r, std::shared_ptr<const Primitive> primitives, 
 
 void Renderer::render() const
 {
+    // TODO: assert that all the scene's data isn't null.
+    
     //FR_RAND48 random = FR_RAND48::Rand48(123);
     Sampler sampler(123);
    
-    const size_t n_samples = 1000;
+    const size_t n_samples = m_render_globals.m_aa*m_render_globals.m_aa;
     const size_t h = m_film->height();
     const size_t w = m_film->width();
     const float w_step = 1.f/float(w);
@@ -147,5 +161,44 @@ void Renderer::render() const
         
     });
     
-    m_film->writeImage("/Users/charles-felix/Desktop/image.exr");
+    m_film->writeImage(m_render_globals.m_output_file);
+}
+
+void Renderer::initFromFile(const std::string &scenefile_path)
+{
+    JsonParser parser;
+    parser.parse(scenefile_path);
+    
+    m_render_globals = *parser.getGlobals(); // all members are values, it's fine
+    m_camera = parser.getCamera();
+    m_film = parser.getFilm();
+    
+    // create the scene
+    // - add background
+    Scene::Ptr scene = std::make_shared<Scene>();
+    
+    scene->setBackground(parser.getBackground());
+    
+    // - create the primitive list
+    std::map<std::string, Primitive::Ptr> primitives = parser.getPrimitives();
+    PrimitiveList::Ptr plist = std::make_shared<PrimitiveList>();
+    for (auto it = primitives.begin(); it != primitives.end(); ++it)
+    {
+        plist->addPrimitive(it->second);
+    }
+    
+    // - bind the materials
+    std::map<std::string, Material::Ptr> materials = parser.getMaterials();
+    std::map<std::string, std::string> material_table = parser.getMaterialTable();
+    
+    for (auto it = material_table.begin(); it != material_table.end(); ++it)
+    {
+        primitives[it->first]->setMaterial(materials[it->second]);
+    }
+    
+    // assign the primitive list
+    scene->setPrimitives(plist);
+    
+    // assign the scene
+    this->setScene(scene);
 }

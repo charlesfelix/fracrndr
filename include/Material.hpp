@@ -13,16 +13,20 @@
 #include "Primitive.hpp"
 #include "Sampler.hpp"
 
+
 namespace Fr {
     class Material
     {
     public:
+        DEF_SHARED_PTR_TYPES(Material);
+        
         virtual bool scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered) = 0;
     };
     
     class Lambertian : public Material
     {
     public:
+
         Lambertian(const C3f & albedo=C3f(.5f,.5f,.5f)) : m_albedo(albedo) {}
         virtual bool scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered);
     private:
@@ -33,6 +37,7 @@ namespace Fr {
     class SimpleMetal : public Material
     {
     public:
+
         SimpleMetal(const C3f & albedo=C3f(.5f,.5f,.5f), float roughness=0.f):
         m_albedo(albedo), m_roughness(roughness) {}
         virtual bool scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered);
@@ -45,6 +50,7 @@ namespace Fr {
     class Glass : public Material
     {
     public:
+        
         Glass(float refraction_index, float roughness=0.f):
         m_refraction_index(refraction_index), m_roughness(roughness) {}
         virtual bool scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered);

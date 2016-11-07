@@ -10,6 +10,7 @@
 #define IDF_hpp
 
 #include "Primitive.hpp"
+#include "Material.hpp"
 
 namespace Fr
 {
@@ -39,10 +40,14 @@ namespace Fr
     class ImplicitDistanceField : public Primitive
     {
     public:
-        ImplicitDistanceField(const DistanceEstimator & estimator,unsigned max_steps, std::shared_ptr<Material> material) : m_estimator(estimator),m_max_steps(max_steps), m_material(material){};
+        ImplicitDistanceField(const DistanceEstimator & estimator,unsigned max_steps) : m_estimator(estimator),m_max_steps(max_steps), m_material(nullptr){};
         
         virtual ~ImplicitDistanceField(){};
         
+        void setMaterial(const std::shared_ptr<Material> & material)
+        {
+            m_material = material;
+        }
         virtual bool hit(const Ray & r, float tmin, float tmax, HitRecord & hit_record) const
         {
             V3f ray_dir = r.direction.normalizedExc();
@@ -89,7 +94,7 @@ namespace Fr
     private:
         DistanceEstimator m_estimator;
         unsigned m_max_steps;
-        std::shared_ptr<Material> m_material;
+        Material::Ptr m_material;
         
     };
     

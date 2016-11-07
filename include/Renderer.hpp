@@ -15,29 +15,43 @@
 
 namespace Fr
 {
+    class RenderGlobals    {
+    public:
+        RenderGlobals();
+        int m_aa;
+        std::string m_output_file;
+        
+    };
     class Renderer
     {
     public:
+        
         Renderer();
         
-        std::shared_ptr<const Camera> getCamera() const;
-        void setCamera(const std::shared_ptr<Camera> &camera);
+        void setRenderGlobals(const RenderGlobals & rg);
+        
+        Camera::ConstPtr getCamera() const;
+        void setCamera(const Camera::Ptr &camera);
 
-        std::shared_ptr<const Film> getFilm() const;
-        void setFilm(const std::shared_ptr<Film> &film);
+        Film::ConstPtr getFilm() const;
+        void setFilm(const Film::Ptr &film);
         
         std::shared_ptr<const Scene> getScene() const;
-        void setScene(const std::shared_ptr<Scene> &scene);
+        void setScene(const Scene::Ptr &scene);
         
-        C4f Li(const Ray & r,std::shared_ptr<const Primitive> primitives, const Background & bg) const;
+        C4f Li(const Ray & r,Primitive::ConstPtr primitives, const Background & bg) const;
         
         void render() const;
         
         void outputProgress(float progress) const;
+        
+        void initFromFile(const std::string & scenefile);
     private:
-        std::shared_ptr<Camera> m_camera;
-        std::shared_ptr<Film> m_film;
-        std::shared_ptr<Scene> m_scene;
+        
+        RenderGlobals m_render_globals;
+        Camera::Ptr m_camera;
+        Film::Ptr m_film;
+        Scene::Ptr m_scene;
         
         Renderer(const Renderer &);
         

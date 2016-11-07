@@ -25,6 +25,7 @@ namespace Fr{
     class Camera
     {
     public:
+        DEF_SHARED_PTR_TYPES(Camera);
         
         Camera(float focal = 1.f, float aspect_ratio = 1.f, float fov = Radians::fromDegrees(45.0), float near = 0.0001, float far = 100000000.f);
         

@@ -35,7 +35,7 @@ namespace Fr {
     C4f & ImageBuffer::getPixel(size_t x, size_t y) { return m_data[y*m_width + x]; };
     const C4f & ImageBuffer::getPixel(size_t x, size_t y) const { return m_data[y*m_width + x]; };
     
-    void MipMapBuffer::addLevel(std::shared_ptr<ImageBuffer> & mm_level)
+    void MipMapBuffer::addLevel(ImageBuffer::Ptr & mm_level)
     {
         m_mm_levels.push_back(mm_level);
     }

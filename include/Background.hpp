@@ -15,7 +15,9 @@ using namespace Fr;
 class Background
 {
 public:
-    Background(const std::shared_ptr<ImageBuffer> & imgbuf_ptr):m_imgbuf_ptr(imgbuf_ptr)
+    DEF_SHARED_PTR_TYPES(Background);
+    
+    Background(const ImageBuffer::Ptr & imgbuf_ptr):m_imgbuf_ptr(imgbuf_ptr)
     {
     }
     C4f color ( const Ray & r ) const
@@ -28,7 +30,7 @@ public:
     }
     
 private:
-    std::shared_ptr<ImageBuffer> m_imgbuf_ptr;
+    ImageBuffer::Ptr m_imgbuf_ptr;
 };
 
 

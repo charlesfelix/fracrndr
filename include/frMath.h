@@ -24,6 +24,8 @@
 #include <ImathPlane.h>
 #include <ImathQuat.h>
 
+#define DEF_SHARED_PTR_TYPES(Class) typedef std::shared_ptr<Class> Ptr; typedef std::shared_ptr<const Class> ConstPtr
+
 namespace Fr {
     
     typedef ::half               half;

@@ -10,7 +10,7 @@
 
 using namespace Fr;
 
-PrimitiveList & PrimitiveList::addPrimitive(std::shared_ptr<Primitive> &primitive)
+PrimitiveList & PrimitiveList::addPrimitive(Primitive::Ptr &primitive)
 {
     m_primitives.push_back(primitive);
     return *this;

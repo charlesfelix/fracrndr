@@ -9,7 +9,12 @@
 #include "Sphere.hpp"
 using namespace Fr;
 
-Sphere::Sphere(const V3f center, float radius, std::shared_ptr<Material> &material):m_center(center),m_radius(radius), m_material(material) {}
+Sphere::Sphere(const V3f center, float radius):m_center(center),m_radius(radius), m_material(nullptr) {}
+
+void Sphere::setMaterial(const std::shared_ptr<Material> & material)
+{
+    m_material = material;
+}
 
 bool Sphere::hit(const Ray & ray, float tmin, float tmax, HitRecord & hit_record) const
 {

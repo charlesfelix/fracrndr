@@ -86,7 +86,7 @@ void ImageFileExr::readmm(const std::string & filepath, MipMapBuffer & mmbuf)
         
         in.readTiles (0, nx_tiles - 1, 0, ny_tiles - 1, l);
         
-        std::shared_ptr<ImageBuffer> imgbuf_ptr = std::make_shared<ImageBuffer>(width,height);
+        ImageBuffer::Ptr imgbuf_ptr = std::make_shared<ImageBuffer>(width,height);
         
         for (size_t j = 0; j < height; ++j)
             for (size_t i = 0; i < width; ++i)

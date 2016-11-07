@@ -22,25 +22,27 @@ namespace Fr
     class Scene
     {
        public:
+        DEF_SHARED_PTR_TYPES(Scene);
+        
         Scene();
         virtual ~Scene() {};
         
-        std::shared_ptr<const Primitive> getPrimitives() const;
+        Primitive::ConstPtr getPrimitives() const;
         
-        std::shared_ptr<const Background> getBackground() const;
+        Background::ConstPtr getBackground() const;
         
         const Fr::Box3d & getBounds() const;
         
         bool hit(const Ray & ray, HitRecord & hit_record) const;
         
-        void setPrimitives(const std::shared_ptr<Primitive> & primitives);
+        void setPrimitives(const Primitive::Ptr & primitives);
         
-        void setBackground(const std::shared_ptr<Background> & background);
+        void setBackground(const Background::Ptr & background);
         
     private:
         Scene(const Scene & );
-        std::shared_ptr<Primitive> m_primitives;
-        std::shared_ptr<Background> m_background;
+        Primitive::Ptr m_primitives;
+        Background::Ptr m_background;
         Fr::Box3d m_bounds;
         
 

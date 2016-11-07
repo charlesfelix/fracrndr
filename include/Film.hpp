@@ -21,6 +21,8 @@ namespace Fr
 
     public:
         
+        DEF_SHARED_PTR_TYPES(Film);
+        
         Film(size_t xres, size_t yres);
         
         void addSample(float x, float y, const C4f & color);
@@ -34,7 +36,7 @@ namespace Fr
     private:
         Film(const Film&);
         
-        std::shared_ptr<ImageBuffer> m_imagebuffer;
+        ImageBuffer::Ptr m_imagebuffer;
     }; // Film
 
 } // Fr

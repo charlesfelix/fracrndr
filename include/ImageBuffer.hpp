@@ -16,6 +16,8 @@ namespace Fr {
     class ImageBuffer {
         
     public:
+        DEF_SHARED_PTR_TYPES(ImageBuffer);
+        
         typedef std::vector<C4f>::iterator iterator;
         typedef std::vector<C4f>::const_iterator const_iterator;
         
@@ -47,11 +49,11 @@ namespace Fr {
     class MipMapBuffer {
     public:
         MipMapBuffer(){}
-        std::shared_ptr<ImageBuffer> level(unsigned int l) {return m_mm_levels[l];}
-        void addLevel(std::shared_ptr<ImageBuffer> & mm_level);
+        ImageBuffer::Ptr level(unsigned int l) {return m_mm_levels[l];}
+        void addLevel(ImageBuffer::Ptr & mm_level);
         unsigned int numLevels() const;
     private:
-        std::vector<std::shared_ptr<ImageBuffer> > m_mm_levels;
+        std::vector<ImageBuffer::Ptr> m_mm_levels;
         
     }; // MipMapBuffer
 

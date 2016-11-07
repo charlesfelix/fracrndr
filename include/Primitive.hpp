@@ -10,36 +10,44 @@
 #define Primitive_hpp
 #include "frMath.h"
 #include "Ray.hpp"
+//#include "Material.hpp"
 #include <vector>
+
 namespace Fr{
-    
-    class Material;
+
+    class Material; // forward decl.
     
     struct HitRecord {
+
         HitRecord():t(MAXFLOAT){}
         HitRecord(const HitRecord & hr):t(hr.t),position(hr.position),normal(hr.normal),color(hr.color){}
         float t;
         V3f position;
         V3f normal;
         C4f color;
-        std::shared_ptr<Material> material;
+        std::shared_ptr<Material> material; // do not use Material::Ptr to avoid cyclic includes
     };
     
     class Primitive{
         
     public:
+        DEF_SHARED_PTR_TYPES(Primitive);
+
         virtual ~Primitive(){};
+        virtual void setMaterial(const std::shared_ptr<Material> & material) {};
         virtual bool hit(const Ray & r, float tmin, float tmax, HitRecord & hit_record) const = 0;
     };
     
     class PrimitiveList : public Primitive
     {
     public:
+        DEF_SHARED_PTR_TYPES(PrimitiveList);
+
         virtual ~PrimitiveList(){};
-        PrimitiveList & addPrimitive(std::shared_ptr<Primitive> & primitive);
+        PrimitiveList & addPrimitive(Primitive::Ptr & primitive);
         virtual bool hit(const Ray & r, float tmin, float tmax, HitRecord & hit_record) const;
     private:
-        std::vector<std::shared_ptr<Primitive>> m_primitives;
+        std::vector<Primitive::Ptr> m_primitives;
     };
     
 }; // namespace Fr
