@@ -57,11 +57,11 @@ int main(int argc, const char * argv[]) {
     FLAGS_v =2;
 #endif
     
-    Renderer ren;
     std::string filepath = "/Users/charles-felix/Documents/Development/fracrndr/scenes/scene1.json";
 
+    Renderer ren;
     ren.initFromFile(filepath);
     ren.render();
-    //testScene();
+
     return 0;
 }
