@@ -40,15 +40,7 @@ INITIALIZE_EASYLOGGINGPP
 
 using namespace Fr;
 
-void testTbb()
-{
-    tbb::parallel_for(0, 10, 1, [](int y){int x = y;});
-}
 
-void initLogger()
-{
-    //el::Loggers::addFlag(64);
-}
 int main(int argc, const char * argv[]) {
     
 #ifdef GLOG
