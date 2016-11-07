@@ -33,3 +33,7 @@ scenes/
 *.exe
 *.out
 *.app
+
+*.xcscmblueprint
+
+*.xcuserstate
