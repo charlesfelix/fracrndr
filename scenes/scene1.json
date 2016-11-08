@@ -1,0 +1,73 @@
+{
+	"globals": {
+		"aa":2,
+		"outputfile": "/tmp/cool_image.exr"
+	},
+	"camera": {
+		"position": [0.0,0.0,2.0],
+		"rotation": [0,0,0],
+		"focal": 1.0,
+		"aspect_ratio": 2.0,
+		"fov": 45.0,
+		"near": 0.1,
+		"far": 10000
+	},
+	"film": {
+		"width": 500,
+		"height": 250
+	},
+	"background": 
+	{
+		"imagefile": "/Development/fracrndr/scenes/hdr/uffizi-large-mm.exr"
+	},
+
+	"materials":
+	{
+		"clear_glass": {
+			"name": "glass",
+			"refraction_index": 1.2,
+			"roughness": 0.0
+		},
+		"chrome": {
+			"name": "simplemetal",
+			"albedo": [0.5,0.5,0.5],
+			"roughness": 0.0
+		},
+		"grey_diffuse": {
+			"name": "lambertian",
+			"albedo": [0.5,0.5,0.5]
+		}
+
+	},
+
+	"primitives": {
+		"sphere0":
+		{
+			"name": "sphere",
+			"position": [0.6,0.0,0.0],
+			"radius": 0.25
+		},
+
+		"sphere1":
+		{
+			"name": "sphere",
+			"position":[0.6,0.0,0.0],
+			"radius": 0.5
+		},
+
+		"ground":
+		{
+			"name": "sphere",
+			"position":[0.5,-100.5,0.0],
+			"radius": 100
+		}
+	},
+
+	"material_table": {
+		"sphere0": "clear_glass",
+		"sphere1": "chrome",
+		"ground": "grey_diffuse"
+	}
+
+
+}
