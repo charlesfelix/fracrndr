@@ -1,6 +1,5 @@
 ## Project related ignores
 images/
-scenes/
 
 ## C++ related ignores
 
@@ -34,11 +33,13 @@ scenes/
 *.out
 *.app
 
+# Natron scene files
+*.ntp
+*.lock
+*.autosave
+
+# Xcode project files
 *.xcscmblueprint
-
 *.xcuserstate
-
 FracRndr.xcodeproj/project.xcworkspace/xcuserdata/charles-felix.xcuserdatad/UserInterfaceState.xcuserstate
-
-
 *.xcbkptlist
