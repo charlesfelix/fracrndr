@@ -61,7 +61,7 @@
 		72D9F73F1DBD52D5005451FC /* Background.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Background.hpp; sourceTree = "<group>"; };
 		72D9F7401DBD52D5005451FC /* Camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
 		72D9F7411DBD52D5005451FC /* Film.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Film.hpp; sourceTree = "<group>"; };
-		72D9F7421DBD52D5005451FC /* frMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = frMath.h; sourceTree = "<group>"; };
+		72D9F7421DBD52D5005451FC /* Fr.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Fr.hpp; sourceTree = "<group>"; };
 		72D9F7431DBD52D5005451FC /* Renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
 		72D9F7441DBD52D5005451FC /* Scene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
 		72D9F7451DBD52D5005451FC /* DistanceField.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DistanceField.hpp; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 				72D9F7451DBD52D5005451FC /* DistanceField.hpp */,
 				72E007441DCF798F00FF9F81 /* Exception.hpp */,
 				72D9F7411DBD52D5005451FC /* Film.hpp */,
-				72D9F7421DBD52D5005451FC /* frMath.h */,
+				72D9F7421DBD52D5005451FC /* Fr.hpp */,
 				72D9F7461DBD52D5005451FC /* ImageBuffer.hpp */,
 				72D9F7471DBD52D5005451FC /* ImageFile.hpp */,
 				72D9F7481DBD52D5005451FC /* ImageFileExr.hpp */,

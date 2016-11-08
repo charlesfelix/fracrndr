@@ -9,7 +9,7 @@
 #ifndef Ray_hpp
 #define Ray_hpp
 
-#include "frMath.h"
+#include "Fr.hpp"
 
 namespace Fr {
     

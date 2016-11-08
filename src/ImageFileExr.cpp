@@ -7,7 +7,7 @@
 //
 
 #include "ImageFileExr.hpp"
-#include "frMath.h"
+#include "Fr.hpp"
 #include <ImfArray.h>
 #include <ImfInputFile.h>
 #include <ImfRgbaFile.h>

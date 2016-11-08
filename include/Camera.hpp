@@ -9,7 +9,7 @@
 #ifndef fr_Camera_h
 #define fr_Camera_h
 
-#include "frMath.h"
+#include "Fr.hpp"
 #include "Ray.hpp"
 
 namespace Fr{

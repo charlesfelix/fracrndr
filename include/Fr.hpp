@@ -1,13 +1,14 @@
 //
-//  frMath.h
+//  Fr.hpp
 //  FracRndr
 //
 //  Created by Charles-Felix on 4/10/16.
 //  Copyright © 2016 Charles-Felix. All rights reserved.
 //
 
-#ifndef frMath_h
-#define frMath_h
+#ifndef Fr_hpp
+#define Fr_hpp
+
 #include <limits>
 #include <half.h>
 #include <ImathHalfLimits.h>
@@ -63,12 +64,14 @@ namespace Fr {
     #define FR_HALF_LIMITS Imath::limits<Fr::half>
 
     
+    // radians to degrees conversion
     class Radians
     {
     public:
         static inline float toDegrees(float radians) { return radians/M_PI*180.f; }
         static inline float fromDegrees(float degrees) { return degrees/180.f*M_PI; }
     };
+    
     // unclamped fit
     template <typename t>
     inline t ufit(const t& v,const t& a,const t& b,const t& a2, const t& b2)
@@ -99,4 +102,4 @@ namespace Fr {
 
 }; // namespace Fr
 
-#endif /* frMath_h */
+#endif /* Fr_hpp */

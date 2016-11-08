@@ -8,7 +8,7 @@
 
 #ifndef Primitive_hpp
 #define Primitive_hpp
-#include "frMath.h"
+#include "Fr.hpp"
 #include "Ray.hpp"
 //#include "Material.hpp"
 #include <vector>

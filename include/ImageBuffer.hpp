@@ -9,7 +9,7 @@
 #ifndef ImageBuffer_hpp
 #define ImageBuffer_hpp
 
-#include "frMath.h"
+#include "Fr.hpp"
 #include <vector>
 
 namespace Fr {

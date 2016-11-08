@@ -10,7 +10,7 @@
 #define Film_hpp
 
 #include <string>
-#include "frMath.h"
+#include "Fr.hpp"
 
 #include "ImageBuffer.hpp"
 

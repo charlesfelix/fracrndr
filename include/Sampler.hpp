@@ -9,7 +9,7 @@
 #ifndef Sampler_hpp
 #define Sampler_hpp
 
-#include "frMath.h"
+#include "Fr.hpp"
 
 namespace Fr
 {

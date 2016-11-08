@@ -9,7 +9,7 @@
 #ifndef Sphere_hpp
 #define Sphere_hpp
 
-#include "frMath.h"
+#include "Fr.hpp"
 #include "Primitive.hpp"
 #include "Material.hpp"
 

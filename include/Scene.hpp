@@ -9,7 +9,7 @@
 #ifndef Scene_h
 #define Scene_h
 
-#include "frMath.h"
+#include "Fr.hpp"
 #include "Primitive.hpp"
 #include "Background.hpp"
 
