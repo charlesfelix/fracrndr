@@ -36,8 +36,15 @@ namespace Fr {
         void setPixel(size_t x, size_t y, const C4f & c);
         C4f & getPixel(size_t x, size_t y);
         const C4f & getPixel(size_t x, size_t y) const;
+        C4f getPixel(float x, float y) const;
+        
+        V2i linearToXY(size_t linear);
+        size_t xyToLinear(size_t x, size_t y);
+
         
     private:
+        void clamp(float &x, float &y) const;
+        void iclamp(size_t &x, size_t &y) const;
         ImageBuffer();
         ImageBuffer(const ImageBuffer & );
         std::vector<C4f> m_data;

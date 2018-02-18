@@ -15,12 +15,12 @@ Scene::Scene()
 
 }
 
-Background::ConstPtr Scene::getBackground() const
+const Background::Ptr & Scene::getBackground() const
 {
     return m_background;
 }
 
-Primitive::ConstPtr Scene::getPrimitives() const
+const RenderPrimitve::Ptr & Scene::getPrimitives() const
 {
     return m_primitives;
 }
@@ -35,7 +35,7 @@ bool Scene::hit(const Ray & ray, HitRecord & hit_record) const
     return m_primitives->hit(ray,0,MAXFLOAT,hit_record);
 }
 
-void Scene::setPrimitives(const Primitive::Ptr & primitives)
+void Scene::setPrimitives(const RenderPrimitve::Ptr & primitives)
 {
     m_primitives = primitives;
 }

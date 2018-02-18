@@ -10,13 +10,13 @@
 #define Sphere_hpp
 
 #include "Fr.hpp"
-#include "Primitive.hpp"
+#include "RenderPrimitve.hpp"
 #include "Material.hpp"
 
 namespace Fr {
 
     class Lambertian;
-    class Sphere : public Primitive
+    class Sphere : public RenderPrimitve
     {
     public:
         Sphere(const V3f center, float radius);

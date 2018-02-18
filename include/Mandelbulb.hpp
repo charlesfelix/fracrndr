@@ -9,7 +9,7 @@
 #ifndef Mandelbulb_hpp
 #define Mandelbulb_hpp
 
-#include "Primitive.hpp"
+#include "RenderPrimitve.hpp"
 
 namespace Fr
 {

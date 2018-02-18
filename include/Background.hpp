@@ -9,15 +9,15 @@
 #ifndef Fr_Background_h
 #define Fr_Background_h
 
-#include "ImageBuffer.hpp"
+#include "Texture.hpp"
 
 using namespace Fr;
 class Background
-{
+{ 
 public:
     DEF_SHARED_PTR_TYPES(Background);
     
-    Background(const ImageBuffer::Ptr & imgbuf_ptr):m_imgbuf_ptr(imgbuf_ptr)
+    Background(const ImageTexture::ConstPtr & texture):m_texture(texture)
     {
     }
     C4f color ( const Ray & r ) const
@@ -26,11 +26,13 @@ public:
         float u = .5f*(1.f + atan2(d.x,-d.z) / M_PI);
         float v = acos(d.y) / M_PI;
         
-        return m_imgbuf_ptr->getPixel(u*(m_imgbuf_ptr->width()-1), v*(m_imgbuf_ptr->height()-1));
+        //return m_imgbuf_ptr->getPixel(u*(m_imgbuf_ptr->width()-1), v*(m_imgbuf_ptr->height()-1));
+        V3f uv(u,v,0.f);
+        return m_texture->sample(uv);
     }
     
 private:
-    ImageBuffer::Ptr m_imgbuf_ptr;
+    ImageTexture::ConstPtr m_texture;
 };
 
 

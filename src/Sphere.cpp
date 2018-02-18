@@ -26,7 +26,7 @@ bool Sphere::hit(const Ray & ray, float tmin, float tmax, HitRecord & hit_record
         hit_record.position = ray.positionAt(t);
         hit_record.normal = (hit_record.position - m_center).normalize();
         hit_record.t = t;
-        hit_record.material = m_material;
+        hit_record.material = m_material.get();
         return true;
     }
     return false;

@@ -62,6 +62,9 @@ namespace Fr {
     #define FR_RAND32       Imath::Rand32
     #define FR_SOLIDSPHERERAND Imath::solidSphereRand
     #define FR_HALF_LIMITS Imath::limits<Fr::half>
+    
+    #define FR_LUMINANCE(c) (0.2126f*c[0] + 0.7152f*c[1] + 0.0722f*c[2])
+
 
     
     // radians to degrees conversion

@@ -10,7 +10,7 @@
 #define Material_hpp
 
 #include "Ray.hpp"
-#include "Primitive.hpp"
+#include "RenderPrimitve.hpp"
 #include "Sampler.hpp"
 
 

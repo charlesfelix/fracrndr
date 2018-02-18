@@ -60,15 +60,18 @@ void JsonParser::parseGlobals(const json & j)
     if (jit != j.end())
     {
         JSONGETI(jit,aa,1);
+        JSONGETI(jit,max_ray_depth,1);
         JSONGETSTR(jit,outputfile,"/tmp/render.exr");
         
         LOG(INFO) << "globals";
         LOG(INFO) << "\t aa" << aa;
+        LOG(INFO) << "\t max_ray_depth " << max_ray_depth;
         LOG(INFO) << "\t output_file" << outputfile;
         
         
         m_globals = std::make_shared<RenderGlobals>();
         m_globals->m_aa = aa;
+        m_globals->m_max_ray_depth = max_ray_depth;
         m_globals->m_output_file = outputfile;
     }
     else
@@ -93,6 +96,7 @@ void JsonParser::parseCamera(const json & j)
         JSONGETF(jit,far,1.f);
         
         LOG(INFO) << "camera ";
+        LOG(INFO) << "\t position " << position.x << " " << position.y << " " << position.z;
         LOG(INFO) << "\t focal " << focal;
         LOG(INFO) << "\t aspect_ratio " << aspect_ratio;
         LOG(INFO) << "\t fov " << fov;
@@ -104,6 +108,8 @@ void JsonParser::parseCamera(const json & j)
         M44f xform = m_camera->getTransform();
         xform.rotate(rotation);
         m_camera->setTransform(xform);
+        
+        LOG(INFO) << "\n" <<  xform;
     }
     else
     {
@@ -146,7 +152,8 @@ void JsonParser::parseBackground(const json & j)
         
         ImageBuffer::Ptr imgbuf_ptr = std::make_shared<ImageBuffer>(1,1);
         ImageFileExr().read(imagefile,*imgbuf_ptr);
-        m_bg = std::make_shared<Background>(imgbuf_ptr);
+        ImageTexture::Ptr imgtex_ptr = std::make_shared<ImageTexture>(imgbuf_ptr);
+        m_bg = std::make_shared<Background>(imgtex_ptr);
     }
     else
     {
@@ -235,8 +242,8 @@ void JsonParser::parsePrimitives(const json & j)
                 {
                     JSONGETF3(it,position,0.99f,0.01f,0.99f);
                     JSONGETF(it,radius,1.f);
-                    Primitive::Ptr prim_ptr =
-                        Primitive::Ptr(new Sphere(position,radius));
+                    RenderPrimitve::Ptr prim_ptr =
+                        RenderPrimitve::Ptr(new Sphere(position,radius));
                     m_primitives[primitive_tag] = prim_ptr;
                 }
                 else
@@ -307,7 +314,7 @@ const std::map<std::string,Material::Ptr > & JsonParser::getMaterials() const
     return m_materials;
 };
 
-const std::map<std::string,Primitive::Ptr > & JsonParser::getPrimitives() const
+const std::map<std::string,RenderPrimitve::Ptr > & JsonParser::getPrimitives() const
 {
     return m_primitives;
 }

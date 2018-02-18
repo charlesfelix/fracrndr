@@ -17,7 +17,7 @@
 using namespace Fr;
 
 
-RenderGlobals::RenderGlobals():m_aa(1),m_output_file("/tmp/render.exr")
+RenderGlobals::RenderGlobals():m_aa(1),m_max_ray_depth(4),m_output_file("/tmp/render.exr")
 {
     
 }
@@ -87,10 +87,10 @@ void Renderer::setScene(const Scene::Ptr & scene)
     m_scene = scene;
 }
 
-C4f Renderer::Li(const Fr::Ray &r, Primitive::ConstPtr primitives, const Background &bg) const {
+C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitve::Ptr & primitives, const Background &bg) const {
     
     // terminate the ray
-    if (r.depth>4 ) return C4f(0.f,0.f,0.f,0.f);
+    if (r.depth> m_render_globals.m_max_ray_depth ) return C4f(0.f,0.f,0.f,0.f);
     HitRecord hit_record;
     bool has_hit = primitives->hit(r,0.001f,MAXFLOAT,hit_record);
     if (has_hit)
@@ -180,7 +180,7 @@ void Renderer::initFromFile(const std::string &scenefile_path)
     scene->setBackground(parser.getBackground());
     
     // - create the primitive list
-    std::map<std::string, Primitive::Ptr> primitives = parser.getPrimitives();
+    std::map<std::string, RenderPrimitve::Ptr> primitives = parser.getPrimitives();
     PrimitiveList::Ptr plist = std::make_shared<PrimitiveList>();
     for (auto it = primitives.begin(); it != primitives.end(); ++it)
     {

@@ -18,7 +18,8 @@ namespace Fr
     class RenderGlobals    {
     public:
         RenderGlobals();
-        int m_aa;
+        unsigned m_aa;
+        unsigned m_max_ray_depth;
         std::string m_output_file;
         
     };
@@ -36,10 +37,10 @@ namespace Fr
         Film::ConstPtr getFilm() const;
         void setFilm(const Film::Ptr &film);
         
-        std::shared_ptr<const Scene> getScene() const;
+        Scene::ConstPtr getScene() const;
         void setScene(const Scene::Ptr &scene);
         
-        C4f Li(const Ray & r,Primitive::ConstPtr primitives, const Background & bg) const;
+        C4f Li(const Ray & r,const RenderPrimitve::Ptr & primitives, const Background & bg) const;
         
         void render() const;
         
