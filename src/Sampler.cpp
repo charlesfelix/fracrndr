@@ -11,7 +11,7 @@ using namespace Fr;
 
 Sampler::Sampler(unsigned long seed )
 {
-    m_random = FR_RAND48::Rand48(seed);
+    m_random = FR_RAND48( seed );
 }
 
 V3f Sampler::sampleUnitSphere() const

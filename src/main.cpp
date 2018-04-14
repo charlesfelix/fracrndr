@@ -7,6 +7,7 @@
 //
 
 
+//TODO: Implement PolyMesh
 //TODO: Ray Differentials
 //TODO: UVs & Pattern material to test Ray differentials
 //TODO: Importance Sampling
@@ -170,14 +171,17 @@ int main(int argc, const char * argv[]) {
     FLAGS_logtostderr = 1;
     FLAGS_v =2;
 #endif
+    
+#if 0
     //DEM();
-
     test_oiio();
+#endif
+    
     std::string filepath = "/Development/fracrndr/scenes/scene1.json";
 
     Renderer ren;
     ren.initFromFile(filepath);
-    //ren.render();
+    ren.render();
 
     
     IBLTexture();

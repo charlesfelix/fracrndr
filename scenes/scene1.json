@@ -1,7 +1,7 @@
 {
 	"globals": {
-		"aa":4,
-		"max_ray_depth":10,
+		"aa":16,
+		"max_ray_depth":4,
 		"outputfile": "/tmp/cool_image1.exr"
 	},
 	"camera": {
@@ -70,7 +70,7 @@
 	},
 
 	"material_table": {
-		"sphere0": "grey_diffuse",
+		"sphere0": "clear_glass",
 		"sphere1": "gold",
 		"ground": "chrome"
 	}
