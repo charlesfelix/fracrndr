@@ -10,7 +10,7 @@
 
 using namespace Fr;
 
-Sampler Lambertian::s_sampler = Sampler(1212);
+//Sampler Lambertian::s_sampler = Sampler(1212);
 
 inline float fresnel_dielectric(float cosi, float eta) {
     // special case: ignore fresnel
@@ -62,22 +62,22 @@ inline float fresnel_refraction(const V3f& I, const V3f& N, float eta, V3f& T) {
     return 0;
 }
 
-bool Lambertian::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered)
+bool Lambertian::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler)
 {
     // trace an other ray
-    V3f target = rec.position + rec.normal + s_sampler.sampleUnitSphere();
+    V3f target = rec.position + rec.normal + sampler.sampleUnitSphere();
     ray_scattered = Ray(rec.position, target - rec.position);
     ray_scattered.depth = r.depth+1;
     attenuation = m_albedo;
     return true;
 }
 
-Sampler SimpleMetal::s_sampler = Sampler(212);
+//Sampler SimpleMetal::s_sampler = Sampler(212);
 
-bool SimpleMetal::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered)
+bool SimpleMetal::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler)
 {
     V3f jitter = V3f(0.f,0.f,0.f);
-    if (m_roughness>0.f) jitter = s_sampler.sampleUnitSphere()*m_roughness;
+    if (m_roughness>0.f) jitter = sampler.sampleUnitSphere()*m_roughness;
     V3f reflected = reflect(r.direction.normalized(),rec.normal);
     ray_scattered = Ray(rec.position, reflected+jitter);
     attenuation = m_albedo;
@@ -85,9 +85,9 @@ bool SimpleMetal::scatter(const Ray & r, const HitRecord & rec, C3f & attenuatio
     return true;
 }
 
-Sampler Glass::s_sampler = Sampler(2112);
+//Sampler Glass::s_sampler = Sampler(2112);
 
-bool Glass::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered)
+bool Glass::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler)
 {
     V3f refracted;
    
@@ -96,7 +96,7 @@ bool Glass::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray
     attenuation =  V3f(1.f,1.f,1.f);
     V3f reflected = reflect(r.direction.normalized(),rec.normal);
     
-    float random_value = s_sampler.random();
+    float random_value = sampler.random();
     
     V3f scattered = refracted;
     if (random_value > fresnel) scattered = reflected;

@@ -20,7 +20,7 @@ namespace Fr {
     public:
         DEF_SHARED_PTR_TYPES(Material);
         
-        virtual bool scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered) = 0;
+        virtual bool scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler) = 0;
     };
     
     class Lambertian : public Material
@@ -28,10 +28,9 @@ namespace Fr {
     public:
 
         Lambertian(const C3f & albedo=C3f(.5f,.5f,.5f)) : m_albedo(albedo) {}
-        virtual bool scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered);
+        virtual bool scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler);
     private:
         C3f m_albedo;
-        static Sampler s_sampler;
     };
     
     class SimpleMetal : public Material
@@ -40,11 +39,10 @@ namespace Fr {
 
         SimpleMetal(const C3f & albedo=C3f(.5f,.5f,.5f), float roughness=0.f):
         m_albedo(albedo), m_roughness(roughness) {}
-        virtual bool scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered);
+        virtual bool scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler);
     private:
         C3f m_albedo;
         float m_roughness;
-        static Sampler s_sampler;
     };
     
     class Glass : public Material
@@ -53,11 +51,10 @@ namespace Fr {
         
         Glass(float refraction_index, float roughness=0.f):
         m_refraction_index(refraction_index), m_roughness(roughness) {}
-        virtual bool scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered);
+        virtual bool scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler);
     private:
         float m_refraction_index;
         float m_roughness;
-        static Sampler s_sampler;
     };
 
     
