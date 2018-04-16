@@ -1,0 +1,86 @@
+{
+	"globals": {
+		"aa":64,
+		"max_ray_depth":4,
+		"outputfile": "/tmp/debug1.exr"
+	},
+	"camera": {
+		"position": [0.0,0.0,2.0],
+		"rotation": [0,0,0],
+		"focal": 1.0,
+		"aspect_ratio": 2.0,
+		"fov": 45.0,
+		"near": 0.1,
+		"far": 10000
+	},
+	"film": {
+		"width": 2048,
+		"height": 1024
+	},
+	"background": 
+	{
+		"imagefile": "/Development/fracrndr/scenes/hdr/uffizi-large-mm.exr"
+	},
+
+	"materials":
+	{
+		"clear_glass": {
+			"name": "glass",
+			"refraction_index": 1.2,
+			"roughness": 0.0
+		},
+		"chrome": {
+			"name": "simplemetal",
+			"albedo": [0.5,0.5,0.5],
+			"roughness": 0.0
+		},
+		"gold": {
+			"name": "simplemetal",
+			"albedo": [0.5,0.35,0.15],
+			"roughness": 0.0
+		},
+		"grey_diffuse": {
+			"name": "lambertian",
+			"albedo": [0.18,0.18,0.18]
+		}
+
+	},
+
+	"primitives": {
+		"sphere0":
+		{
+			"name": "sphere",
+			"position": [1.2,0.2,0.0],
+			"radius": 0.25
+		},
+
+		"sphere1":
+		{
+			"name": "sphere",
+			"position":[-1.3,0.0,0.0],
+			"radius": 0.5
+		},
+        "sphere2":
+        {
+            "name": "sphere",
+            "position":[0,0.2,-1],
+            "radius": 0.5
+        },
+
+		"ground":
+		{
+			"name": "sphere",
+			"position":[0.5,-100.5,0.0],
+			"radius": 100
+		}
+	},
+
+	"material_table": {
+		"sphere0": "clear_glass",
+		"sphere1": "gold",
+        "sphere2": "grey_diffuse",
+        "ground": "chrome"
+	}
+
+
+}
