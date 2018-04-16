@@ -1,8 +1,8 @@
 {
 	"globals": {
-		"aa":16,
+		"aa":64,
 		"max_ray_depth":4,
-		"outputfile": "/tmp/cool_image1.exr"
+		"outputfile": "/tmp/debug2.exr"
 	},
 	"camera": {
 		"position": [0.0,0.0,2.0],
@@ -14,8 +14,8 @@
 		"far": 10000
 	},
 	"film": {
-		"width": 1920,
-		"height": 1080
+		"width": 2048,
+		"height": 1024
 	},
 	"background": 
 	{
@@ -60,6 +60,12 @@
 			"position":[-1.3,0.0,0.0],
 			"radius": 0.5
 		},
+        "sphere2":
+        {
+            "name": "sphere",
+            "position":[0,0.2,-1],
+            "radius": 0.5
+        },
 
 		"ground":
 		{
@@ -72,7 +78,8 @@
 	"material_table": {
 		"sphere0": "clear_glass",
 		"sphere1": "gold",
-		"ground": "chrome"
+        "sphere2": "grey_diffuse",
+        "ground": "chrome"
 	}
 
 
