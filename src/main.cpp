@@ -177,10 +177,11 @@ int main(int argc, const char * argv[]) {
     test_oiio();
 #endif
     
-    std::string filepath = "/Development/fracrndr/scenes/scene1.json";
+    std::string filepath = "/Development/fracrndr/scenes/scene2.json";
 
     Renderer ren;
     ren.initFromFile(filepath);
+    
     ren.render();
 
     
