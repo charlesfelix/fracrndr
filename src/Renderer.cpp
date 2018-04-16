@@ -14,6 +14,8 @@
 #include "Sampler.hpp"
 #include "Parser.hpp"
 
+#include "easylogging++.h"
+
 using namespace Fr;
 
 
@@ -87,19 +89,24 @@ void Renderer::setScene(const Scene::Ptr & scene)
     m_scene = scene;
 }
 
-C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitve::Ptr & primitives, const Background &bg) const {
+C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitve::Ptr & primitives, const Background &bg, RenderStats & rs, Sampler &sampler) const {
     
-    // terminate the ray
+    // increment the ray counter
+    ++rs.num_rays;
+    
+    // check ray termination
     if (r.depth> m_render_globals.m_max_ray_depth ) return C4f(0.f,0.f,0.f,0.f);
+    
+    // handle ray hi
     HitRecord hit_record;
     bool has_hit = primitives->hit(r,0.001f,MAXFLOAT,hit_record);
     if (has_hit)
     {
         Ray ray_scattered;
         C3f attenuation;
-        if (hit_record.material!=nullptr && hit_record.material->scatter(r, hit_record, attenuation, ray_scattered))
+        if (hit_record.material!=nullptr && hit_record.material->scatter(r, hit_record, attenuation, ray_scattered, sampler))
         {
-            C4f c = this->Li(ray_scattered,primitives,bg);
+            C4f c = this->Li(ray_scattered,primitives,bg,rs, sampler);
             
             return C4f(attenuation.x*c.r,attenuation.y*c.g,attenuation.z*c.b,1.0f);
         }
@@ -118,7 +125,8 @@ void Renderer::render() const
     // TODO: assert that all the scene's data isn't null.
     
     //FR_RAND48 random = FR_RAND48::Rand48(123);
-    Sampler sampler(123);
+ 
+    //Sampler sampler(123);
    
     const size_t n_samples = m_render_globals.m_aa*m_render_globals.m_aa;
     const size_t h = m_film->height();
@@ -130,12 +138,18 @@ void Renderer::render() const
     
     float avger = 1.f/float(n_samples);
 
-    float progress_increment = 1.f/float(h);
+    float progress_increment = 1.f/float(h/10);
     tbb::atomic<float> progress = 0.f;
     //tbb::task_scheduler_init init(1);
-
-    tbb::parallel_for(size_t(0), size_t(h), size_t(1),[&,sampler](size_t y) {
     
+    Timer timer;
+    std::vector<RenderStats> local_stats(h);
+    
+    LOG(INFO) << "Renderer - start rendering" << std::endl;
+    // we are going to keep count of the stats per tasks elements (rows)
+    tbb::parallel_for(size_t(0), size_t(h), size_t(1),[&](size_t y) {
+    
+        Sampler sampler(1212*y+121233);
         for (size_t x = 0; x < w; ++x)
         {
             C4f c(0.f,0.f,0.f,1.f);
@@ -148,18 +162,28 @@ void Renderer::render() const
                 
                 Ray r = m_camera->unproject(ndc+sample_offset);
                 
-                c += this->Li(r,m_scene->getPrimitives(),*(m_scene->getBackground()));
+                c += this->Li(r,m_scene->getPrimitives(),*(m_scene->getBackground()),local_stats[y], sampler);
             }
             c *= avger;
             m_film->addSample(x, h-y-1, c);
         }
         
+        
         ndc.y+=h_step;
         ndc.x = 0;
-        this->outputProgress(progress);
-        progress=progress+progress_increment;
+        if (y%10==0)
+        {
+            this->outputProgress(progress);
+            progress=progress+progress_increment;
+        }
         
     });
+
+    for (auto s : local_stats)
+        m_render_stats.num_rays += s.num_rays;
+    
+    LOG(INFO) << "Render Stats - num rays: " << m_render_stats.num_rays << std::endl;
+    LOG(INFO) << "Render time: " << timer.elapsed() << std::endl;
     
     m_film->writeImage(m_render_globals.m_output_file);
 }

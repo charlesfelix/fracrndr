@@ -12,6 +12,7 @@
 #include "Camera.hpp"
 #include "Scene.hpp"
 #include "Film.hpp"
+#include "Sampler.hpp"
 
 namespace Fr
 {
@@ -23,6 +24,14 @@ namespace Fr
         std::string m_output_file;
         
     };
+    
+    class RenderStats    {
+    public:
+        RenderStats():num_rays(0){};
+        unsigned long num_rays;
+        
+    };
+    
     class Renderer
     {
     public:
@@ -40,7 +49,7 @@ namespace Fr
         Scene::ConstPtr getScene() const;
         void setScene(const Scene::Ptr &scene);
         
-        C4f Li(const Ray & r,const RenderPrimitve::Ptr & primitives, const Background & bg) const;
+        C4f Li(const Ray & r,const RenderPrimitve::Ptr & primitives, const Background & bg, RenderStats & rs, Sampler & sampler) const;
         
         void render() const;
         
@@ -50,6 +59,7 @@ namespace Fr
     private:
         
         RenderGlobals m_render_globals;
+        mutable RenderStats m_render_stats;
         Camera::Ptr m_camera;
         Film::Ptr m_film;
         Scene::Ptr m_scene;
