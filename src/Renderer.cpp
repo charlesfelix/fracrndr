@@ -106,7 +106,11 @@ C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitve::Ptr & primitives, const
         C3f attenuation;
         if (hit_record.material!=nullptr && hit_record.material->scatter(r, hit_record, attenuation, ray_scattered, sampler))
         {
-            C4f c = this->Li(ray_scattered,primitives,bg,rs, sampler);
+            const unsigned indirect_samples = 1;
+            C4f c(0);
+            for (unsigned int i = 0; i < indirect_samples; ++i)
+                c += this->Li(ray_scattered,primitives,bg,rs, sampler);
+            c/=float(indirect_samples);
             
             return C4f(attenuation.x*c.r,attenuation.y*c.g,attenuation.z*c.b,1.0f);
         }
@@ -122,11 +126,6 @@ C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitve::Ptr & primitives, const
 
 void Renderer::render() const
 {
-    // TODO: assert that all the scene's data isn't null.
-    
-    //FR_RAND48 random = FR_RAND48::Rand48(123);
- 
-    //Sampler sampler(123);
    
     const size_t n_samples = m_render_globals.m_aa*m_render_globals.m_aa;
     const size_t h = m_film->height();
@@ -136,11 +135,15 @@ void Renderer::render() const
 
     V2f ndc(0.f,0.f);
     
-    float avger = 1.f/float(n_samples);
+    const float avger = 1.f/float(n_samples);
 
-    float progress_increment = 1.f/float(h/10);
+    const float progress_increment = 1.f/float(h/10);
     tbb::atomic<float> progress = 0.f;
-    //tbb::task_scheduler_init init(1);
+    
+#define FORCE_SINGLE_THREAD 1
+#if FORCE_SINGLE_THREAD
+    tbb::task_scheduler_init init(1);
+#endif
     
     Timer timer;
     std::vector<RenderStats> local_stats(h);
@@ -153,12 +156,13 @@ void Renderer::render() const
         for (size_t x = 0; x < w; ++x)
         {
             C4f c(0.f,0.f,0.f,1.f);
-            V2f ndc(float(x)*w_step,float(y)*h_step);
+            const V2f ndc((x+.5f)*w_step,(y+.5f)*h_step);
             for (size_t s = 0; s < n_samples; ++s)
             {
                 V2f sample_offset;
-                sample_offset.x = fit(float(sampler.random()),0.f,1.f,-1.f,1.f)*w_step*0.5f;
-                sample_offset.y = fit(float(sampler.random()),0.f,1.f,-1.f,1.f)*w_step*0.5f;
+                
+                sample_offset.x = (sampler.random()*2.f-1.f)*w_step*0.5f;
+                sample_offset.y = (sampler.random()*2.f-1.f)*w_step*0.5f;
                 
                 Ray r = m_camera->unproject(ndc+sample_offset);
                 
