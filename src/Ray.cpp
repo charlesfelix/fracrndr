@@ -12,6 +12,6 @@ using namespace Fr;
 
 V3f Ray::positionAt(float t) const
 {
-    V3f d = direction.normalizedExc();
+    V3f d = direction.normalized();
     return origin + t*d;
 }
