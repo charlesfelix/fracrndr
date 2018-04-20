@@ -22,6 +22,7 @@ namespace Fr
         V3f sampleUnitSphere() const;
         float random() const;
     private:
+        SamplerS();
         unsigned long m_seed;
         mutable FR_RAND48 m_random;
     };
