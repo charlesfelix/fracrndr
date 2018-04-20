@@ -50,7 +50,7 @@ namespace Fr
         }
         virtual bool hit(const Ray & r, float tmin, float tmax, HitRecord & hit_record) const
         {
-            V3f ray_dir = r.direction.normalizedExc();
+            V3f ray_dir = r.direction.normalized();
             V3f ray_pos = r.origin;
             bool has_hit = false;
             const float threshold = m_estimator.distanceThreshold();
