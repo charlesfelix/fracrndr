@@ -43,8 +43,8 @@ int JsonParser::parse(const std::string & filepath)
     std::cout << j.dump() << std::endl;
     {
         parseGlobals(j);
-        parseCamera(j);
         parseFilm(j);
+        parseCamera(j);
         parseBackground(j);
         parseMaterials(j);
         parsePrimitives(j);
@@ -56,6 +56,7 @@ int JsonParser::parse(const std::string & filepath)
 void JsonParser::parseGlobals(const json & j)
 {
     json::const_iterator jit = j.find("globals");
+    
     
     if (jit != j.end())
     {
@@ -87,23 +88,25 @@ void JsonParser::parseCamera(const json & j)
     
     if (jit != j.end())
     {
+        float aspect_ratio = m_film->width()/float(m_film->height());
+        
         JSONGETF3(jit,position,0.f,0.f,0.f);
         JSONGETF3(jit,rotation,0.f,0.f,0.f);
-        JSONGETF(jit,focal,1.f);
-        JSONGETF(jit,aspect_ratio,1.f);
-        JSONGETF(jit,fov,45.f);
-        JSONGETF(jit,near,1.f);
-        JSONGETF(jit,far,1.f);
+        JSONGETF(jit,focal,50.f);
+        JSONGETF(jit,aperture,41.4241f);
+        JSONGETF(jit,near,.1f);
+        JSONGETF(jit,far,1000.f);
         
         LOG(INFO) << "camera ";
         LOG(INFO) << "\t position " << position.x << " " << position.y << " " << position.z;
         LOG(INFO) << "\t focal " << focal;
+        LOG(INFO) << "\t aperture " << focal;
         LOG(INFO) << "\t aspect_ratio " << aspect_ratio;
-        LOG(INFO) << "\t fov " << fov;
+        //LOG(INFO) << "\t fov " << fov;
         LOG(INFO) << "\t near " << near;
-        LOG(INFO) << "\t near " << far;
+        LOG(INFO) << "\t far " << far;
         
-        m_camera = std::make_shared<Camera>(focal,aspect_ratio,fov,near,far);
+        m_camera = std::make_shared<Camera>(focal,aperture,aspect_ratio,near,far);
         m_camera->setPosition(position);
         M44f xform = m_camera->getTransform();
         xform.rotate(rotation);
@@ -146,14 +149,20 @@ void JsonParser::parseBackground(const json & j)
     if (jit != j.end())
     {
         JSONGETSTR(jit,imagefile, "noimage");
-        
+        JSONGETF3(jit,vcolor,1.f,1.f,1.f);
+        C4f color = C4f(vcolor.x,vcolor.y,vcolor.z,1.f);
         LOG(INFO) << "background";
         LOG(INFO) << "\t " << imagefile;
         
-        ImageBuffer::Ptr imgbuf_ptr = std::make_shared<ImageBuffer>(1,1);
-        ImageFileExr().read(imagefile,*imgbuf_ptr);
-        ImageTexture::Ptr imgtex_ptr = std::make_shared<ImageTexture>(imgbuf_ptr);
-        m_bg = std::make_shared<Background>(imgtex_ptr);
+        ImageBuffer::Ptr imgbuf_ptr = nullptr;
+        ImageTexture::Ptr imgtex_ptr = nullptr;
+        if (imagefile != "noimage")
+        {
+            imgbuf_ptr = std::make_shared<ImageBuffer>(1,1);
+            ImageFileExr().read(imagefile,*imgbuf_ptr);
+            imgtex_ptr = std::make_shared<ImageTexture>(imgbuf_ptr);
+        }
+        m_bg = std::make_shared<Background>(imgtex_ptr,color);
     }
     else
     {

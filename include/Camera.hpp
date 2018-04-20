@@ -27,7 +27,7 @@ namespace Fr{
     public:
         DEF_SHARED_PTR_TYPES(Camera);
         
-        Camera(float focal = 1.f, float aspect_ratio = 1.f, float fov = Radians::fromDegrees(45.0), float near = 0.0001, float far = 100000000.f);
+        Camera(float focal = 50.0f, float aperture = 42.4214f, float aspect_ratio = 1.f, float near = 0.0001, float far = 100000000.f);
         
         
         V3f worldToCamera(const V3f & wpos) const;
@@ -50,8 +50,8 @@ namespace Fr{
         M44f  m_xform;
         M44f  m_xform_inv;
         float m_focal;
+        float m_aperture;
         float m_aspect_ratio;
-        float m_fov;
         V2f m_clipping_planes;
         float m_cam_x_max;
         float m_cam_y_max;

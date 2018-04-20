@@ -10,10 +10,11 @@
 
 using namespace Fr;
 
-Camera::Camera(float focal, float aspect_ratio,float fov, float near, float far):m_xform(), m_xform_inv(),m_focal(focal),m_aspect_ratio(aspect_ratio),m_fov(fov),m_clipping_planes(V2f(1,100000))
+Camera::Camera(float focal, float aperture, float aspect_ratio, float near, float far):m_xform(), m_xform_inv(),m_focal(focal),m_aperture(aperture),m_aspect_ratio(aspect_ratio),m_clipping_planes(V2f(1,100000))
 {
-    m_cam_y_max = tan(m_fov*0.5f);
-    m_cam_x_max = m_cam_y_max * m_aspect_ratio;
+    float fov = 2 * atan(aperture / (2*focal));
+    m_cam_x_max = tan(fov*0.5f) ; 
+    m_cam_y_max = m_cam_x_max / m_aspect_ratio;
 }
 
 V3f Camera::worldToCamera(const V3f & wpos) const
