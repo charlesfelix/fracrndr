@@ -17,7 +17,7 @@ class Background
 public:
     DEF_SHARED_PTR_TYPES(Background);
     
-    Background(const ImageTexture::ConstPtr & texture):m_texture(texture)
+    Background(const ImageTexture::ConstPtr & texture, const C4f & color):m_texture(texture),m_color(color)
     {
     }
     C4f color ( const Ray & r ) const
@@ -26,13 +26,15 @@ public:
         float u = .5f*(1.f + atan2(d.x,-d.z) / M_PI);
         float v = acos(d.y) / M_PI;
         
-        //return m_imgbuf_ptr->getPixel(u*(m_imgbuf_ptr->width()-1), v*(m_imgbuf_ptr->height()-1));
         V3f uv(u,v,0.f);
-        return m_texture->sample(uv);
+        if (m_texture)
+            return m_texture->sample(uv)*m_color;
+        return m_color;
     }
     
 private:
     ImageTexture::ConstPtr m_texture;
+    C4f m_color;
 };
 
 
