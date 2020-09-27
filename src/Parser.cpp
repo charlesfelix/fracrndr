@@ -16,21 +16,27 @@
 #include "ImageBuffer.hpp"
 #include "ImageFileExr.hpp"
 #include "Sphere.hpp"
+#include "TriMesh.hpp"
 
-
+#include "tinyobjloader.hpp"
 
 
 using namespace Fr;
 
 using json = nlohmann::json;
 
-#define JSONGETI(jit,token,dv) int default_##token = dv; int token = jsonGet(#token,jit,default_##token)
+#define JSONGETI(jit,token,dv) int default_##token = dv;\
+    int token = jsonGet(#token,jit,default_##token)
 
-#define JSONGETSTR(jit,token,dv) std::string default_##token = dv; std::string token = jsonGet(#token,jit,default_##token)
+#define JSONGETSTR(jit,token,dv) std::string default_##token = dv; \
+    std::string token = jsonGet(#token,jit,default_##token)
 
-#define JSONGETF(jit,token,dv) float default_##token = dv; float token = jsonGet(#token,jit,default_##token)
+#define JSONGETF(jit,token,dv) float default_##token = dv; \
+    float token = jsonGet(#token,jit,default_##token)
 
-#define JSONGETF3(jit,token,dv0,dv1,dv2) std::vector<float> default_##token = {dv0, dv1, dv2}; std::vector<float> __##token = jsonGet(#token,jit,default_##token); V3f token = V3f(__##token[0],__##token[1],__##token[2])
+#define JSONGETF3(jit,token,dv0,dv1,dv2) std::vector<float> default_##token = {dv0, dv1, dv2}; \
+    std::vector<float> __##token = jsonGet(#token,jit,default_##token); \
+    V3f token = V3f(__##token[0],__##token[1],__##token[2])
 
 
 int JsonParser::parse(const std::string & filepath)
@@ -200,7 +206,7 @@ void JsonParser::parseMaterials(const json & j)
                     Material::Ptr mat_ptr = Material::Ptr(new Glass(refraction_index));
                     m_materials[material_tag] = mat_ptr;
                 }
-                else if (name == "simplemetal") // parse lambertian
+                else if (name == "simplemetal") // parse simplemetal
                 {
                     JSONGETF3(it,albedo,0.99,0.01,0.99);
                     JSONGETF(it,roughness,.33f);
@@ -247,12 +253,104 @@ void JsonParser::parsePrimitives(const json & j)
             
             if (m_primitives.find(primitive_tag) == m_primitives.end())
             {
-                if (name == "sphere") // parse lambertian
+                if (name == "sphere") // parse sphere
                 {
                     JSONGETF3(it,position,0.99f,0.01f,0.99f);
                     JSONGETF(it,radius,1.f);
-                    RenderPrimitve::Ptr prim_ptr =
-                        RenderPrimitve::Ptr(new Sphere(position,radius));
+                    RenderPrimitive::Ptr prim_ptr =
+                        RenderPrimitive::Ptr(new Sphere(position,radius));
+                    m_primitives[primitive_tag] = prim_ptr;
+                }
+                else if (name == "box") // parse box
+                {
+                    JSONGETF3(it,position,0.99f,0.01f,0.99f);
+                    JSONGETF(it,width,1.f);
+                    std::vector<V3f> box_positions;
+                    box_positions.resize(8);
+                    box_positions[0] = {0.f,0.f,0.f}; box_positions[0] = box_positions[0]*width + position;
+                    box_positions[1] = {0.f,1.f,0.f}; box_positions[1] = box_positions[1]*width + position;
+                    box_positions[2] = {1.f,1.f,0.f}; box_positions[2] = box_positions[2]*width + position;
+                    box_positions[3] = {1.f,0.f,0.f}; box_positions[3] = box_positions[3]*width + position;
+
+                    box_positions[4] = {0.f,0.f,1.f}; box_positions[4] = box_positions[4]*width + position;
+                    box_positions[5] = {1.f,0.f,1.f}; box_positions[5] = box_positions[5]*width + position;
+                    box_positions[6] = {1.f,1.f,1.f}; box_positions[6] = box_positions[6]*width + position;
+                    box_positions[7] = {0.f,1.f,1.f}; box_positions[7] = box_positions[7]*width + position;
+                    
+                    std::vector<unsigned> triangles = {
+                            0, 1, 2, // back
+                            0, 2, 3,
+                            5, 6 ,7, // front
+                            5, 7, 4,
+                            5, 3, 6, // right
+                            3, 2, 6,
+                            0, 4, 1, // left
+                            4, 7, 1,
+                            1, 7, 6, // top
+                            1, 6, 2,
+                            0, 5, 4, // bottom
+                            0, 3, 5 };
+                        
+                    std::vector<V3f> normals;
+                    std::vector<V3f> uvs;
+                    
+                    TriangleMesh * mesh = new TriangleMesh(box_positions,uvs,normals,triangles);
+                    mesh->recomputeNormals();
+                    RenderPrimitive::Ptr prim_ptr =
+                        RenderPrimitive::Ptr( mesh );
+                    m_primitives[primitive_tag] = prim_ptr;
+                }
+                else if (name == "trimesh")
+                {
+                    JSONGETSTR(it,filename, "none");
+                    JSONGETF3(it,position,0,0.0f,0.f);
+                    JSONGETF(it,scale,1.f);
+                    
+                    tinyobj::ObjReaderConfig config;
+                    config.triangulate = true;
+                    config.vertex_color = false;
+                    
+                    tinyobj::ObjReader reader;
+                    std::string fn = filename;
+                    reader.ParseFromFile(fn, config);
+                    const std::vector<tinyobj::shape_t> & shapes = reader.GetShapes();
+                    
+                    const tinyobj::attrib_t attrs = reader.GetAttrib();
+                    const size_t npoints = attrs.GetVertices().size() / 3;
+                    std::vector<V3f> positions;
+                    positions.resize(npoints);
+                    auto pos_it = positions.begin();
+                    for (size_t i = 0; i < npoints; ++i)
+                    {
+                        V3f p;
+                        p.x = attrs.GetVertices()[i*3];
+                        p.y = attrs.GetVertices()[i*3+1];
+                        p.z = attrs.GetVertices()[i*3+2];
+                        *pos_it++ = p*scale + position;
+                    }
+                    
+                    for (auto & s : shapes)
+                    {
+                        LOG(INFO) << "shape name: " << s.name;
+                        tinyobj::mesh_t m = s.mesh;
+                        
+                    }
+                    std::vector<unsigned> triangles;
+                    triangles.resize(shapes[0].mesh.indices.size());
+                    auto t_it = triangles.begin();
+                    for (auto & i: shapes[0].mesh.indices)
+                    {
+                        *t_it++ = static_cast<unsigned>(i.vertex_index);
+                    }
+                    
+                    
+                    std::vector<V3f> normals;
+                    std::vector<V3f> uvs;
+                    
+                    TriangleMesh * mesh = new TriangleMesh(positions,uvs,normals,triangles);
+                    mesh->recomputeNormals();
+                    RenderPrimitive::Ptr prim_ptr =
+                        RenderPrimitive::Ptr( mesh );
                     m_primitives[primitive_tag] = prim_ptr;
                 }
                 else
@@ -323,7 +421,7 @@ const std::map<std::string,Material::Ptr > & JsonParser::getMaterials() const
     return m_materials;
 };
 
-const std::map<std::string,RenderPrimitve::Ptr > & JsonParser::getPrimitives() const
+const std::map<std::string,RenderPrimitive::Ptr > & JsonParser::getPrimitives() const
 {
     return m_primitives;
 }

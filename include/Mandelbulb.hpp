@@ -9,7 +9,7 @@
 #ifndef Mandelbulb_hpp
 #define Mandelbulb_hpp
 
-#include "RenderPrimitve.hpp"
+#include "RenderPrimitive.hpp"
 
 namespace Fr
 {
@@ -17,7 +17,11 @@ namespace Fr
     class Mandelbulb  //:public DistanceEstimator
     {
     public:
-        Mandelbulb(float power, const V3f & Z, const V3f & C,unsigned int max_iterations=15,float distance_threshold=0.001) : m_power(power),m_z(Z), m_c(C), m_max_iterations(max_iterations), m_distance_threshold(distance_threshold){}
+        Mandelbulb(float power, const V3f & Z, const V3f & C, 
+        unsigned int max_iterations=15,float distance_threshold=0.001) : 
+            m_power(power),m_z(Z), m_c(C), m_max_iterations(max_iterations), 
+            m_distance_threshold(distance_threshold){}
+            
         float estimate(const V3f & position) const;
         float distanceThreshold() const { return m_distance_threshold; }
         

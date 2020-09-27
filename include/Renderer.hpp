@@ -49,8 +49,9 @@ namespace Fr
         Scene::ConstPtr getScene() const;
         void setScene(const Scene::Ptr &scene);
         
-        C4f Li(const Ray & r,const RenderPrimitve::Ptr & primitives, const Background & bg, RenderStats & rs, Sampler & sampler) const;
-        
+        C4f Li(const Ray & r,const RenderPrimitive::Ptr & primitives, const Background & bg, RenderStats & rs, Sampler & sampler) const;
+        C4f LiNR(const Ray & r,const RenderPrimitive::Ptr & primitives, const Background & bg, RenderStats & rs, Sampler & sampler) const;
+
         void render() const;
         
         void outputProgress(float progress) const;

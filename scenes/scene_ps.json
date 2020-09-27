@@ -1,0 +1,80 @@
+{
+    "globals": {
+        "aa":16,
+        "max_ray_depth":5,
+        "outputfile": "/Users/charles-felix/Documents/Development/fracrndr/scenes/scene1/ps.exr"
+    },
+    "film": {
+        "width": 240,
+        "height": 160
+    },
+    "camera": {
+        "position": [0.0,0.0,2.0],
+        "rotation": [0,0,0],
+        "focal": 38,
+        "aperture" : 41.4214,
+        "near": 0.1,
+        "far": 10000
+    },
+    "background":
+    {
+        "_imagefile": "/Development/fracrndr/scenes/hdr/uffizi-large-mm.exr",
+        "color": [1,1,1]
+    },
+    
+    "materials":
+    {
+        "clear_glass": {
+            "name": "glass",
+            "refraction_index": 1.2,
+            "roughness": 0.0
+        },
+        "metal": {
+            "name": "simplemetal",
+            "albedo": [0.8,0.6,0.2],
+            "roughness": 0.0
+        },
+        "gold": {
+            "name": "simplemetal",
+            "albedo": [0.5,0.35,0.15],
+            "roughness": 0.0
+        },
+        "grey_diffuse": {
+            "name": "lambertian",
+            "albedo": [0.18,0.18,0.18]
+        }
+        
+    },
+    
+    "primitives": {
+        "sphere0":
+        {
+            "name": "sphere",
+            "position": [0,0,-1],
+            "radius": 0.5
+        },
+        
+        "sphere1":
+        {
+            "name": "sphere",
+            "position":[0,-100.5,-1],
+            "radius": 100
+        },
+        "sphere2":
+        {
+            "name": "sphere",
+            "position":[1,0.0,-1],
+            "radius": 0.5
+        }
+        
+    },
+    
+    "material_table": {
+        "sphere0": "grey_diffuse",
+        "sphere1": "grey_diffuse",
+        "sphere2": "metal"
+    }
+    
+    
+}
+

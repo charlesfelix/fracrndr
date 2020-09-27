@@ -39,7 +39,7 @@ namespace Fr
         virtual const Film::Ptr & getFilm() const = 0;
         virtual const Background::Ptr & getBackground() const =0;
         virtual const std::map<std::string,Material::Ptr > & getMaterials() const = 0;
-        virtual const std::map<std::string,RenderPrimitve::Ptr > & getPrimitives() const = 0;
+        virtual const std::map<std::string,RenderPrimitive::Ptr > & getPrimitives() const = 0;
         virtual const std::map<std::string, std::string> & getMaterialTable() const = 0;
         
         
@@ -55,7 +55,7 @@ namespace Fr
         virtual const Film::Ptr &getFilm() const;
         virtual const Background::Ptr & getBackground() const;
         virtual const std::map<std::string,Material::Ptr > & getMaterials() const;
-        virtual const std::map<std::string,RenderPrimitve::Ptr > & getPrimitives() const;
+        virtual const std::map<std::string,RenderPrimitive::Ptr > & getPrimitives() const;
         virtual const std::map<std::string, std::string> & getMaterialTable() const;
         
 
@@ -75,7 +75,7 @@ namespace Fr
         Film::Ptr m_film;
         Background::Ptr m_bg;
         std::map<std::string,Material::Ptr > m_materials;
-        std::map<std::string,RenderPrimitve::Ptr > m_primitives;
+        std::map<std::string,RenderPrimitive::Ptr > m_primitives;
         std::map<std::string,std::string> m_material_table;
         
     };

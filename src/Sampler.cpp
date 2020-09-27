@@ -46,8 +46,39 @@ V3f SamplerXorS::sampleUnitSphere() const
     V3f p;
     do
     {
-        p = 2.f*V3f(random(),random(),random())-V3f(1.f,1.f,1.f);
+        p = 2.f*V3f(random(), random(), random())-V3f(1.f,1.f,1.f);
     } while (p.length2()>=1.0);
-    return p;
+return p;
+}
+
+V3f SamplerXorS::sampleHemisphere() const
+{
+    V3f p;
+    // cos(theta) = r1 = y
+    // cos^2(theta) + sin^2(theta) = 1 -> sin(theta) = srtf(1 - cos^2(theta))
+    const float r1 = random();
+    const float r2 = random();
+    float sinTheta = sqrtf(1 - r1*r1);
+    float phi = 2 * M_PI * r2;
+    float x = sinTheta * cosf(phi);
+    float z = sinTheta * sinf(phi);
+    return V3f(x, r1, z);
+}
+
+
+V3f SamplerXorS::sampleHemisphereCosine() const
+{
+    V3f p;
+    // cos(theta) = r1 = y
+    // cos^2(theta) + sin^2(theta) = 1 -> sin(theta) = srtf(1 - cos^2(theta))
+    const float r1 = random();
+    const float r2 = random();
+    float y = sqrtf(1 - r2);
+    float sqrtr2 = sqrtf(r2);
+    float tmp = sqrt(r2);
+    float phi = 2 * M_PI * r1;
+    float x = sqrtr2 * cosf(phi);
+    float z = sqrtr2 * sinf(phi);
+    return V3f(x, y, z);
 }
 

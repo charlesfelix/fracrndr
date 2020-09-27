@@ -10,7 +10,7 @@
 #define Scene_h
 
 #include "Fr.hpp"
-#include "RenderPrimitve.hpp"
+#include "RenderPrimitive.hpp"
 #include "Background.hpp"
 
 
@@ -27,7 +27,7 @@ namespace Fr
         Scene();
         virtual ~Scene() {};
         
-        const RenderPrimitve::Ptr & getPrimitives() const;
+        const RenderPrimitive::Ptr & getPrimitives() const;
         
         const Background::Ptr & getBackground() const;
         
@@ -35,13 +35,13 @@ namespace Fr
         
         bool hit(const Ray & ray, HitRecord & hit_record) const;
         
-        void setPrimitives(const RenderPrimitve::Ptr & primitives);
+        void setPrimitives(const RenderPrimitive::Ptr & primitives);
         
         void setBackground(const Background::Ptr & background);
         
     private:
         Scene(const Scene & );
-        RenderPrimitve::Ptr m_primitives;
+        RenderPrimitive::Ptr m_primitives;
         Background::Ptr m_background;
         Fr::Box3d m_bounds;
         

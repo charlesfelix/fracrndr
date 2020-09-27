@@ -1,0 +1,85 @@
+{
+	"globals": {
+		"aa":5,
+		"max_ray_depth":1,
+		"outputfile": "/Users/charles-felix/Documents/Development/fracrndr/scenes/scene1/scene3.exr"
+	},
+    "film": {
+        "width": 512,
+        "height": 256
+    },
+    "camera": {
+        "position": [0.0,0.0,2.0],
+        "rotation": [0,0,0],
+        "focal": 18.3,
+        "aperture" : 41.4214,
+        "near": 0.1,
+        "far": 10000
+    },
+	"background": 
+	{
+		"imagefile": "/Users/charles-felix/Documents/Development/fracrndr/scenes/hdr/uffizi-large.exr"
+	},
+
+	"materials":
+	{
+		"clear_glass": {
+			"name": "glass",
+			"refraction_index": 1.2,
+			"roughness": 0.0
+		},
+		"chrome": {
+			"name": "simplemetal",
+			"albedo": [0.5,0.5,0.5],
+			"roughness": 0.01
+		},
+		"gold": {
+			"name": "simplemetal",
+			"albedo": [0.5,0.35,0.15],
+			"roughness": 0.0
+		},
+		"grey_diffuse": {
+			"name": "lambertian",
+			"albedo": [0.18,0.18,0.18]
+		}
+
+	},
+
+	"primitives": {
+        
+        "sphere0":
+        {
+            "name": "sphere",
+            "position": [1.2,0.2,0.0],
+            "radius": 0.25
+        },
+        "sphere1":
+        {
+            "name": "sphere",
+            "position":[-1.3,0.0,0.0],
+            "radius": 0.5
+        },
+        "ground":
+        {
+            "name": "sphere",
+            "position":[0.5,-100.5,0.0],
+            "radius": 100
+        },
+        "bunny":
+        {
+            "name": "trimesh",
+            "filename": "/Users/charles-felix/Documents/Development/fracrndr/scenes/models/bunny_xlo.obj",
+            "position":[0,-1.0,0.0],
+            "scale": 7
+        }
+	},
+
+	"material_table": {
+        "sphere0": "clear_glass",
+        "sphere1": "gold",
+        "bunny": "gold",
+        "ground": "chrome"
+	}
+
+
+}

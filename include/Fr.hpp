@@ -6,8 +6,8 @@
 //  Copyright © 2016 Charles-Felix. All rights reserved.
 //
 
-#ifndef Fr_hpp
-#define Fr_hpp
+#ifndef Fr_hpp__
+#define Fr_hpp__
 
 #include <ctime>
 
@@ -27,6 +27,8 @@
 #include <ImathRandom.h>
 #include <ImathPlane.h>
 #include <ImathQuat.h>
+
+#include <cassert>
 
 #define DEF_SHARED_PTR_TYPES(Class) typedef std::shared_ptr<Class> Ptr; typedef std::shared_ptr<const Class> ConstPtr
 
@@ -118,9 +120,71 @@ namespace Fr {
     
     // vector reflection
     template <typename t>
-    Imath::Vec3<t> reflect(const Imath::Vec3<t> & v, const Imath::Vec3<t> & n)
+    inline Imath::Vec3<t> reflect(const Imath::Vec3<t> & v, const Imath::Vec3<t> & n)
     {
         return v - t(2.0)*v.dot(n)*n;
+    }
+    
+    class Basis {
+    public:
+        static inline void build(const V3f & N, V3f &tangent, V3f &bitangent)
+        {
+            // from https://graphics.pixar.com/library/OrthonormalB/paper.pdf
+            float sign = copysignf(1.0f, N.z);
+            const float a = -1.0f / (sign + N.z);
+            const float b = N.x * N.y * a;
+            tangent = V3f(1.0f + sign * N.x * N.x * a, sign * b, -sign * N.x);
+            bitangent = V3f(b, sign + N.y * N.y * a, -N.y);
+            return;
+        }
+        static inline M33f build(const V3f & N)
+        {
+            M33f rotation;
+            V3f tangent;
+            V3f bitangent;
+            
+            Basis::build(N,tangent,bitangent);
+            
+            rotation[0][0] = N.x;
+            rotation[0][1] = N.y;
+            rotation[0][2] = N.z;
+            rotation[1][0] = tangent.x;
+            rotation[1][1] = tangent.y;
+            rotation[1][2] = tangent.z;
+            rotation[2][0] = bitangent.x;
+            rotation[2][1] = bitangent.y;
+            rotation[2][2] = bitangent.z;
+            
+            return rotation;
+        }
+    };
+    
+    
+    
+    // Ray Box intersection
+    inline bool intersectAABB(const Box3f & box, const V3f & origin, const V3f & direction, float &tmin, float &tmax )
+    {
+        for (unsigned i = 0; i < 3; ++i)
+        {
+            const float invd = 1.f/direction[i];
+            float t0 = (box.min[i] - origin[i])/invd;
+            float t1 = (box.max[i] - origin[i])/invd;
+            if (invd < 0) std::swap(t0,t1);
+            tmin = t0 > tmin ? t0 : tmin;
+            tmax = t1 < tmax ? t1 : tmax;
+            if (tmin > tmax) return false;
+        }
+        return true;
+    }
+    
+    inline double randomDouble(double min, double max)
+    {
+        return drand48()*(max-min)+min;
+    }
+
+    inline int randomInt(int min, int max) {
+        // Returns a random integer in [min,max].
+        return static_cast<int>(randomDouble(static_cast<double>(min), static_cast<double>(max+1)));
     }
 
 }; // namespace Fr

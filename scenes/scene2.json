@@ -1,25 +1,24 @@
 {
 	"globals": {
-		"aa":64,
-		"max_ray_depth":4,
-		"outputfile": "/Users/charles-felix/Documents/Development/fracrndr/scenes/scene1/debug3.exr"
+		"aa":25,
+		"max_ray_depth":1,
+		"outputfile": "/Users/charles-felix/Documents/Development/fracrndr/scenes/scene1/debug11.exr"
 	},
+    "film": {
+        "width": 512,
+        "height": 256
+    },
 	"camera": {
 		"position": [0.0,0.0,2.0],
 		"rotation": [0,0,0],
-		"focal": 1.0,
-		"aspect_ratio": 2.0,
-		"fov": 45.0,
+		"focal": 18.3,
+        "aperture" : 41.4214,
 		"near": 0.1,
 		"far": 10000
 	},
-	"film": {
-		"width": 512,
-		"height": 256
-	},
 	"background": 
 	{
-		"imagefile": "/Development/fracrndr/scenes/hdr/uffizi-large-mm.exr"
+		"imagefile_": "/Development/fracrndr/scenes/hdr/uffizi-large-mm.exr"
 	},
 
 	"materials":
@@ -47,39 +46,16 @@
 	},
 
 	"primitives": {
-		"sphere0":
-		{
-			"name": "sphere",
-			"position": [1.2,0.2,0.0],
-			"radius": 0.25
-		},
-
-		"sphere1":
-		{
-			"name": "sphere",
-			"position":[-1.3,0.0,0.0],
-			"radius": 0.5
-		},
         "sphere2":
         {
             "name": "sphere",
             "position":[0,0.2,-1],
             "radius": 0.5
-        },
-
-		"ground":
-		{
-			"name": "sphere",
-			"position":[0.5,-100.5,0.0],
-			"radius": 100
-		}
+        }
 	},
 
 	"material_table": {
-		"sphere0": "grey_diffuse",
-		"sphere1": "grey_diffuse",
-        "sphere2": "grey_diffuse",
-        "ground": "grey_diffuse"
+        "sphere2": "grey_diffuse"
 	}
 
 

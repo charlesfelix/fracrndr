@@ -7,6 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		720A4D7923808C8C002CD4DF /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7531DBD532C005451FC /* Renderer.cpp */; };
+		720A4D7A23808C8C002CD4DF /* RenderPrimitive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75C1DBD532C005451FC /* RenderPrimitive.cpp */; };
+		720A4D7B23808C8C002CD4DF /* BVH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72F1BB56208C18A7009EDFE4 /* BVH.cpp */; };
+		720A4D7C23808C8C002CD4DF /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75F1DBD532C005451FC /* Sphere.cpp */; };
+		720A4D7D23808C8C002CD4DF /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72CDBA6D1DEA47E200E9486C /* Texture.cpp */; };
+		720A4D7E23808C8C002CD4DF /* ImageFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7571DBD532C005451FC /* ImageFile.cpp */; };
+		720A4D7F23808C8C002CD4DF /* Film.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7521DBD532C005451FC /* Film.cpp */; };
+		720A4D8023808C8C002CD4DF /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75D1DBD532C005451FC /* Ray.cpp */; };
+		720A4D8123808C8C002CD4DF /* Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7701DBD540C005451FC /* Parser.cpp */; };
+		720A4D8223808C8C002CD4DF /* ImageFileExr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7581DBD532C005451FC /* ImageFileExr.cpp */; };
+		720A4D8323808C8C002CD4DF /* Mandelbulb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75A1DBD532C005451FC /* Mandelbulb.cpp */; };
+		720A4D8423808C8C002CD4DF /* ImageBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7561DBD532C005451FC /* ImageBuffer.cpp */; };
+		720A4D8523808C8C002CD4DF /* Sampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75E1DBD532C005451FC /* Sampler.cpp */; };
+		720A4D8623808C8C002CD4DF /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7511DBD532C005451FC /* Camera.cpp */; };
+		720A4D8723808C8C002CD4DF /* DistanceField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7551DBD532C005451FC /* DistanceField.cpp */; };
+		720A4D8823808C8C002CD4DF /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75B1DBD532C005451FC /* Material.cpp */; };
+		720A4D8923808C8C002CD4DF /* TriMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 724E04C120E1C96500C3E461 /* TriMesh.cpp */; };
+		720A4D8A23808C8C002CD4DF /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7541DBD532C005451FC /* Scene.cpp */; };
+		720A4D8C23808C8C002CD4DF /* ImageFilePng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7591DBD532C005451FC /* ImageFilePng.cpp */; };
+		720A4D8E23808C8C002CD4DF /* libHalf.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714CE1CBB486200E5B321 /* libHalf.6.dylib */; };
+		720A4D8F23808C8C002CD4DF /* libglog.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E2A3941DC9AE1600BC2B78 /* libglog.dylib */; };
+		720A4D9023808C8C002CD4DF /* libtbb.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72FFE2CE1D28A4D8008EA6C6 /* libtbb.dylib */; };
+		720A4D9123808C8C002CD4DF /* libtbbmalloc_proxy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72FFE2CF1D28A4D8008EA6C6 /* libtbbmalloc_proxy.dylib */; };
+		720A4D9223808C8C002CD4DF /* libImath.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714D01CBB486200E5B321 /* libImath.6.dylib */; };
+		720A4D9323808C8C002CD4DF /* libOpenImageIO.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7256A29120351E9C008B24B0 /* libOpenImageIO.dylib */; };
+		720A4D9423808C8C002CD4DF /* libIlmImf.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714CC1CBB486200E5B321 /* libIlmImf.6.dylib */; };
+		720A4D9523808C8C002CD4DF /* libIlmThread.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714CD1CBB486200E5B321 /* libIlmThread.6.dylib */; };
+		720A4D9623808C8C002CD4DF /* libIex.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714CF1CBB486200E5B321 /* libIex.6.dylib */; };
+		720A4D9723808C8C002CD4DF /* libtbbmalloc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72FFE2D01D28A4D8008EA6C6 /* libtbbmalloc.dylib */; };
+		720A4D9823808C8C002CD4DF /* libltdl.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714D11CBB486200E5B321 /* libltdl.7.dylib */; };
+		720A4DA02380949C002CD4DF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 720A4D4B23808C02002CD4DF /* main.cpp */; };
+		720A4DA6238235D0002CD4DF /* tinyobjloader.c in Sources */ = {isa = PBXBuildFile; fileRef = 720A4DA323823540002CD4DF /* tinyobjloader.c */; };
+		720A4DA7238235D0002CD4DF /* tinyobjloader.c in Sources */ = {isa = PBXBuildFile; fileRef = 720A4DA323823540002CD4DF /* tinyobjloader.c */; };
+		724E04C320E1C96500C3E461 /* TriMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 724E04C120E1C96500C3E461 /* TriMesh.cpp */; };
 		7256A29220351E9C008B24B0 /* libOpenImageIO.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7256A29120351E9C008B24B0 /* libOpenImageIO.dylib */; };
 		72A714D21CBB486200E5B321 /* libIlmImf.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714CC1CBB486200E5B321 /* libIlmImf.6.dylib */; };
 		72A714D31CBB486200E5B321 /* libIlmThread.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A714CD1CBB486200E5B321 /* libIlmThread.6.dylib */; };
@@ -27,18 +61,28 @@
 		72D9F7691DBD532C005451FC /* ImageFilePng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7591DBD532C005451FC /* ImageFilePng.cpp */; };
 		72D9F76A1DBD532C005451FC /* Mandelbulb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75A1DBD532C005451FC /* Mandelbulb.cpp */; };
 		72D9F76B1DBD532C005451FC /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75B1DBD532C005451FC /* Material.cpp */; };
-		72D9F76C1DBD532C005451FC /* RenderPrimitve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75C1DBD532C005451FC /* RenderPrimitve.cpp */; };
+		72D9F76C1DBD532C005451FC /* RenderPrimitive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75C1DBD532C005451FC /* RenderPrimitive.cpp */; };
 		72D9F76D1DBD532C005451FC /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75D1DBD532C005451FC /* Ray.cpp */; };
 		72D9F76E1DBD532C005451FC /* Sampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75E1DBD532C005451FC /* Sampler.cpp */; };
 		72D9F76F1DBD532C005451FC /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75F1DBD532C005451FC /* Sphere.cpp */; };
 		72D9F7721DBD540C005451FC /* Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7701DBD540C005451FC /* Parser.cpp */; };
 		72E2A3951DC9AE1600BC2B78 /* libglog.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E2A3941DC9AE1600BC2B78 /* libglog.dylib */; };
+		72F1BB57208C18A7009EDFE4 /* BVH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72F1BB56208C18A7009EDFE4 /* BVH.cpp */; };
 		72FFE2D11D28A4D8008EA6C6 /* libtbb.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72FFE2CE1D28A4D8008EA6C6 /* libtbb.dylib */; };
 		72FFE2D21D28A4D8008EA6C6 /* libtbbmalloc_proxy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72FFE2CF1D28A4D8008EA6C6 /* libtbbmalloc_proxy.dylib */; };
 		72FFE2D31D28A4D8008EA6C6 /* libtbbmalloc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72FFE2D01D28A4D8008EA6C6 /* libtbbmalloc.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		720A4D9923808C8C002CD4DF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		72A714BE1CBB3FD300E5B321 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -51,8 +95,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		720A4D4B23808C02002CD4DF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		720A4D9D23808C8C002CD4DF /* ScrathPad */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ScrathPad; sourceTree = BUILT_PRODUCTS_DIR; };
+		720A4DA12381FB66002CD4DF /* scene3.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = scene3.json; sourceTree = "<group>"; };
+		720A4DA22382119F002CD4DF /* tinyobjloader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = tinyobjloader.hpp; sourceTree = "<group>"; };
+		720A4DA323823540002CD4DF /* tinyobjloader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = tinyobjloader.c; sourceTree = "<group>"; };
 		720C791F1DCEE53D00952A3A /* easylogging++.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "easylogging++.h"; sourceTree = "<group>"; };
 		720C79201DCEE53D00952A3A /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
+		722AF00C2089CC4500F8A3D2 /* BVH.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BVH.hpp; sourceTree = "<group>"; };
+		7231D0BC20843F8200D645EC /* scene2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = scene2.json; sourceTree = "<group>"; };
+		724E04C120E1C96500C3E461 /* TriMesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TriMesh.cpp; sourceTree = "<group>"; };
+		724E04C420E1CE7800C3E461 /* TriMesh.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TriMesh.hpp; sourceTree = "<group>"; };
 		7256A29120351E9C008B24B0 /* libOpenImageIO.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libOpenImageIO.dylib; path = ../../../../../usr/local/Cellar/openimageio/1.6.13/lib/libOpenImageIO.dylib; sourceTree = "<group>"; };
 		72A714C01CBB3FD300E5B321 /* FracRndr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FracRndr; sourceTree = BUILT_PRODUCTS_DIR; };
 		72A714CC1CBB486200E5B321 /* libIlmImf.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIlmImf.6.dylib; path = /opt/local/lib/libIlmImf.6.dylib; sourceTree = "<absolute>"; };
@@ -76,7 +129,7 @@
 		72D9F7491DBD52D5005451FC /* ImageFilePng.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFilePng.hpp; sourceTree = "<group>"; };
 		72D9F74A1DBD52D5005451FC /* Mandelbulb.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Mandelbulb.hpp; sourceTree = "<group>"; };
 		72D9F74B1DBD52D5005451FC /* Material.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Material.hpp; sourceTree = "<group>"; };
-		72D9F74C1DBD52D5005451FC /* RenderPrimitve.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RenderPrimitve.hpp; sourceTree = "<group>"; };
+		72D9F74C1DBD52D5005451FC /* RenderPrimitive.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RenderPrimitive.hpp; sourceTree = "<group>"; };
 		72D9F74D1DBD52D5005451FC /* Ray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Ray.hpp; sourceTree = "<group>"; };
 		72D9F74E1DBD52D5005451FC /* Sampler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sampler.hpp; sourceTree = "<group>"; };
 		72D9F74F1DBD52D5005451FC /* Sphere.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sphere.hpp; sourceTree = "<group>"; };
@@ -92,7 +145,7 @@
 		72D9F7591DBD532C005451FC /* ImageFilePng.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFilePng.cpp; sourceTree = "<group>"; };
 		72D9F75A1DBD532C005451FC /* Mandelbulb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mandelbulb.cpp; sourceTree = "<group>"; };
 		72D9F75B1DBD532C005451FC /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
-		72D9F75C1DBD532C005451FC /* RenderPrimitve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderPrimitve.cpp; sourceTree = "<group>"; };
+		72D9F75C1DBD532C005451FC /* RenderPrimitive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderPrimitive.cpp; sourceTree = "<group>"; };
 		72D9F75D1DBD532C005451FC /* Ray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ray.cpp; sourceTree = "<group>"; };
 		72D9F75E1DBD532C005451FC /* Sampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sampler.cpp; sourceTree = "<group>"; };
 		72D9F75F1DBD532C005451FC /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
@@ -101,12 +154,32 @@
 		72E007441DCF798F00FF9F81 /* Exception.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Exception.hpp; sourceTree = "<group>"; };
 		72E007491DD1B5E400FF9F81 /* scene1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = scene1.json; sourceTree = "<group>"; };
 		72E2A3941DC9AE1600BC2B78 /* libglog.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglog.dylib; path = ../../../../../usr/local/lib/libglog.dylib; sourceTree = "<group>"; };
+		72F1BB55208BE37E009EDFE4 /* scene_ps.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = scene_ps.json; sourceTree = "<group>"; };
+		72F1BB56208C18A7009EDFE4 /* BVH.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BVH.cpp; sourceTree = "<group>"; };
 		72FFE2CE1D28A4D8008EA6C6 /* libtbb.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtbb.dylib; path = ../../../../../opt/local/lib/libtbb.dylib; sourceTree = "<group>"; };
 		72FFE2CF1D28A4D8008EA6C6 /* libtbbmalloc_proxy.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtbbmalloc_proxy.dylib; path = ../../../../../opt/local/lib/libtbbmalloc_proxy.dylib; sourceTree = "<group>"; };
 		72FFE2D01D28A4D8008EA6C6 /* libtbbmalloc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtbbmalloc.dylib; path = ../../../../../opt/local/lib/libtbbmalloc.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		720A4D8D23808C8C002CD4DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				720A4D8E23808C8C002CD4DF /* libHalf.6.dylib in Frameworks */,
+				720A4D8F23808C8C002CD4DF /* libglog.dylib in Frameworks */,
+				720A4D9023808C8C002CD4DF /* libtbb.dylib in Frameworks */,
+				720A4D9123808C8C002CD4DF /* libtbbmalloc_proxy.dylib in Frameworks */,
+				720A4D9223808C8C002CD4DF /* libImath.6.dylib in Frameworks */,
+				720A4D9323808C8C002CD4DF /* libOpenImageIO.dylib in Frameworks */,
+				720A4D9423808C8C002CD4DF /* libIlmImf.6.dylib in Frameworks */,
+				720A4D9523808C8C002CD4DF /* libIlmThread.6.dylib in Frameworks */,
+				720A4D9623808C8C002CD4DF /* libIex.6.dylib in Frameworks */,
+				720A4D9723808C8C002CD4DF /* libtbbmalloc.dylib in Frameworks */,
+				720A4D9823808C8C002CD4DF /* libltdl.7.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		72A714BD1CBB3FD300E5B321 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,6 +201,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		720A4D4A23808C02002CD4DF /* ScratchPad */ = {
+			isa = PBXGroup;
+			children = (
+				720A4D4B23808C02002CD4DF /* main.cpp */,
+			);
+			path = ScratchPad;
+			sourceTree = "<group>";
+		};
+		720A4D9F23808E83002CD4DF /* FracRndr */ = {
+			isa = PBXGroup;
+			children = (
+				72D9F7501DBD532C005451FC /* main.cpp */,
+			);
+			path = FracRndr;
+			sourceTree = "<group>";
+		};
 		72A714B71CBB3FD300E5B321 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +225,8 @@
 				72E7F3681D60DA760051109E /* include */,
 				72E7F3671D60DA6F0051109E /* src */,
 				72A714D81CBB4D5800E5B321 /* libs */,
+				720A4D4A23808C02002CD4DF /* ScratchPad */,
+				720A4D9F23808E83002CD4DF /* FracRndr */,
 				72A714C11CBB3FD300E5B321 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -144,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				72A714C01CBB3FD300E5B321 /* FracRndr */,
+				720A4D9D23808C8C002CD4DF /* ScrathPad */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -171,6 +263,8 @@
 			children = (
 				720C791F1DCEE53D00952A3A /* easylogging++.h */,
 				720C79201DCEE53D00952A3A /* json.hpp */,
+				720A4DA22382119F002CD4DF /* tinyobjloader.hpp */,
+				720A4DA323823540002CD4DF /* tinyobjloader.c */,
 			);
 			name = "include 3ps";
 			path = 3ps;
@@ -179,6 +273,9 @@
 		72E007451DD1B4EA00FF9F81 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				720A4DA12381FB66002CD4DF /* scene3.json */,
+				72F1BB55208BE37E009EDFE4 /* scene_ps.json */,
+				7231D0BC20843F8200D645EC /* scene2.json */,
 				72E007491DD1B5E400FF9F81 /* scene1.json */,
 			);
 			name = Scenes;
@@ -188,6 +285,7 @@
 		72E7F3671D60DA6F0051109E /* src */ = {
 			isa = PBXGroup;
 			children = (
+				72F1BB56208C18A7009EDFE4 /* BVH.cpp */,
 				72D9F7511DBD532C005451FC /* Camera.cpp */,
 				72D9F7551DBD532C005451FC /* DistanceField.cpp */,
 				72D9F7521DBD532C005451FC /* Film.cpp */,
@@ -195,16 +293,16 @@
 				72D9F7571DBD532C005451FC /* ImageFile.cpp */,
 				72D9F7581DBD532C005451FC /* ImageFileExr.cpp */,
 				72D9F7591DBD532C005451FC /* ImageFilePng.cpp */,
-				72D9F7501DBD532C005451FC /* main.cpp */,
 				72D9F75A1DBD532C005451FC /* Mandelbulb.cpp */,
 				72D9F75B1DBD532C005451FC /* Material.cpp */,
 				72D9F7701DBD540C005451FC /* Parser.cpp */,
-				72D9F75C1DBD532C005451FC /* RenderPrimitve.cpp */,
+				72D9F75C1DBD532C005451FC /* RenderPrimitive.cpp */,
 				72D9F75D1DBD532C005451FC /* Ray.cpp */,
 				72D9F7531DBD532C005451FC /* Renderer.cpp */,
 				72D9F75E1DBD532C005451FC /* Sampler.cpp */,
 				72D9F7541DBD532C005451FC /* Scene.cpp */,
 				72D9F75F1DBD532C005451FC /* Sphere.cpp */,
+				724E04C120E1C96500C3E461 /* TriMesh.cpp */,
 				72CDBA6D1DEA47E200E9486C /* Texture.cpp */,
 			);
 			path = src;
@@ -214,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				72D9F73F1DBD52D5005451FC /* Background.hpp */,
+				722AF00C2089CC4500F8A3D2 /* BVH.hpp */,
 				72D9F7401DBD52D5005451FC /* Camera.hpp */,
 				72D9F7451DBD52D5005451FC /* DistanceField.hpp */,
 				72E007441DCF798F00FF9F81 /* Exception.hpp */,
@@ -226,11 +325,12 @@
 				72D9F74A1DBD52D5005451FC /* Mandelbulb.hpp */,
 				72D9F74B1DBD52D5005451FC /* Material.hpp */,
 				72D9F7711DBD540C005451FC /* Parser.hpp */,
-				72D9F74C1DBD52D5005451FC /* RenderPrimitve.hpp */,
+				72D9F74C1DBD52D5005451FC /* RenderPrimitive.hpp */,
 				72D9F74D1DBD52D5005451FC /* Ray.hpp */,
 				72D9F7431DBD52D5005451FC /* Renderer.hpp */,
 				72D9F74E1DBD52D5005451FC /* Sampler.hpp */,
 				72D9F7441DBD52D5005451FC /* Scene.hpp */,
+				724E04C420E1CE7800C3E461 /* TriMesh.hpp */,
 				72D9F74F1DBD52D5005451FC /* Sphere.hpp */,
 				72CDBA6C1DEA47C000E9486C /* Texture.hpp */,
 			);
@@ -240,6 +340,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		720A4D7723808C8C002CD4DF /* ScrathPad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 720A4D9A23808C8C002CD4DF /* Build configuration list for PBXNativeTarget "ScrathPad" */;
+			buildPhases = (
+				720A4D7823808C8C002CD4DF /* Sources */,
+				720A4D8D23808C8C002CD4DF /* Frameworks */,
+				720A4D9923808C8C002CD4DF /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScrathPad;
+			productName = FracRndr;
+			productReference = 720A4D9D23808C8C002CD4DF /* ScrathPad */;
+			productType = "com.apple.product-type.tool";
+		};
 		72A714BF1CBB3FD300E5B321 /* FracRndr */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 72A714C71CBB3FD300E5B321 /* Build configuration list for PBXNativeTarget "FracRndr" */;
@@ -263,7 +380,7 @@
 		72A714B81CBB3FD300E5B321 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1170;
 				ORGANIZATIONNAME = "Charles-Felix";
 				TargetAttributes = {
 					72A714BF1CBB3FD300E5B321 = {
@@ -276,6 +393,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 72A714B71CBB3FD300E5B321;
@@ -284,17 +402,47 @@
 			projectRoot = "";
 			targets = (
 				72A714BF1CBB3FD300E5B321 /* FracRndr */,
+				720A4D7723808C8C002CD4DF /* ScrathPad */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		720A4D7823808C8C002CD4DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				720A4D7923808C8C002CD4DF /* Renderer.cpp in Sources */,
+				720A4D7A23808C8C002CD4DF /* RenderPrimitive.cpp in Sources */,
+				720A4D7B23808C8C002CD4DF /* BVH.cpp in Sources */,
+				720A4D7C23808C8C002CD4DF /* Sphere.cpp in Sources */,
+				720A4D7D23808C8C002CD4DF /* Texture.cpp in Sources */,
+				720A4D7E23808C8C002CD4DF /* ImageFile.cpp in Sources */,
+				720A4D7F23808C8C002CD4DF /* Film.cpp in Sources */,
+				720A4D8023808C8C002CD4DF /* Ray.cpp in Sources */,
+				720A4D8123808C8C002CD4DF /* Parser.cpp in Sources */,
+				720A4D8223808C8C002CD4DF /* ImageFileExr.cpp in Sources */,
+				720A4D8323808C8C002CD4DF /* Mandelbulb.cpp in Sources */,
+				720A4D8423808C8C002CD4DF /* ImageBuffer.cpp in Sources */,
+				720A4D8523808C8C002CD4DF /* Sampler.cpp in Sources */,
+				720A4D8623808C8C002CD4DF /* Camera.cpp in Sources */,
+				720A4DA7238235D0002CD4DF /* tinyobjloader.c in Sources */,
+				720A4D8723808C8C002CD4DF /* DistanceField.cpp in Sources */,
+				720A4D8823808C8C002CD4DF /* Material.cpp in Sources */,
+				720A4D8923808C8C002CD4DF /* TriMesh.cpp in Sources */,
+				720A4D8A23808C8C002CD4DF /* Scene.cpp in Sources */,
+				720A4DA02380949C002CD4DF /* main.cpp in Sources */,
+				720A4D8C23808C8C002CD4DF /* ImageFilePng.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		72A714BC1CBB3FD300E5B321 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				72D9F7631DBD532C005451FC /* Renderer.cpp in Sources */,
-				72D9F76C1DBD532C005451FC /* RenderPrimitve.cpp in Sources */,
+				72D9F76C1DBD532C005451FC /* RenderPrimitive.cpp in Sources */,
+				72F1BB57208C18A7009EDFE4 /* BVH.cpp in Sources */,
 				72D9F76F1DBD532C005451FC /* Sphere.cpp in Sources */,
 				72CDBA6E1DEA47E200E9486C /* Texture.cpp in Sources */,
 				72D9F7671DBD532C005451FC /* ImageFile.cpp in Sources */,
@@ -306,8 +454,10 @@
 				72D9F7661DBD532C005451FC /* ImageBuffer.cpp in Sources */,
 				72D9F76E1DBD532C005451FC /* Sampler.cpp in Sources */,
 				72D9F7611DBD532C005451FC /* Camera.cpp in Sources */,
+				720A4DA6238235D0002CD4DF /* tinyobjloader.c in Sources */,
 				72D9F7651DBD532C005451FC /* DistanceField.cpp in Sources */,
 				72D9F76B1DBD532C005451FC /* Material.cpp in Sources */,
+				724E04C320E1C96500C3E461 /* TriMesh.cpp in Sources */,
 				72D9F7641DBD532C005451FC /* Scene.cpp in Sources */,
 				72D9F7601DBD532C005451FC /* main.cpp in Sources */,
 				72D9F7691DBD532C005451FC /* ImageFilePng.cpp in Sources */,
@@ -317,10 +467,49 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		720A4D9B23808C8C002CD4DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CODE_SIGN_IDENTITY = "-";
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include/,
+					/opt/local/include/OpenEXR,
+					"$(SRCROOT)/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+					/usr/local/Cellar/openimageio/1.6.13/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		720A4D9C23808C8C002CD4DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CODE_SIGN_IDENTITY = "-";
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include/,
+					/opt/local/include/OpenEXR,
+					"$(SRCROOT)/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+					/usr/local/Cellar/openimageio/1.6.13/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		72A714C51CBB3FD300E5B321 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -330,12 +519,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -376,6 +567,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -385,12 +577,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -424,9 +618,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CODE_SIGN_IDENTITY = "-";
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include/,
 					/opt/local/include/OpenEXR,
+					"$(SRCROOT)/include",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -441,9 +637,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CODE_SIGN_IDENTITY = "-";
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include/,
 					/opt/local/include/OpenEXR,
+					"$(SRCROOT)/include",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -457,6 +655,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		720A4D9A23808C8C002CD4DF /* Build configuration list for PBXNativeTarget "ScrathPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				720A4D9B23808C8C002CD4DF /* Debug */,
+				720A4D9C23808C8C002CD4DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		72A714BB1CBB3FD300E5B321 /* Build configuration list for PBXProject "FracRndr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

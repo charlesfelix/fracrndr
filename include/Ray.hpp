@@ -16,7 +16,7 @@ namespace Fr {
     class Ray {
     public:
         
-        Ray():origin(V3f(0.f,0.f,0.f)), direction(V3f(0.f,0.f,-1.f)), mint(0.f),maxt(std::numeric_limits<float>::max()),time(0.f),depth(0){}
+        Ray():origin(V3f(0.f,0.f,0.f)), direction(V3f(0.f,0.f,-1.f)), mint(0.f),maxt(std::numeric_limits<float>::max()),time(0.f),depth(0){direction.normalize();}
         
         Ray(const V3f & o, const V3f &dir, float min_t=0.f, float max_t=std::numeric_limits<float>::max(), float t = 0.f, int d = 0 ):origin(o),direction(dir),mint(min_t),maxt(max_t),depth(d){}
         

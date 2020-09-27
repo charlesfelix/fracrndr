@@ -9,7 +9,13 @@
 #include "Sphere.hpp"
 using namespace Fr;
 
-Sphere::Sphere(const V3f center, float radius):m_center(center),m_radius(radius), m_material(nullptr) {}
+Sphere::Sphere(const V3f &center, float radius):m_center(center),m_radius(radius), m_material(nullptr)
+{
+    m_bounds.makeEmpty();
+    m_bounds.extendBy(center+V3f(radius,radius,radius));
+    m_bounds.extendBy(center-V3f(radius,radius,radius));
+    
+}
 
 void Sphere::setMaterial(const std::shared_ptr<Material> & material)
 {
@@ -53,4 +59,9 @@ bool Sphere::intersect(const Ray & ray, float &t) const
     
     t = t0;
     return true;
+}
+
+const Box3f & Sphere::getBounds() const
+{
+    return m_bounds;
 }

@@ -62,19 +62,31 @@ inline float fresnel_refraction(const V3f& I, const V3f& N, float eta, V3f& T) {
     return 0;
 }
 
-bool Lambertian::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler)
+bool Lambertian::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler, float & pdf)
 {
     // trace an other ray
-    V3f target = rec.position + rec.normal + sampler.sampleUnitSphere();
-    ray_scattered = Ray(rec.position, target - rec.position);
+    const V3f nN = rec.normal.normalized();
+    const V3f ndir = sampler.sampleHemisphere();
+    V3f tangent, bitangent;
+    Basis::build(nN,tangent,bitangent);
+    
+    V3f dir;
+    dir.x = ndir.x * bitangent.x + ndir.y * nN.x + ndir.z * tangent.x;
+    dir.y = ndir.x * bitangent.y + ndir.y * nN.y + ndir.z * tangent.y;
+    dir.z = ndir.x * bitangent.z + ndir.y * nN.z + ndir.z * tangent.z;
+
+    float costheta = 1;//nN.dot(dir.normalized());
+
+    pdf = 1/(1.f*M_PI);
+    ray_scattered = Ray(rec.position, dir);
     ray_scattered.depth = r.depth+1;
-    attenuation = m_albedo;
+    attenuation = m_albedo*costheta/M_PI;
     return true;
 }
 
 //Sampler SimpleMetal::s_sampler = Sampler(212);
 
-bool SimpleMetal::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler)
+bool SimpleMetal::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler, float & pdf)
 {
     V3f jitter = V3f(0.f,0.f,0.f);
     if (m_roughness>0.f) jitter = sampler.sampleUnitSphere()*m_roughness;
@@ -87,7 +99,7 @@ bool SimpleMetal::scatter(const Ray & r, const HitRecord & rec, C3f & attenuatio
 
 //Sampler Glass::s_sampler = Sampler(2112);
 
-bool Glass::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler)
+bool Glass::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler, float & pdf)
 {
     V3f refracted;
    

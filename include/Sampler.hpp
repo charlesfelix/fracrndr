@@ -32,6 +32,8 @@ namespace Fr
     public:
         SamplerXorS(unsigned int seed = 11212);
         V3f sampleUnitSphere() const;
+        V3f sampleHemisphere() const;
+        V3f sampleHemisphereCosine() const;
         float random() const;
     private:
         mutable unsigned int m_state;

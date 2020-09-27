@@ -9,7 +9,7 @@
 #ifndef IDF_hpp
 #define IDF_hpp
 
-#include "RenderPrimitve.hpp"
+#include "RenderPrimitive.hpp"
 #include "Material.hpp"
 
 namespace Fr
@@ -37,7 +37,7 @@ namespace Fr
     };
     
     template <typename DistanceEstimator>
-    class ImplicitDistanceField : public RenderPrimitve
+    class ImplicitDistanceField : public RenderPrimitive
     {
     public:
         ImplicitDistanceField(const DistanceEstimator & estimator,unsigned max_steps) : m_estimator(estimator),m_max_steps(max_steps), m_material(nullptr){};

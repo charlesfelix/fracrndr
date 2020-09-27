@@ -89,7 +89,7 @@ void Renderer::setScene(const Scene::Ptr & scene)
     m_scene = scene;
 }
 
-C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitve::Ptr & primitives, const Background &bg, RenderStats & rs, Sampler &sampler) const {
+C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitive::Ptr & primitives, const Background &bg, RenderStats & rs, Sampler &sampler) const {
     
     // increment the ray counter
     ++rs.num_rays;
@@ -104,14 +104,11 @@ C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitve::Ptr & primitives, const
     {
         Ray ray_scattered;
         C3f attenuation;
-        if (hit_record.material!=nullptr && hit_record.material->scatter(r, hit_record, attenuation, ray_scattered, sampler))
+        float pdf =1.f;
+        if (hit_record.material!=nullptr && hit_record.material->scatter(r, hit_record, attenuation, ray_scattered, sampler,pdf))
         {
-            const unsigned indirect_samples = 1;
-            C4f c(0);
-            for (unsigned int i = 0; i < indirect_samples; ++i)
-                c += this->Li(ray_scattered,primitives,bg,rs, sampler);
-            c/=float(indirect_samples);
-            
+            C4f c = this->Li(ray_scattered,primitives,bg,rs, sampler);
+            c *= 1.f/pdf;
             return C4f(attenuation.x*c.r,attenuation.y*c.g,attenuation.z*c.b,1.0f);
         }
         return C4f();
@@ -124,6 +121,58 @@ C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitve::Ptr & primitives, const
     }
 }
 
+C4f Renderer::LiNR(const Fr::Ray &r, const RenderPrimitive::Ptr & primitives, const Background &bg, RenderStats & rs, Sampler &sampler) const {
+    
+    Fr::Ray current_ray = r;
+    C3f attenuation_array[10];
+    C3f * current_attenuation = &attenuation_array[0];
+    C4f current_color = C4f(0,0,0,0);
+    
+    bool keep_going = true;
+    
+    while (keep_going)
+    {
+        // increment the ray counter
+        ++rs.num_rays;
+        
+        keep_going = false;
+        if (current_ray.depth <= m_render_globals.m_max_ray_depth )
+        {
+            // handle ray hit
+            HitRecord hit_record;
+            bool has_hit = primitives->hit(current_ray,0.001f,MAXFLOAT,hit_record);
+            if (has_hit)
+            {
+                keep_going = true;
+                Ray ray_scattered;
+                C3f attenuation;
+                float pdf =1.f;
+                if (hit_record.material!=nullptr && hit_record.material->scatter(current_ray, hit_record, attenuation, ray_scattered, sampler,pdf))
+                {
+                     *current_attenuation++ = attenuation/pdf;
+                    current_ray = ray_scattered;
+                }
+            }
+        }
+    }
+    
+    // Todo: Sample Direct Lighting
+    
+    // colapse samples
+    C4f c = bg.color(current_ray);
+    current_color = c;
+    C4f color_out = current_color;
+    
+     while (current_attenuation-- > &attenuation_array[0])
+    {
+        color_out *= C4f((*current_attenuation)[0],(*current_attenuation)[1],(*current_attenuation)[2],1.f);
+    }
+    
+    return color_out;
+    
+}
+
+
 void Renderer::render() const
 {
    
@@ -134,13 +183,11 @@ void Renderer::render() const
     const float h_step = 1.f/float(h);
 
     V2f ndc(0.f,0.f);
-    
     const float avger = 1.f/float(n_samples);
-
     const float progress_increment = 1.f/float(h/10);
     tbb::atomic<float> progress = 0.f;
     
-#define FORCE_SINGLE_THREAD 1
+#define FORCE_SINGLE_THREAD 0
 #if FORCE_SINGLE_THREAD
     tbb::task_scheduler_init init(1);
 #endif
@@ -153,6 +200,7 @@ void Renderer::render() const
     tbb::parallel_for(size_t(0), size_t(h), size_t(1),[&](size_t y) {
     
         Sampler sampler(1212*y+121233);
+        
         for (size_t x = 0; x < w; ++x)
         {
             C4f c(0.f,0.f,0.f,1.f);
@@ -166,7 +214,7 @@ void Renderer::render() const
                 
                 Ray r = m_camera->unproject(ndc+sample_offset);
                 
-                c += this->Li(r,m_scene->getPrimitives(),*(m_scene->getBackground()),local_stats[y], sampler);
+                c += this->LiNR(r,m_scene->getPrimitives(),*(m_scene->getBackground()),local_stats[y], sampler);
             }
             c *= avger;
             m_film->addSample(x, h-y-1, c);
@@ -186,8 +234,8 @@ void Renderer::render() const
     for (auto s : local_stats)
         m_render_stats.num_rays += s.num_rays;
     
-    LOG(INFO) << "Render Stats - num rays: " << m_render_stats.num_rays << std::endl;
-    LOG(INFO) << "Render time: " << timer.elapsed() << std::endl;
+    LOG(INFO) << "Render Stats - num rays: " << m_render_stats.num_rays;
+    LOG(INFO) << "Render time: " << timer.elapsed();
     
     m_film->writeImage(m_render_globals.m_output_file);
 }
@@ -195,6 +243,7 @@ void Renderer::render() const
 void Renderer::initFromFile(const std::string &scenefile_path)
 {
     JsonParser parser;
+    // TODO: check if file exists - if not fail with error
     parser.parse(scenefile_path);
     
     m_render_globals = *parser.getGlobals(); // all members are values, it's fine
@@ -208,7 +257,7 @@ void Renderer::initFromFile(const std::string &scenefile_path)
     scene->setBackground(parser.getBackground());
     
     // - create the primitive list
-    std::map<std::string, RenderPrimitve::Ptr> primitives = parser.getPrimitives();
+    std::map<std::string, RenderPrimitive::Ptr> primitives = parser.getPrimitives();
     PrimitiveList::Ptr plist = std::make_shared<PrimitiveList>();
     for (auto it = primitives.begin(); it != primitives.end(); ++it)
     {
