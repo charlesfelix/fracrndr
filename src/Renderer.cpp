@@ -89,7 +89,7 @@ void Renderer::setScene(const Scene::Ptr & scene)
     m_scene = scene;
 }
 
-C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitive::Ptr & primitives, const Background &bg, RenderStats & rs, Sampler &sampler) const {
+C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitive::ConstPtr & primitives, const Background &bg, RenderStats & rs, Sampler &sampler) const {
     
     // increment the ray counter
     ++rs.num_rays;
@@ -121,7 +121,7 @@ C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitive::Ptr & primitives, cons
     }
 }
 
-C4f Renderer::LiNR(const Fr::Ray &r, const RenderPrimitive::Ptr & primitives, const Background &bg, RenderStats & rs, Sampler &sampler) const {
+C4f Renderer::LiNR(const Fr::Ray &r, const RenderPrimitive::ConstPtr & primitives, const Background &bg, RenderStats & rs, Sampler &sampler) const {
     
     Fr::Ray current_ray = r;
     C3f attenuation_array[10];

@@ -36,7 +36,10 @@ namespace Fr{
         virtual ~RenderPrimitive(){};
         virtual void setMaterial(const std::shared_ptr<Material> & material) {};
         virtual bool hit(const Ray & r, float tmin, float tmax, HitRecord & hit_record) const = 0;
+        virtual bool isAggregate() const {return false;};
         virtual const Box3f & getBounds() const =0;
+        virtual bool getSubPrimitives(std::vector<RenderPrimitive::ConstPtr> & subprims) const {return false;};
+
     };
     
     class PrimitiveList : public RenderPrimitive
@@ -47,7 +50,9 @@ namespace Fr{
         virtual ~PrimitiveList(){};
         PrimitiveList & addPrimitive(RenderPrimitive::Ptr & primitive);
         virtual bool hit(const Ray & r, float tmin, float tmax, HitRecord & hit_record) const;
+        virtual bool isAggregate() const {return true;};
         virtual const Box3f & getBounds() const;
+        virtual bool getSubPrimitives(std::vector<RenderPrimitive::ConstPtr> & subprims) const;
 
     private:
         std::vector<RenderPrimitive::Ptr> m_primitives;

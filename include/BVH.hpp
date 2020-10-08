@@ -21,19 +21,22 @@ namespace Fr
     public:
         DEF_SHARED_PTR_TYPES(BVHNode);
         
-        BVHNode(std::vector<RenderPrimitive::Ptr> & objects, size_t start, size_t end);
+        BVHNode(std::vector<RenderPrimitive::ConstPtr> & objects, size_t start, size_t end);
 
         virtual ~BVHNode() {};
         
         virtual bool hit(const Ray & r, float tmin, float tmax, HitRecord & hit_record) const;
+        virtual bool isAggregate() const {return true;};
         virtual const Box3f & getBounds() const;
+        
+        void getAllBounds(std::vector<Box3f> & bounds) const;
         
     private:
         BVHNode();
         BVHNode(const BVHNode &);
         
-        RenderPrimitive::Ptr m_left;
-        RenderPrimitive::Ptr m_right;
+        RenderPrimitive::ConstPtr m_left;
+        RenderPrimitive::ConstPtr m_right;
 
         Box3f m_bounds;
     };

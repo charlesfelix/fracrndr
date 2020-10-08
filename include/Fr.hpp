@@ -162,21 +162,22 @@ namespace Fr {
     
     
     // Ray Box intersection
+    //https://raytracing.github.io/books/RayTracingTheNextWeek.html
     inline bool intersectAABB(const Box3f & box, const V3f & origin, const V3f & direction, float &tmin, float &tmax )
     {
-        for (unsigned i = 0; i < 3; ++i)
-        {
-            const float invd = 1.f/direction[i];
-            float t0 = (box.min[i] - origin[i])/invd;
-            float t1 = (box.max[i] - origin[i])/invd;
-            if (invd < 0) std::swap(t0,t1);
-            tmin = t0 > tmin ? t0 : tmin;
-            tmax = t1 < tmax ? t1 : tmax;
-            if (tmin > tmax) return false;
+        for (int a = 0; a < 3; a++) {
+            const float invd = 1/direction[a];
+            auto t0 = fmin((box.min[a] - origin[a]) * invd,
+                           (box.max[a] - origin[a]) * invd );
+            auto t1 = fmax((box.min[a] - origin[a]) * invd,
+                           (box.max[a] - origin[a]) * invd );
+            tmin = fmax(t0, tmin);
+            tmax = fmin(t1, tmax);
+            if (tmax <= tmin)
+                return false;
         }
         return true;
     }
-    
     inline double randomDouble(double min, double max)
     {
         return drand48()*(max-min)+min;

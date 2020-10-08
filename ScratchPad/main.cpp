@@ -247,8 +247,11 @@ void testTrimesh()
     std::vector<V3f> uvs;
     
     TriangleMesh mesh = TriangleMesh(box_positions,uvs,normals,triangles);
+    
     mesh.recomputeNormals();
+    
     LOG(INFO) << "TriangleMesh::numTriangles(): " << mesh.numTriangles() << std::endl;
+    
     for (unsigned i = 0; i < mesh.numTriangles(); ++i)
     {
         TriangleMesh::Triangle t = mesh.triangle(i);

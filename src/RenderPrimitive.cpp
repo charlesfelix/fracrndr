@@ -7,6 +7,7 @@
 //
 
 #include "RenderPrimitive.hpp"
+#include "easylogging++.h"
 
 using namespace Fr;
 
@@ -37,4 +38,23 @@ bool PrimitiveList::hit(const Fr::Ray &r, float tmin, float tmax, HitRecord &hit
 const Box3f & PrimitiveList::getBounds() const
 {
     return m_bounds;
+}
+
+bool PrimitiveList::getSubPrimitives(std::vector<RenderPrimitive::ConstPtr> & subprims) const
+{
+    for (auto p: m_primitives)
+    {
+        std::vector<RenderPrimitive::ConstPtr> _subprims;
+        if (p->isAggregate())
+        {
+            LOG(INFO) << "AGGREGATE";
+            p->getSubPrimitives(_subprims);
+        }
+        else
+        {
+            _subprims.push_back(p);
+        }
+        subprims.insert(subprims.end(), _subprims.begin(), _subprims.end());
+    }
+    return true;
 }

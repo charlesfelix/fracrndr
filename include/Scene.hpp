@@ -27,22 +27,23 @@ namespace Fr
         Scene();
         virtual ~Scene() {};
         
-        const RenderPrimitive::Ptr & getPrimitives() const;
+        const RenderPrimitive::ConstPtr & getPrimitives() const;
         
-        const Background::Ptr & getBackground() const;
+        const Background::ConstPtr & getBackground() const;
         
         const Fr::Box3d & getBounds() const;
         
         bool hit(const Ray & ray, HitRecord & hit_record) const;
         
-        void setPrimitives(const RenderPrimitive::Ptr & primitives);
+        void setPrimitives(RenderPrimitive::ConstPtr primitives);
         
-        void setBackground(const Background::Ptr & background);
+        void setBackground(Background::ConstPtr background);
         
     private:
         Scene(const Scene & );
-        RenderPrimitive::Ptr m_primitives;
-        Background::Ptr m_background;
+        RenderPrimitive::ConstPtr m_primitives;
+        RenderPrimitive::ConstPtr m_accelerator;
+        Background::ConstPtr m_background;
         Fr::Box3d m_bounds;
         
 

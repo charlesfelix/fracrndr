@@ -63,38 +63,45 @@ namespace Fr {
         return (t >= tmin && t <= tmax);
     }
     
-    class TriangleShape{
-    public:
-        V3f points[3];
-    };
-    
+
     class TriangleMesh : public RenderPrimitive
     {
     public:
-        class Triangle
+        class Triangle : public RenderPrimitive
         {
         public: // member functions
-            Triangle(const TriangleMesh * mesh, unsigned i0, unsigned i1, unsigned i2);
-            const V3f & position(unsigned int pt) const;
-            V3f position(unsigned int pt);
-            V3f normal(unsigned int pt);
+            Triangle(const TriangleMesh * mesh, size_t idx);
+            const V3f & position(unsigned pt) const;
+            const V3f & normal(unsigned pt) const;
             
             
         public: // member variables
-            unsigned m_indices[3]; // vertex indices in the mesh position array
+            size_t m_idx; // triangle index in the mesh
             const TriangleMesh * m_mesh;
-        };
+        private:
+            virtual bool hit(const Fr::Ray &r, float tmin, float tmax, Fr::HitRecord &hit_record) const;
+            virtual void setMaterial(const std::shared_ptr<Material> & material);
+            virtual const Box3f & getBounds() const;
+            
+            Box3f m_bounds;
 
-    public:
+        };
         TriangleMesh(const std::vector<V3f> & positions, const std::vector<V3f> & uvs, const std::vector<V3f> &normals, const std::vector<unsigned> & triangles);
         
+        virtual ~TriangleMesh();
+        
         size_t numTriangles() const { return m_triangles.size()/3;};
-        Triangle triangle(unsigned idx) const;
+        Triangle triangle(size_t idx) const;
         void recomputeNormals();
-                    
+        
+        const V3f & normal(size_t triangle_idx, unsigned vertex_idx) const;
+        const V3f & position(size_t triangle_idx, unsigned vertex_idx) const;
+
         virtual bool hit(const Fr::Ray &r, float tmin, float tmax, Fr::HitRecord &hit_record) const;
         virtual void setMaterial(const std::shared_ptr<Material> & material);
         virtual const Box3f & getBounds() const;
+        virtual bool isAggregate() const { return true; };
+        virtual bool getSubPrimitives(std::vector<RenderPrimitive::ConstPtr> & subprims) const; // return true if has
         
     private:
         std::vector<V3f> m_positions;
