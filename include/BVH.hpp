@@ -25,7 +25,7 @@ namespace Fr
 
         virtual ~BVHNode() {};
         
-        virtual bool hit(const Ray & r, float tmin, float tmax, HitRecord & hit_record) const;
+        virtual bool hit(const Ray & r, Real tmin, Real tmax, HitRecord & hit_record) const;
         virtual bool isAggregate() const {return true;};
         virtual const Box3f & getBounds() const;
         

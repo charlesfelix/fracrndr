@@ -33,7 +33,7 @@ bool box_z_compare (const RenderPrimitive::ConstPtr a, const RenderPrimitive::Co
     return box_compare(a, b, 2);
 }
 
-bool BVHNode::hit(const Ray & r, float tmin, float tmax, HitRecord & hit_record) const
+bool BVHNode::hit(const Ray & r, Real tmin, Real tmax, HitRecord & hit_record) const
 {
     const bool test = intersectAABB(m_bounds, r.origin, r.direction, tmin, tmax);
     if (test)

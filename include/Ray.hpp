@@ -16,16 +16,16 @@ namespace Fr {
     class Ray {
     public:
         
-        Ray():origin(V3f(0.f,0.f,0.f)), direction(V3f(0.f,0.f,-1.f)), mint(0.f),maxt(std::numeric_limits<float>::max()),time(0.f),depth(0){direction.normalize();}
+        Ray():origin(V3f(0.f,0.f,0.f)), direction(V3f(0.f,0.f,-1.f)), mint(0.f),maxt(std::numeric_limits<Real>::max()),time(0.f),depth(0){direction.normalize();}
         
-        Ray(const V3f & o, const V3f &dir, float min_t=0.f, float max_t=std::numeric_limits<float>::max(), float t = 0.f, int d = 0 ):origin(o),direction(dir),mint(min_t),maxt(max_t),depth(d){}
+        Ray(const V3f & o, const V3f &dir, Real min_t=0.f, Real max_t=std::numeric_limits<Real>::max(), Real t = 0.f, int d = 0 ):origin(o),direction(dir),mint(min_t),maxt(max_t),depth(d){}
         
-        V3f positionAt(float t) const;
+        V3f positionAt(Real t) const;
         V3f origin;
         V3f direction;
-        float mint;
-        float maxt;
-        float time;
+        Real mint;
+        Real maxt;
+        Real time;
         int depth;
         
     };

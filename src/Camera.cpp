@@ -10,9 +10,9 @@
 
 using namespace Fr;
 
-Camera::Camera(float focal, float aperture, float aspect_ratio, float near, float far):m_xform(), m_xform_inv(),m_focal(focal),m_aperture(aperture),m_aspect_ratio(aspect_ratio),m_clipping_planes(V2f(1,100000))
+Camera::Camera(Real focal, Real aperture, Real aspect_ratio, Real near, Real far):m_xform(), m_xform_inv(),m_focal(focal),m_aperture(aperture),m_aspect_ratio(aspect_ratio),m_clipping_planes(V2f(1,100000))
 {
-    float fov = 2 * atan(aperture / (2*focal));
+    Real fov = 2 * atan(aperture / (2*focal));
     m_cam_x_max = tan(fov*0.5f) ; 
     m_cam_y_max = m_cam_x_max / m_aspect_ratio;
 }
@@ -34,13 +34,13 @@ V2f Camera::cameraToNdc(const V3f & cpos) const
 {
     V2f ndc;
     // project the 3 point on the camera plane
-    float one_over_depth = 1.f/std::abs(cpos.z);
+    Real one_over_depth = 1.f/std::abs(cpos.z);
     ndc.x = cpos.x * one_over_depth;
     ndc.y = cpos.y * one_over_depth;
     // normalize the ndc coordinates between 0 and 1 based on the aspect ration
     // and the field of view
-    ndc.x = ufit(ndc.x,-m_cam_x_max,m_cam_x_max,0.f,1.f);
-    ndc.y = ufit(ndc.y,-m_cam_y_max,m_cam_y_max,0.f,1.f);
+    ndc.x = ufit<float>(ndc.x,-m_cam_x_max,m_cam_x_max,0.f,1.f);
+    ndc.y = ufit<float>(ndc.y,-m_cam_y_max,m_cam_y_max,0.f,1.f);
     return ndc;
 
 }
@@ -48,8 +48,8 @@ V2f Camera::cameraToNdc(const V3f & cpos) const
 V3f Camera::ndcToCamera(const V2f & ndc_pos) const
 {
     V3f cpos;
-    cpos.x = fit(ndc_pos.x,0.f,1.f,-m_cam_x_max,m_cam_x_max);
-    cpos.y = fit(ndc_pos.y,0.f,1.f,-m_cam_y_max,m_cam_y_max);
+    cpos.x = fit<float>(ndc_pos.x,0.f,1.f,-m_cam_x_max,m_cam_x_max);
+    cpos.y = fit<float>(ndc_pos.y,0.f,1.f,-m_cam_y_max,m_cam_y_max);
     cpos.z = -1;
     return cpos;
 }
@@ -68,7 +68,7 @@ Ray Camera::unproject(const V2f & ndc_pos) const
     return Ray(cam_pos,dir);
 }
 
-Ray Camera::unproject(const V2f & ndc_pos, float dx, float dy, Ray & ray_dx, Ray & ray_dy) const
+Ray Camera::unproject(const V2f & ndc_pos, Real dx, Real dy, Ray & ray_dx, Ray & ray_dy) const
 {
     V3f screen_pos = cameraToWorld(ndcToCamera(ndc_pos));
     V3d screen_pos_dx = cameraToWorld(ndcToCamera(ndc_pos + V2f(dx,0.f)));

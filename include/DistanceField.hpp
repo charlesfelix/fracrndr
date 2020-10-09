@@ -18,22 +18,22 @@ namespace Fr
     class SphereDE {
     public:
         
-        SphereDE(const V3f & position, float radius, float distance_threshold=0.0001):
+        SphereDE(const V3f & position, Real radius, Real distance_threshold=0.0001):
         m_position(position),m_radius(radius),m_distance_threshold(distance_threshold)
         {
         }
         
-        float estimate(const V3f & position) const
+        Real estimate(const V3f & position) const
         {
            return (position-m_position).length()-m_radius;
         }
         
-        float distanceThreshold() const { return m_distance_threshold;}
+        Real distanceThreshold() const { return m_distance_threshold;}
         
     private:
         V3f m_position;
-        float m_radius;
-        float m_distance_threshold;
+        Real m_radius;
+        Real m_distance_threshold;
     };
     
     template <typename DistanceEstimator>
@@ -48,17 +48,17 @@ namespace Fr
         {
             m_material = material;
         }
-        virtual bool hit(const Ray & r, float tmin, float tmax, HitRecord & hit_record) const
+        virtual bool hit(const Ray & r, Real tmin, Real tmax, HitRecord & hit_record) const
         {
             V3f ray_dir = r.direction.normalized();
             V3f ray_pos = r.origin;
             bool has_hit = false;
-            const float threshold = m_estimator.distanceThreshold();
+            const Real threshold = m_estimator.distanceThreshold();
             unsigned num_steps = 0;
             
             while (!has_hit && num_steps++ < m_max_steps)
             {
-                float de = m_estimator.estimate(ray_pos);
+                Real de = m_estimator.estimate(ray_pos);
                 if (de< threshold)
                     has_hit = true;
                 ray_pos = ray_pos + de*ray_dir;
@@ -77,7 +77,7 @@ namespace Fr
 
         V3f computeNormal(const V3f & position) const
         {
-            const float deps = 0.001;
+            const Real deps = 0.001;
             const V3f dx(deps,0.f,0.f);
             const V3f dy(0.f,deps,0.f);
             const V3f dz(0.f,0.f,deps);

@@ -27,7 +27,7 @@ namespace Fr{
     public:
         DEF_SHARED_PTR_TYPES(Camera);
         
-        Camera(float focal = 50.0f, float aperture = 42.4214f, float aspect_ratio = 1.f, float near = 0.0001, float far = 100000000.f);
+        Camera(Real focal = 50.0f, Real aperture = 42.4214f, Real aspect_ratio = 1.f, Real near = 0.0001, Real far = 100000000.f);
         
         
         V3f worldToCamera(const V3f & wpos) const;
@@ -37,7 +37,7 @@ namespace Fr{
         
         V2f project(const V3f & wpos) const;
         Ray unproject(const V2f & ndc_pos) const;
-        Ray unproject(const V2f & ndc_pos, float dx, float dy, Ray & r_dx, Ray & r_dy) const;
+        Ray unproject(const V2f & ndc_pos, Real dx, Real dy, Ray & r_dx, Ray & r_dy) const;
 
         V3f getPosition() const;
         void setPosition(const V3f &pos);
@@ -49,12 +49,12 @@ namespace Fr{
     private:
         M44f  m_xform;
         M44f  m_xform_inv;
-        float m_focal;
-        float m_aperture;
-        float m_aspect_ratio;
+        Real m_focal;
+        Real m_aperture;
+        Real m_aspect_ratio;
         V2f m_clipping_planes;
-        float m_cam_x_max;
-        float m_cam_y_max;
+        Real m_cam_x_max;
+        Real m_cam_y_max;
     };
 }
 #endif /* fr_Camera_h */

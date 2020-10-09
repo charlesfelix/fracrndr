@@ -23,8 +23,8 @@ public:
     C4f color ( const Ray & r ) const
     {
         V3f d = r.direction.normalized();
-        float u = .5f*(1.f + atan2(d.x,-d.z) / M_PI);
-        float v = acos(d.y) / M_PI;
+        Real u = .5f*(1.f + atan2(d.x,-d.z) / M_PI);
+        Real v = acos(d.y) / M_PI;
         
         V3f uv(u,v,0.f);
         if (m_texture)

@@ -10,7 +10,7 @@
 
 using namespace Fr;
 
-V3f Ray::positionAt(float t) const
+V3f Ray::positionAt(Real t) const
 {
     V3f d = direction;
     return origin + t*d;

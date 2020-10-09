@@ -9,7 +9,7 @@
 #include "Sphere.hpp"
 using namespace Fr;
 
-Sphere::Sphere(const V3f &center, float radius):m_center(center),m_radius(radius), m_material(nullptr)
+Sphere::Sphere(const V3f &center, Real radius):m_center(center),m_radius(radius), m_material(nullptr)
 {
     m_bounds.makeEmpty();
     m_bounds.extendBy(center+V3f(radius,radius,radius));
@@ -22,10 +22,10 @@ void Sphere::setMaterial(const std::shared_ptr<Material> & material)
     m_material = material;
 }
 
-bool Sphere::hit(const Ray & ray, float tmin, float tmax, HitRecord & hit_record) const
+bool Sphere::hit(const Ray & ray, Real tmin, Real tmax, HitRecord & hit_record) const
 {
 
-    float t;
+    Real t;
     bool has_it = intersect(ray, t);
     if (has_it && t >= tmin && t <= tmax)
     {
@@ -38,17 +38,17 @@ bool Sphere::hit(const Ray & ray, float tmin, float tmax, HitRecord & hit_record
     return false;
 }
 
-bool Sphere::intersect(const Ray & ray, float &t) const
+bool Sphere::intersect(const Ray & ray, Real &t) const
 {
     V3f oc = ray.origin - m_center;
-    float a = ray.direction.dot(ray.direction); // always 1 isnt' it?
-    float b = 2.f * oc.dot(ray.direction);
-    float c = oc.dot(oc) - m_radius*m_radius;
-    float discr = b*b - 4.f*a*c;
+    Real a = ray.direction.dot(ray.direction); // always 1 isnt' it?
+    Real b = 2.f * oc.dot(ray.direction);
+    Real c = oc.dot(oc) - m_radius*m_radius;
+    Real discr = b*b - 4.f*a*c;
     if (discr < 0)
         return false;
-    float t0 = (-b - sqrt(discr))/(2.f*a);
-    float t1 = (-b + sqrt(discr))/(2.f*a);
+    Real t0 = (-b - sqrt(discr))/(2.f*a);
+    Real t1 = (-b + sqrt(discr))/(2.f*a);
     
     if (t0 > t1) std::swap(t0, t1);
     

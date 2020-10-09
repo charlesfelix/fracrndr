@@ -104,11 +104,11 @@ C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitive::ConstPtr & primitives,
     {
         Ray ray_scattered;
         C3f attenuation;
-        float pdf =1.f;
+        Real pdf =1.;
         if (hit_record.material!=nullptr && hit_record.material->scatter(r, hit_record, attenuation, ray_scattered, sampler,pdf))
         {
             C4f c = this->Li(ray_scattered,primitives,bg,rs, sampler);
-            c *= 1.f/pdf;
+            c *= 1./pdf;
             return C4f(attenuation.x*c.r,attenuation.y*c.g,attenuation.z*c.b,1.0f);
         }
         return C4f();
@@ -146,7 +146,7 @@ C4f Renderer::LiNR(const Fr::Ray &r, const RenderPrimitive::ConstPtr & primitive
                 keep_going = true;
                 Ray ray_scattered;
                 C3f attenuation;
-                float pdf =1.f;
+                Real pdf =1.;
                 if (hit_record.material!=nullptr && hit_record.material->scatter(current_ray, hit_record, attenuation, ray_scattered, sampler,pdf))
                 {
                      *current_attenuation++ = attenuation/pdf;

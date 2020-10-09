@@ -99,8 +99,8 @@ void testBoxIntersection()
         Ray r;
         r.origin = pos;
         r.direction = -pos.normalize();
-        float tmin = 0.0001f;
-        float tmax = MAXFLOAT;
+        Real tmin = 0.0001f;
+        Real tmax = MAXFLOAT;
         bool test = intersectAABB(box,r.origin,r.direction,tmin,tmax);
         fout << r.origin.x << "," << r.origin.y << "," << r.origin.z << "," << r.direction.x << "," << r.direction.y << "," << r.direction.z << "," << test << "," << tmin << "," <<tmax << std::endl;
         

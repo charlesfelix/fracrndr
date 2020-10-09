@@ -25,7 +25,7 @@ namespace Fr
         
         Film(size_t xres, size_t yres);
         
-        void addSample(float x, float y, const C4f & color);
+        void addSample(Real x, Real y, const C4f & color);
         
         bool writeImage(const std::string & filepath) const;
         

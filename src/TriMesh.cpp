@@ -40,9 +40,9 @@ const V3f & TriangleMesh::Triangle::normal(unsigned int pt) const
     return m_mesh->normal(m_idx,pt);
 }
 
-bool TriangleMesh::Triangle::hit(const Fr::Ray &r, float tmin, float tmax, Fr::HitRecord &hit_record) const
+bool TriangleMesh::Triangle::hit(const Fr::Ray &r, Real tmin, Real tmax, Fr::HitRecord &hit_record) const
 {
-    float t, beta, gamma;
+    Real t, beta, gamma;
 
     bool has_hit = intersectTriangle(r,
                                      m_mesh->position(m_idx,0),
@@ -113,10 +113,10 @@ void TriangleMesh::recomputeNormals()
     }
 }
 
-bool TriangleMesh::hit(const Fr::Ray &r, float tmin, float tmax, Fr::HitRecord &hit_record) const
+bool TriangleMesh::hit(const Fr::Ray &r, Real tmin, Real tmax, Fr::HitRecord &hit_record) const
 {
     const size_t ntris = numTriangles();
-    float closest_t, closest_beta, closest_gamma;
+    Real closest_t, closest_beta, closest_gamma;
     V3f closest_normal;
     closest_t = FLT_MAX;
     
@@ -125,7 +125,7 @@ bool TriangleMesh::hit(const Fr::Ray &r, float tmin, float tmax, Fr::HitRecord &
     size_t closest_tri = 0;
     for (unsigned i = 0; i < ntris; ++i)
     {
-        float t, beta, gamma;
+        Real t, beta, gamma;
         bool intersect = intersectTriangle(r, position(i,0), position(i,1), position(i,2), r.mint, r.maxt, t, beta, gamma);
         
         has_hit = has_hit || intersect;

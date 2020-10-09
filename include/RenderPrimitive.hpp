@@ -21,7 +21,7 @@ namespace Fr{
 
         HitRecord():t(MAXFLOAT){}
         HitRecord(const HitRecord & hr):t(hr.t),position(hr.position),normal(hr.normal),color(hr.color){}
-        float t;
+        Real t;
         V3f position;
         V3f normal;
         C4f color;
@@ -35,7 +35,7 @@ namespace Fr{
 
         virtual ~RenderPrimitive(){};
         virtual void setMaterial(const std::shared_ptr<Material> & material) {};
-        virtual bool hit(const Ray & r, float tmin, float tmax, HitRecord & hit_record) const = 0;
+        virtual bool hit(const Ray & r, Real tmin, Real tmax, HitRecord & hit_record) const = 0;
         virtual bool isAggregate() const {return false;};
         virtual const Box3f & getBounds() const =0;
         virtual bool getSubPrimitives(std::vector<RenderPrimitive::ConstPtr> & subprims) const {return false;};
@@ -49,7 +49,7 @@ namespace Fr{
 
         virtual ~PrimitiveList(){};
         PrimitiveList & addPrimitive(RenderPrimitive::Ptr & primitive);
-        virtual bool hit(const Ray & r, float tmin, float tmax, HitRecord & hit_record) const;
+        virtual bool hit(const Ray & r, Real tmin, Real tmax, HitRecord & hit_record) const;
         virtual bool isAggregate() const {return true;};
         virtual const Box3f & getBounds() const;
         virtual bool getSubPrimitives(std::vector<RenderPrimitive::ConstPtr> & subprims) const;

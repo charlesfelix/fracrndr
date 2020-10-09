@@ -34,6 +34,7 @@
 
 namespace Fr {
     
+    typedef double Real;
     typedef ::half               half;
     typedef Imath::V2i           V2i;
     typedef Imath::V2f           V2f;
@@ -43,12 +44,12 @@ namespace Fr {
     typedef Imath::Color4<float> C4f;
     typedef Imath::V3i           V3i;
     typedef Imath::Vec3<half>    V3h;
-    typedef Imath::V3f           V3f;
+    typedef Imath::V3d           V3f;
     typedef Imath::V3d           V3d;
     typedef Imath::Box2f         Box2f;
     typedef Imath::Box2i         Box2i;
     typedef Imath::Box3i         Box3i;
-    typedef Imath::Box3f         Box3f;
+    typedef Imath::Box3d         Box3f;
     typedef Imath::Box3d         Box3d;
     typedef Imath::M33f          M33f;
     typedef Imath::M44f          M44f;
@@ -58,6 +59,7 @@ namespace Fr {
     typedef Imath::Quatd         Quatd;
     typedef Imath::Quatd         Quat;
     
+
     #define FR_CLIP         Imath::clip
     #define FR_LERP         Imath::lerp
     #define FR_LERPFACTOR   Imath::lerpfactor
@@ -93,8 +95,8 @@ namespace Fr {
     class Radians
     {
     public:
-        static inline float toDegrees(float radians) { return radians/M_PI*180.f; }
-        static inline float fromDegrees(float degrees) { return degrees/180.f*M_PI; }
+        static inline Real toDegrees(Real radians) { return radians/M_PI*180.f; }
+        static inline Real fromDegrees(Real degrees) { return degrees/180.f*M_PI; }
     };
     
     // unclamped fit
@@ -113,7 +115,7 @@ namespace Fr {
     
     // linear interpolation
     template <typename t>
-    inline t lerp(const t& a,const t& b,float k)
+    inline t lerp(const t& a,const t& b,t k)
     {
         return (1.f-k)*a + (k)*b;
     }
@@ -130,9 +132,9 @@ namespace Fr {
         static inline void build(const V3f & N, V3f &tangent, V3f &bitangent)
         {
             // from https://graphics.pixar.com/library/OrthonormalB/paper.pdf
-            float sign = copysignf(1.0f, N.z);
-            const float a = -1.0f / (sign + N.z);
-            const float b = N.x * N.y * a;
+            Real sign = copysignf(1.0f, N.z);
+            const Real a = -1.0f / (sign + N.z);
+            const Real b = N.x * N.y * a;
             tangent = V3f(1.0f + sign * N.x * N.x * a, sign * b, -sign * N.x);
             bitangent = V3f(b, sign + N.y * N.y * a, -N.y);
             return;
@@ -163,17 +165,17 @@ namespace Fr {
     
     // Ray Box intersection
     //https://raytracing.github.io/books/RayTracingTheNextWeek.html
-    inline bool intersectAABB(const Box3f & box, const V3f & origin, const V3f & direction, float &tmin, float &tmax )
+    inline bool intersectAABB(const Box3f & box, const V3f & origin, const V3f & direction, Real &tmin, Real &tmax )
     {
         for (int a = 0; a < 3; a++) {
-            const float invd = 1/direction[a];
+            const Real invd = 1/direction[a];
             auto t0 = fmin((box.min[a] - origin[a]) * invd,
                            (box.max[a] - origin[a]) * invd );
             auto t1 = fmax((box.min[a] - origin[a]) * invd,
                            (box.max[a] - origin[a]) * invd );
             tmin = fmax(t0, tmin);
             tmax = fmin(t1, tmax);
-            if (tmax <= tmin)
+            if (tmax < tmin)
                 return false;
         }
         return true;

@@ -62,7 +62,7 @@ inline float fresnel_refraction(const V3f& I, const V3f& N, float eta, V3f& T) {
     return 0;
 }
 
-bool Lambertian::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler, float & pdf)
+bool Lambertian::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler, Real & pdf)
 {
     // trace an other ray
     const V3f nN = rec.normal.normalized();
@@ -86,7 +86,7 @@ bool Lambertian::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation
 
 //Sampler SimpleMetal::s_sampler = Sampler(212);
 
-bool SimpleMetal::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler, float & pdf)
+bool SimpleMetal::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler, Real & pdf)
 {
     V3f jitter = V3f(0.f,0.f,0.f);
     if (m_roughness>0.f) jitter = sampler.sampleUnitSphere()*m_roughness;
@@ -99,7 +99,7 @@ bool SimpleMetal::scatter(const Ray & r, const HitRecord & rec, C3f & attenuatio
 
 //Sampler Glass::s_sampler = Sampler(2112);
 
-bool Glass::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler, float & pdf)
+bool Glass::scatter(const Ray & r, const HitRecord & rec, C3f & attenuation, Ray & ray_scattered, Sampler & sampler, Real & pdf)
 {
     V3f refracted;
    

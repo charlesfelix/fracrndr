@@ -30,7 +30,7 @@ V3f SamplerS::sampleUnitSphere() const
     V3f p;
     do
     {
-        p = 2.f*V3f(m_random.nextf(),m_random.nextf(),m_random.nextf())-V3f(1.f,1.f,1.f);
+        p = static_cast<Real>(2.0)*V3f(m_random.nextf(),m_random.nextf(),m_random.nextf())-V3f(1.,1.,1.);
     } while (p.length2()>=1.0);
     return p;
 }
@@ -46,7 +46,7 @@ V3f SamplerXorS::sampleUnitSphere() const
     V3f p;
     do
     {
-        p = 2.f*V3f(random(), random(), random())-V3f(1.f,1.f,1.f);
+        p = static_cast<Real>(2.0)*V3f(random(), random(), random())-V3f(1.,1.,1.);
     } while (p.length2()>=1.0);
 return p;
 }

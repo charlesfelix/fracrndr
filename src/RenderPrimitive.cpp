@@ -18,7 +18,7 @@ PrimitiveList & PrimitiveList::addPrimitive(RenderPrimitive::Ptr &primitive)
     return *this;
 }
 
-bool PrimitiveList::hit(const Fr::Ray &r, float tmin, float tmax, HitRecord &hit_record) const
+bool PrimitiveList::hit(const Fr::Ray &r, Real tmin, Real tmax, HitRecord &hit_record) const
 {
     HitRecord closest_hit;
     bool has_hit = false;

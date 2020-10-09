@@ -15,7 +15,7 @@ Film::Film(size_t resx, size_t resy):m_imagebuffer(std::make_shared<ImageBuffer>
 {
 }
 
-void Film::addSample(float x, float y, const C4f& color)
+void Film::addSample(Real x, Real y, const C4f& color)
 {
     m_imagebuffer->setPixel(x,y,color);
 }
