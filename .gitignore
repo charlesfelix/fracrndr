@@ -7,7 +7,7 @@ images/
 *.slo
 *.lo
 *.o
-*.obj
+#*.obj
 
 # Precompiled Headers
 *.gch
@@ -34,7 +34,7 @@ images/
 *.app
 
 # Natron scene files
-*.ntp
+#*.ntp
 *.lock
 *.autosave
 
