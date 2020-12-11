@@ -1,3 +1,0 @@
-### December 2020
-- [ ] scene parsing: error check
-- [ ] Tri Mesh / BVH: wrong normal computation
