@@ -70,10 +70,6 @@
 		B0B0FEA82634C8A0008A63B6 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEA62634C8A0008A63B6 /* libIlmImf.dylib */; };
 		B0B0FEAA2634C8AF008A63B6 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEA92634C8AF008A63B6 /* libIlmThread.dylib */; };
 		B0B0FEAB2634C8AF008A63B6 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEA92634C8AF008A63B6 /* libIlmThread.dylib */; };
-		B0B0FEAD2634C8C8008A63B6 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEAC2634C8C8008A63B6 /* libIlmImf.dylib */; };
-		B0B0FEAE2634C8C8008A63B6 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEAC2634C8C8008A63B6 /* libIlmImf.dylib */; };
-		B0B0FEB02634C8D1008A63B6 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEAF2634C8D1008A63B6 /* libIlmThread.dylib */; };
-		B0B0FEB12634C8D1008A63B6 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEAF2634C8D1008A63B6 /* libIlmThread.dylib */; };
 		B0B0FEB32634C8FA008A63B6 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEB22634C8FA008A63B6 /* libHalf.dylib */; };
 		B0B0FEB42634C8FA008A63B6 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEB22634C8FA008A63B6 /* libHalf.dylib */; };
 		B0B0FEB82634CA2E008A63B6 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEB72634CA2E008A63B6 /* libImath.dylib */; };
@@ -184,13 +180,11 @@
 				B028D84925ECA7650010547F /* libIlmImf.dylib in Frameworks */,
 				B0B0FEAB2634C8AF008A63B6 /* libIlmThread.dylib in Frameworks */,
 				720A4D9023808C8C002CD4DF /* libtbb.dylib in Frameworks */,
-				B0B0FEB12634C8D1008A63B6 /* libIlmThread.dylib in Frameworks */,
 				720A4D9123808C8C002CD4DF /* libtbbmalloc_proxy.dylib in Frameworks */,
 				B0B0FEA52634C895008A63B6 /* libIexMath.dylib in Frameworks */,
 				B0B0FEA82634C8A0008A63B6 /* libIlmImf.dylib in Frameworks */,
 				B0B0FEB92634CA2E008A63B6 /* libImath.dylib in Frameworks */,
 				B028D84425ECA75B0010547F /* libIlmImfUtil.dylib in Frameworks */,
-				B0B0FEAE2634C8C8008A63B6 /* libIlmImf.dylib in Frameworks */,
 				720A4D9723808C8C002CD4DF /* libtbbmalloc.dylib in Frameworks */,
 				B0B0FEA22634C886008A63B6 /* libIex.dylib in Frameworks */,
 			);
@@ -205,13 +199,11 @@
 				B028D84825ECA7650010547F /* libIlmImf.dylib in Frameworks */,
 				B0B0FEAA2634C8AF008A63B6 /* libIlmThread.dylib in Frameworks */,
 				72FFE2D11D28A4D8008EA6C6 /* libtbb.dylib in Frameworks */,
-				B0B0FEB02634C8D1008A63B6 /* libIlmThread.dylib in Frameworks */,
 				72FFE2D21D28A4D8008EA6C6 /* libtbbmalloc_proxy.dylib in Frameworks */,
 				B0B0FEA42634C895008A63B6 /* libIexMath.dylib in Frameworks */,
 				B0B0FEA72634C8A0008A63B6 /* libIlmImf.dylib in Frameworks */,
 				B0B0FEB82634CA2E008A63B6 /* libImath.dylib in Frameworks */,
 				B028D84325ECA75B0010547F /* libIlmImfUtil.dylib in Frameworks */,
-				B0B0FEAD2634C8C8008A63B6 /* libIlmImf.dylib in Frameworks */,
 				72FFE2D31D28A4D8008EA6C6 /* libtbbmalloc.dylib in Frameworks */,
 				B0B0FEA12634C886008A63B6 /* libIex.dylib in Frameworks */,
 			);
@@ -405,7 +397,7 @@
 		72A714B81CBB3FD300E5B321 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1170;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Charles-Felix";
 				TargetAttributes = {
 					72A714BF1CBB3FD300E5B321 = {
@@ -415,11 +407,11 @@
 			};
 			buildConfigurationList = 72A714BB1CBB3FD300E5B321 /* Build configuration list for PBXProject "FracRndr" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 72A714B71CBB3FD300E5B321;
 			productRefGroup = 72A714C11CBB3FD300E5B321 /* Products */;
@@ -563,6 +555,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -622,6 +615,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
