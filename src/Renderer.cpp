@@ -240,42 +240,50 @@ void Renderer::render() const
     m_film->writeImage(m_render_globals.m_output_file);
 }
 
-void Renderer::initFromFile(const std::string &scenefile_path)
+int Renderer::initFromFile(const std::string &scenefile_path)
 {
+    
     JsonParser parser;
-    // TODO: check if file exists - if not fail with error
-    parser.parse(scenefile_path);
+    int return_code = parser.parse(scenefile_path);
     
-    m_render_globals = *parser.getGlobals(); // all members are values, it's fine
-    m_camera = parser.getCamera();
-    m_film = parser.getFilm();
-    
-    // create the scene
-    // - add background
-    Scene::Ptr scene = std::make_shared<Scene>();
-    
-    scene->setBackground(parser.getBackground());
-    
-    // - create the primitive list
-    std::map<std::string, RenderPrimitive::Ptr> primitives = parser.getPrimitives();
-    PrimitiveList::Ptr plist = std::make_shared<PrimitiveList>();
-    for (auto it = primitives.begin(); it != primitives.end(); ++it)
+    if (return_code == 0)
     {
-        plist->addPrimitive(it->second);
+        m_render_globals = *parser.getGlobals(); // all members are values, it's fine
+        m_camera = parser.getCamera();
+        m_film = parser.getFilm();
+        
+        // create the scene
+        // - add background
+        Scene::Ptr scene = std::make_shared<Scene>();
+        
+        scene->setBackground(parser.getBackground());
+        
+        // - create the primitive list
+        std::map<std::string, RenderPrimitive::Ptr> primitives = parser.getPrimitives();
+        PrimitiveList::Ptr plist = std::make_shared<PrimitiveList>();
+        for (auto it = primitives.begin(); it != primitives.end(); ++it)
+        {
+            plist->addPrimitive(it->second);
+        }
+        
+        // - bind the materials
+        std::map<std::string, Material::Ptr> materials = parser.getMaterials();
+        std::map<std::string, std::string> material_table = parser.getMaterialTable();
+        
+        for (auto it = material_table.begin(); it != material_table.end(); ++it)
+        {
+            primitives[it->first]->setMaterial(materials[it->second]);
+        }
+        
+        // assign the primitive list
+        scene->setPrimitives(plist);
+        
+        // assign the scene
+        this->setScene(scene);
+        
+        return 0;
     }
     
-    // - bind the materials
-    std::map<std::string, Material::Ptr> materials = parser.getMaterials();
-    std::map<std::string, std::string> material_table = parser.getMaterialTable();
+    return 1;
     
-    for (auto it = material_table.begin(); it != material_table.end(); ++it)
-    {
-        primitives[it->first]->setMaterial(materials[it->second]);
-    }
-    
-    // assign the primitive list
-    scene->setPrimitives(plist);
-    
-    // assign the scene
-    this->setScene(scene);
 }

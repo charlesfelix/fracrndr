@@ -43,20 +43,40 @@ int JsonParser::parse(const std::string & filepath)
 {
     std::ifstream f = std::ifstream(filepath.c_str());
     
-    json j = json::parse(f);
-    
-    
-    std::cout << j.dump() << std::endl;
+    if (f.good())
     {
-        parseGlobals(j);
-        parseFilm(j);
-        parseCamera(j);
-        parseBackground(j);
-        parseMaterials(j);
-        parsePrimitives(j);
-        parseMaterialTable(j);
+        LOG(INFO) << "Parsing " << filepath;
+        try
+        {
+            json j = json::parse(f);
+        
+            std::cout << j.dump() << std::endl;
+            
+            {
+                parseGlobals(j);
+                parseFilm(j);
+                parseCamera(j);
+                parseBackground(j);
+                parseMaterials(j);
+                parsePrimitives(j);
+                parseMaterialTable(j);
+            }
+        
+        }
+        catch (std::exception & e)
+        {
+            LOG(ERROR) << "JsonParser::parse: parse error:" << std::endl;
+            LOG(ERROR) << e.what() << std::endl;
+            return 1;
+        }
     }
-    return -1;
+    else
+    {
+        LOG(ERROR) << "JsonParser::parse: Missing File: " << filepath << std::endl;
+        return 1;
+    }
+    
+    return 0;
 }
 
 void JsonParser::parseGlobals(const json & j)
@@ -80,6 +100,22 @@ void JsonParser::parseGlobals(const json & j)
         m_globals->m_aa = aa;
         m_globals->m_max_ray_depth = max_ray_depth;
         m_globals->m_output_file = outputfile;
+    
+        // check intputs
+        // - is output file valid
+        // - is aa valid
+        // - is max_ray_depth valid
+        std::fstream of = std::fstream(outputfile);
+        if (!of.good())
+        {
+            throw std::invalid_argument("JsonParser::parseGlobals:: output_file: invalid path");
+        }
+       
+        if (aa < 1)
+            throw std::invalid_argument("JsonParser::parseGlobals:: aa < 1. aa should be greater than 0");
+
+        if (max_ray_depth < 1)
+            throw std::invalid_argument("JsonParser::parseGlobals:: max_ray_depth < 1. aa should be greater than 0");
     }
     else
     {
@@ -112,6 +148,12 @@ void JsonParser::parseCamera(const json & j)
         LOG(INFO) << "\t near " << near;
         LOG(INFO) << "\t far " << far;
         
+        if (near > far)
+            throw std::invalid_argument("JsonParser::parseCamera:: near should be greater than far");
+
+        if (near < 0.001f)
+            throw std::invalid_argument("JsonParser::parseCamera:: near should be greater than 0.001f");
+        
         m_camera = std::make_shared<Camera>(focal,aperture,aspect_ratio,near,far);
         m_camera->setPosition(position);
         M44f xform = m_camera->getTransform();
@@ -139,6 +181,11 @@ void JsonParser::parseFilm(const json & j)
         LOG(INFO) << "film";
         LOG(INFO) << "\t width " << width;
         LOG(INFO) << "\t height " << height;
+
+        if (width < 1)
+            throw std::invalid_argument("JsonParser::parseFilm:: invalid width, should be greater than 1");
+        if (height < 1)
+            throw std::invalid_argument("JsonParser::parseFilm:: invalid height, should be greater than 1");
         
         m_film = std::make_shared<Film>(width,height);
     }
@@ -160,15 +207,24 @@ void JsonParser::parseBackground(const json & j)
         LOG(INFO) << "background";
         LOG(INFO) << "\t " << imagefile;
         
-        ImageBuffer::Ptr imgbuf_ptr = nullptr;
-        ImageTexture::Ptr imgtex_ptr = nullptr;
-        if (imagefile != "noimage")
+        // check if the imagefile exists
+        std::ifstream f = std::ifstream(imagefile);
+        if (f.good())
         {
-            imgbuf_ptr = std::make_shared<ImageBuffer>(1,1);
-            ImageFileExr().read(imagefile,*imgbuf_ptr);
-            imgtex_ptr = std::make_shared<ImageTexture>(imgbuf_ptr);
+            ImageBuffer::Ptr imgbuf_ptr = nullptr;
+            ImageTexture::Ptr imgtex_ptr = nullptr;
+            if (imagefile != "noimage")
+            {
+                imgbuf_ptr = std::make_shared<ImageBuffer>(1,1);
+                ImageFileExr().read(imagefile,*imgbuf_ptr);
+                imgtex_ptr = std::make_shared<ImageTexture>(imgbuf_ptr);
+            }
+            m_bg = std::make_shared<Background>(imgtex_ptr,color);
         }
-        m_bg = std::make_shared<Background>(imgtex_ptr,color);
+        else
+        {
+            throw std::invalid_argument("JsonParser::parseBackground:: invalid background image path.");
+        }
     }
     else
     {

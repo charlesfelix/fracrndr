@@ -56,7 +56,7 @@ namespace Fr
         
         void outputProgress(float progress) const;
         
-        void initFromFile(const std::string & scenefile);
+        int initFromFile(const std::string & scenefile);
     private:
         
         RenderGlobals m_render_globals;

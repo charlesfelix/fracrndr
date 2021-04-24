@@ -126,12 +126,12 @@ int main(int argc, const char * argv[]) {
 #endif
     
 #if 1
-    std::string filepath = "/Users/charles-felix/Documents/Development/fracrndr/scenes/scene_bvh.json";
+    std::string filepath = "/Users/charlesfelix/Documents/Development/GitHub/fracrndr/scenes/scene_2_spheres.json";
 
     Renderer ren;
-    ren.initFromFile(filepath);
-    
-    ren.render();
+    int return_code = ren.initFromFile(filepath);
+    if (return_code == 0)
+        ren.render();
 #endif
     
     testBVH();
