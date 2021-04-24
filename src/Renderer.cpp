@@ -99,7 +99,7 @@ C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitive::ConstPtr & primitives,
     ++rs.num_rays;
     
     // check ray termination
-    if (r.depth> m_render_globals.m_max_ray_depth ) return C4f(0.f,0.f,0.f,0.f);
+    if (r.depth > m_render_globals.m_max_ray_depth ) return C4f(0.f,0.f,0.f,0.f);
     
     // handle ray hi
     HitRecord hit_record;
@@ -125,13 +125,13 @@ C4f Renderer::Li(const Fr::Ray &r, const RenderPrimitive::ConstPtr & primitives,
     }
 }
 
-C4f Renderer::LiNR(const Fr::Ray &r, const RenderPrimitive::ConstPtr & primitives, const Background &bg, RenderStats & rs, Sampler &sampler) const {
+int Renderer::LiNR(const Fr::Ray &r, const RenderPrimitive::ConstPtr & primitives, const Background &bg, RenderStats & rs, Sampler &sampler, RenderChannels & channels) const {
     
     Fr::Ray current_ray = r;
     C3f attenuation_array[10];
     C3f * current_attenuation = &attenuation_array[0];
     C4f current_color = C4f(0,0,0,0);
-    
+    C3f current_normal;
     bool keep_going = true;
     
     while (keep_going)
@@ -151,6 +151,13 @@ C4f Renderer::LiNR(const Fr::Ray &r, const RenderPrimitive::ConstPtr & primitive
                 Ray ray_scattered;
                 C3f attenuation;
                 Real pdf =1.;
+                
+                if (current_ray.depth == 0)
+                {
+                    channels.normal = hit_record.normal;
+                    channels.depth = hit_record.t; // FIXME: this needs to be transformed to distance to camera
+                }
+                
                 if (hit_record.material!=nullptr && hit_record.material->scatter(current_ray, hit_record, attenuation, ray_scattered, sampler,pdf))
                 {
                      *current_attenuation++ = attenuation/pdf;
@@ -172,7 +179,8 @@ C4f Renderer::LiNR(const Fr::Ray &r, const RenderPrimitive::ConstPtr & primitive
         color_out *= C4f((*current_attenuation)[0],(*current_attenuation)[1],(*current_attenuation)[2],1.f);
     }
     
-    return color_out;
+    channels.color = color_out;
+    return 0;
     
 }
 
@@ -204,9 +212,9 @@ void Renderer::render() const
     tbb::parallel_for(size_t(0), size_t(h), size_t(1),[&](size_t y) {
     
         Sampler sampler(static_cast<unsigned>(1212*y+121233));
-        
         for (size_t x = 0; x < w; ++x)
         {
+            RenderChannels channels;
             C4f c(0.f,0.f,0.f,1.f);
             const V2f ndc((x+.5f)*w_step,(y+.5f)*h_step);
             for (size_t s = 0; s < n_samples; ++s)
@@ -218,10 +226,22 @@ void Renderer::render() const
                 
                 Ray r = m_camera->unproject(ndc+sample_offset);
                 
-                c += this->LiNR(r,m_scene->getPrimitives(),*(m_scene->getBackground()),local_stats[y], sampler);
+                RenderChannels _c;
+                this->LiNR(r,m_scene->getPrimitives(),*(m_scene->getBackground()),local_stats[y], sampler, _c);
+                
+                // accumulate the channels
+                // color is additive
+                // normals and depth is closest sample filter
+                channels.color += _c.color;
+                if (_c.depth < channels.depth)
+                {
+                    channels.normal = _c.normal;
+                    channels.depth = _c.depth;
+                }
             }
-            c *= avger;
-            m_film->addSample(x, h-y-1, c);
+                        
+            channels.color *= avger;
+            m_film->addSample(x, h-y-1, channels.color, channels.normal, channels.depth);
         }
         
         

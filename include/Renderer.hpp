@@ -29,7 +29,14 @@ namespace Fr
     public:
         RenderStats():num_rays(0){};
         unsigned long num_rays;
-        
+    };
+
+    struct RenderChannels {
+        RenderChannels():color(C4f(0.f,0.f,0.f,0.f)), normal(0.f), matid(0), depth(999999999999999999999999.f){};
+        C4f color;
+        C3f normal;
+        unsigned matid;
+        Real depth;
     };
     
     class Renderer
@@ -50,7 +57,8 @@ namespace Fr
         void setScene(const Scene::Ptr &scene);
         
         C4f Li(const Ray & r,const RenderPrimitive::ConstPtr & primitives, const Background & bg, RenderStats & rs, Sampler & sampler) const;
-        C4f LiNR(const Ray & r,const RenderPrimitive::ConstPtr & primitives, const Background & bg, RenderStats & rs, Sampler & sampler) const;
+        
+        int LiNR(const Ray & r,const RenderPrimitive::ConstPtr & primitives, const Background & bg, RenderStats & rs, Sampler & sampler, RenderChannels & channels) const;
 
         void render() const;
         

@@ -25,7 +25,7 @@ namespace Fr
         
         Film(size_t xres, size_t yres);
         
-        void addSample(Real x, Real y, const C4f & color);
+        void addSample(Real x, Real y, const C4f& color, const C3f& normal, float depth);
         
         bool writeImage(const std::string & filepath) const;
         
@@ -37,6 +37,8 @@ namespace Fr
         Film(const Film&);
         
         ImageBuffer::Ptr m_imagebuffer;
+        ImageBuffer::Ptr m_aovbuffer_1;
+        
     }; // Film
 
 } // Fr
