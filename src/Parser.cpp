@@ -5,12 +5,12 @@
 //  Created by Charles-Felix on 10/23/16.
 //  Copyright © 2016 Charles-Felix. All rights reserved.
 //
-
+ 
 #include <fstream>
 #include <string>
 #include "json.hpp"
-//#include <glog/logging.h>
 #include "easylogging++.h"
+#include "tinyobjloader.hpp"
 
 #include "Parser.hpp"
 #include "ImageBuffer.hpp"
@@ -18,7 +18,6 @@
 #include "Sphere.hpp"
 #include "TriMesh.hpp"
 
-#include "tinyobjloader.hpp"
 
 
 using namespace Fr;
@@ -362,52 +361,61 @@ void JsonParser::parsePrimitives(const json & j)
                     JSONGETF3(it,position,0,0.0f,0.f);
                     JSONGETF(it,scale,1.f);
                     
-                    tinyobj::ObjReaderConfig config;
-                    config.triangulate = true;
-                    config.vertex_color = false;
-                    
-                    tinyobj::ObjReader reader;
-                    std::string fn = filename;
-                    reader.ParseFromFile(fn, config);
-                    const std::vector<tinyobj::shape_t> & shapes = reader.GetShapes();
-                    
-                    const tinyobj::attrib_t attrs = reader.GetAttrib();
-                    const size_t npoints = attrs.GetVertices().size() / 3;
-                    std::vector<V3f> positions;
-                    positions.resize(npoints);
-                    auto pos_it = positions.begin();
-                    for (size_t i = 0; i < npoints; ++i)
+                    // check that the filename exists
+                    std::fstream f = std::fstream(filename);
+                    if (f.good())
                     {
-                        V3f p;
-                        p.x = attrs.GetVertices()[i*3];
-                        p.y = attrs.GetVertices()[i*3+1];
-                        p.z = attrs.GetVertices()[i*3+2];
-                        *pos_it++ = p*scale + position;
-                    }
-                    
-                    for (auto & s : shapes)
-                    {
-                        LOG(INFO) << "shape name: " << s.name;
-                        tinyobj::mesh_t m = s.mesh;
+                        tinyobj::ObjReaderConfig config;
+                        config.triangulate = true;
+                        config.vertex_color = false;
                         
+                        tinyobj::ObjReader reader;
+                        std::string fn = filename;
+                        reader.ParseFromFile(fn, config);
+                        const std::vector<tinyobj::shape_t> & shapes = reader.GetShapes();
+                        
+                        const tinyobj::attrib_t attrs = reader.GetAttrib();
+                        const size_t npoints = attrs.GetVertices().size() / 3;
+                        std::vector<V3f> positions;
+                        positions.resize(npoints);
+                        auto pos_it = positions.begin();
+                        for (size_t i = 0; i < npoints; ++i)
+                        {
+                            V3f p;
+                            p.x = attrs.GetVertices()[i*3];
+                            p.y = attrs.GetVertices()[i*3+1];
+                            p.z = attrs.GetVertices()[i*3+2];
+                            *pos_it++ = p*scale + position;
+                        }
+                        
+                        for (auto & s : shapes)
+                        {
+                            LOG(INFO) << "shape name: " << s.name;
+                            tinyobj::mesh_t m = s.mesh;
+                            
+                        }
+                        std::vector<unsigned> triangles;
+                        triangles.resize(shapes[0].mesh.indices.size());
+                        auto t_it = triangles.begin();
+                        for (auto & i: shapes[0].mesh.indices)
+                        {
+                            *t_it++ = static_cast<unsigned>(i.vertex_index);
+                        }
+                        
+                        
+                        std::vector<V3f> normals;
+                        std::vector<V3f> uvs;
+                        
+                        TriangleMesh * mesh = new TriangleMesh(positions,uvs,normals,triangles);
+                        mesh->recomputeNormals();
+                        RenderPrimitive::Ptr prim_ptr =
+                            RenderPrimitive::Ptr( mesh );
+                        m_primitives[primitive_tag] = prim_ptr;
                     }
-                    std::vector<unsigned> triangles;
-                    triangles.resize(shapes[0].mesh.indices.size());
-                    auto t_it = triangles.begin();
-                    for (auto & i: shapes[0].mesh.indices)
+                    else
                     {
-                        *t_it++ = static_cast<unsigned>(i.vertex_index);
+                        throw std::invalid_argument("JsonParser::parsePrimitive: invalid trimesh file");
                     }
-                    
-                    
-                    std::vector<V3f> normals;
-                    std::vector<V3f> uvs;
-                    
-                    TriangleMesh * mesh = new TriangleMesh(positions,uvs,normals,triangles);
-                    mesh->recomputeNormals();
-                    RenderPrimitive::Ptr prim_ptr =
-                        RenderPrimitive::Ptr( mesh );
-                    m_primitives[primitive_tag] = prim_ptr;
                 }
                 else
                 {

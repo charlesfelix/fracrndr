@@ -6,8 +6,12 @@
 //  Copyright © 2016 Charles-Felix. All rights reserved.
 //
 
+#pragma clang diagnostic ignored "-W#pragma-messages"
+#pragma clang diagnostic ignored "-Wcomma"
 #include <tbb/tbb.h>
 #include <tbb/mutex.h>
+#pragma pop
+#pragma pop
 
 #include "Renderer.hpp"
 #include "Material.hpp"
@@ -199,7 +203,7 @@ void Renderer::render() const
     // we are going to keep count of the stats per tasks elements (rows)
     tbb::parallel_for(size_t(0), size_t(h), size_t(1),[&](size_t y) {
     
-        Sampler sampler(1212*y+121233);
+        Sampler sampler(static_cast<unsigned>(1212*y+121233));
         
         for (size_t x = 0; x < w; ++x)
         {

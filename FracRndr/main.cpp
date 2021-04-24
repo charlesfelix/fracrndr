@@ -13,8 +13,8 @@
 //TODO: Texture Filtering
 //TODO: plugins http://www.boost.org/doc/libs/1_65_1/doc/html/boost_dll/tutorial.html
 
-#include <OpenImageIO/imageio.h>
-#include <OpenImageIO/imagebuf.h>
+//#include <OpenImageIO/imageio.h>
+//#include <OpenImageIO/imagebuf.h>
 
 #ifdef GLOG
     #include <glog/logging.h>

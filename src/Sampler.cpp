@@ -75,7 +75,6 @@ V3f SamplerXorS::sampleHemisphereCosine() const
     const float r2 = random();
     float y = sqrtf(1 - r2);
     float sqrtr2 = sqrtf(r2);
-    float tmp = sqrt(r2);
     float phi = 2 * M_PI * r1;
     float x = sqrtr2 * cosf(phi);
     float z = sqrtr2 * sinf(phi);
