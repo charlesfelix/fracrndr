@@ -54,8 +54,15 @@ bool TriangleMesh::Triangle::hit(const Fr::Ray &r, Real tmin, Real tmax, Fr::Hit
     {
         hit_record.t = t;
         hit_record.position = r.positionAt(t);
-        hit_record.normal = m_mesh->normal(m_idx,0); // TODO: compute barycentric interpolation
         hit_record.material = m_mesh->m_material.get();
+        assert(hit_record.material != nullptr);
+        
+        // interp normals
+        V3f n0 = m_mesh->normal(m_idx,0);
+        V3f n1 = m_mesh->normal(m_idx,1);
+        V3f n2 = m_mesh->normal(m_idx,2);
+        
+        hit_record.normal = beta * n1 + gamma * n2 + (1.0 - beta - gamma)*n0;
     }
     return has_hit;
 }
@@ -63,11 +70,6 @@ bool TriangleMesh::Triangle::hit(const Fr::Ray &r, Real tmin, Real tmax, Fr::Hit
 const Box3f & TriangleMesh::Triangle::getBounds() const
 {
     return m_bounds;
-}
-
-TriangleMesh::~TriangleMesh()
-{
-    return;
 }
 
 // TODO: bad design figure out a way to make this better.
@@ -85,6 +87,10 @@ TriangleMesh::TriangleMesh( const std::vector<V3f> & positions, const std::vecto
     m_triangles = triangles;
 }
 
+TriangleMesh::~TriangleMesh()
+{
+}
+
 TriangleMesh::Triangle TriangleMesh::triangle(size_t idx) const
 {
     return TriangleMesh::Triangle(this,idx);
@@ -96,27 +102,51 @@ const V3f & TriangleMesh::position(size_t triangle_idx, unsigned int vertex_idx)
 
 
 const V3f & TriangleMesh::normal(size_t triangle_idx, unsigned int vertex_idx) const{
-    return m_normals[triangle_idx*3 + vertex_idx];
+    assert(vertex_idx < 3);
+    assert(triangle_idx*3 + vertex_idx < m_triangles.size());
+    return m_normals[m_triangles[triangle_idx*3 + vertex_idx]];
 }
 
 
 void TriangleMesh::recomputeNormals()
 {
     m_normals.clear();
-    m_normals.resize(numTriangles()*3);
-    const size_t n = numTriangles();
-    for (size_t i = 0; i < n; ++i)
+    const size_t num_tris = numTriangles();
+    m_normals.resize( m_positions.size(), V3f(0));
+    std::vector<size_t> counts;
+    
+    counts.resize( m_positions.size() , 0);
+    
+    for (size_t tri_idx = 0; tri_idx < num_tris; ++tri_idx)
     {
-        V3f c = (position(i,1)-position(i,0)).cross(position(i,2)-position(i,0));
-        c = c.normalize();
-        m_normals[i*3]=m_normals[i*3+1]=m_normals[i*3+2]=c;
+        V3f n = (position(tri_idx,1)-position(tri_idx,0)).cross(position(tri_idx,2)-position(tri_idx,0));
+        
+        n = n.normalize();
+        
+        const size_t offset = tri_idx*3;
+        
+        m_normals[m_triangles[offset]] += n;
+        counts[m_triangles[offset]]++;
+        
+        m_normals[m_triangles[offset+1]] += n;
+        counts[m_triangles[offset+1]]++;
+        
+        m_normals[m_triangles[offset+2]] += n;
+        counts[m_triangles[offset+2]]++;
+    }
+    
+    auto n_it = m_normals.begin();
+    auto c_it = counts.begin();
+    for ( ; n_it != m_normals.end() ; ++n_it, ++c_it)
+    {
+        *n_it /= *c_it;
     }
 }
 
 bool TriangleMesh::hit(const Fr::Ray &r, Real tmin, Real tmax, Fr::HitRecord &hit_record) const
 {
     const size_t ntris = numTriangles();
-    Real closest_t, closest_beta, closest_gamma;
+    Real closest_t, closest_beta = 1.0, closest_gamma = 1.0;
     V3f closest_normal;
     closest_t = FLT_MAX;
     
@@ -126,6 +156,7 @@ bool TriangleMesh::hit(const Fr::Ray &r, Real tmin, Real tmax, Fr::HitRecord &hi
     for (unsigned i = 0; i < ntris; ++i)
     {
         Real t, beta, gamma;
+        
         bool intersect = intersectTriangle(r, position(i,0), position(i,1), position(i,2), r.mint, r.maxt, t, beta, gamma);
         
         has_hit = has_hit || intersect;
@@ -145,8 +176,14 @@ bool TriangleMesh::hit(const Fr::Ray &r, Real tmin, Real tmax, Fr::HitRecord &hi
         closest_normal = normal(closest_tri,0); // compute barycentric interpolation
         hit_record.t = closest_t;
         hit_record.position = r.positionAt(closest_t);
-        hit_record.normal = closest_normal;
         hit_record.material = this->m_material.get();
+
+        // interp normals
+        V3f n0 = this->normal(closest_tri,0);
+        V3f n1 = this->normal(closest_tri,1);
+        V3f n2 = this->normal(closest_tri,2);
+        
+        hit_record.normal = closest_beta * n1 + closest_gamma * n2 + (1.0 - closest_beta - closest_gamma)*n0;
     }
     
     return has_hit;

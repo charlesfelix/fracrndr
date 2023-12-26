@@ -20,6 +20,7 @@ namespace Fr
         SamplerS(unsigned long seed = 11212);
         SamplerS(const SamplerS & sampler):m_seed(sampler.m_seed+3),m_random(FR_RAND48(sampler.m_seed+3)){}
         V3f sampleUnitSphere() const;
+        V3f sampleHemisphere() const;
         float random() const;
     private:
         SamplerS();
@@ -39,7 +40,7 @@ namespace Fr
         mutable unsigned int m_state;
     };
     
-    typedef SamplerXorS Sampler;
+    typedef SamplerS Sampler;
     
 
 } // namespace Fr

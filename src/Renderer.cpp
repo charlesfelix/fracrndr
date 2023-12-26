@@ -9,7 +9,8 @@
 #pragma clang diagnostic ignored "-W#pragma-messages"
 #pragma clang diagnostic ignored "-Wcomma"
 #include <tbb/tbb.h>
-#include <tbb/mutex.h>
+#include <tbb/global_control.h>
+#include <mutex>
 #pragma pop
 #pragma pop
 
@@ -31,10 +32,9 @@ RenderGlobals::RenderGlobals():m_aa(1),m_max_ray_depth(4),m_output_file("/tmp/re
 void Renderer::outputProgress(float progress) const
 {
     
-    static tbb::mutex mutx;
-    tbb::mutex::scoped_lock lock;
+    static std::mutex mutx;
+    std::lock_guard<std::mutex> lock(mutx);
     
-    lock.acquire(mutx);
     {
         int barWidth = 70;
         int pos = barWidth * progress;
@@ -45,10 +45,9 @@ void Renderer::outputProgress(float progress) const
             else if (i == pos) std::cout << ">";
             else std::cout << " ";
         }
-        std::cout << "] " << int(progress * 100.0) << " %\r";
-        std::cout.flush();
+        std::cout << "] " << int(progress * 100.0) << " \r" << std::flush;
+        
     }
-    lock.release();
 }
 
 Renderer::Renderer()
@@ -133,7 +132,7 @@ int Renderer::LiNR(const Fr::Ray &r, const RenderPrimitive::ConstPtr & primitive
     C4f current_color = C4f(0,0,0,0);
     C3f current_normal;
     bool keep_going = true;
-    
+    float opacity = 1.f;
     while (keep_going)
     {
         // increment the ray counter
@@ -156,6 +155,7 @@ int Renderer::LiNR(const Fr::Ray &r, const RenderPrimitive::ConstPtr & primitive
                 {
                     channels.normal = hit_record.normal;
                     channels.depth = hit_record.t; // FIXME: this needs to be transformed to distance to camera
+                    channels.num_hits_accel = hit_record.num_hits_accel;
                 }
                 
                 if (hit_record.material!=nullptr && hit_record.material->scatter(current_ray, hit_record, attenuation, ray_scattered, sampler,pdf))
@@ -163,6 +163,10 @@ int Renderer::LiNR(const Fr::Ray &r, const RenderPrimitive::ConstPtr & primitive
                      *current_attenuation++ = attenuation/pdf;
                     current_ray = ray_scattered;
                 }
+            }
+            else if (current_ray.depth == 0)
+            {
+                opacity = 0.f;
             }
         }
     }
@@ -174,12 +178,13 @@ int Renderer::LiNR(const Fr::Ray &r, const RenderPrimitive::ConstPtr & primitive
     current_color = c;
     C4f color_out = current_color;
     
-     while (current_attenuation-- > &attenuation_array[0])
+    while (current_attenuation-- > &attenuation_array[0])
     {
         color_out *= C4f((*current_attenuation)[0],(*current_attenuation)[1],(*current_attenuation)[2],1.f);
     }
-    
+    color_out.a = opacity;
     channels.color = color_out;
+    
     return 0;
     
 }
@@ -197,11 +202,14 @@ void Renderer::render() const
     V2f ndc(0.f,0.f);
     const float avger = 1.f/float(n_samples);
     const float progress_increment = 1.f/float(h/10);
-    tbb::atomic<float> progress = 0.f;
-    
-#define FORCE_SINGLE_THREAD 0
+    std::atomic<float> progress(0.f);
+
+#ifndef FORCE_SINGLE_THREAD
+    #define FORCE_SINGLE_THREAD 0
+#endif
 #if FORCE_SINGLE_THREAD
-    tbb::task_scheduler_init init(1);
+    int max_threads = 1;  // Set your desired maximum number of threads
+    tbb::global_control gc(tbb::global_control::max_allowed_parallelism, max_threads);
 #endif
     
     Timer timer;
@@ -220,9 +228,11 @@ void Renderer::render() const
             for (size_t s = 0; s < n_samples; ++s)
             {
                 V2f sample_offset;
+                Real rx = sampler.random()*2.f;
+                Real ry = sampler.random()*2.f;
                 
-                sample_offset.x = (sampler.random()*2.f-1.f)*w_step*0.5f;
-                sample_offset.y = (sampler.random()*2.f-1.f)*w_step*0.5f;
+                sample_offset.x = (rx-1.f)*w_step*0.5f;
+                sample_offset.y = (ry-1.f)*w_step*0.5f;
                 
                 Ray r = m_camera->unproject(ndc+sample_offset);
                 
@@ -296,7 +306,8 @@ int Renderer::initFromFile(const std::string &scenefile_path)
         
         for (auto it = material_table.begin(); it != material_table.end(); ++it)
         {
-            primitives[it->first]->setMaterial(materials[it->second]);
+            if (primitives.find(it->first) != primitives.end())
+                primitives[it->first]->setMaterial(materials[it->second]);
         }
         
         // assign the primitive list

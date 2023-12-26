@@ -52,28 +52,24 @@
 		72D9F76E1DBD532C005451FC /* Sampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75E1DBD532C005451FC /* Sampler.cpp */; };
 		72D9F76F1DBD532C005451FC /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F75F1DBD532C005451FC /* Sphere.cpp */; };
 		72D9F7721DBD540C005451FC /* Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72D9F7701DBD540C005451FC /* Parser.cpp */; };
-		72E2A3951DC9AE1600BC2B78 /* libglog.0.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E2A3941DC9AE1600BC2B78 /* libglog.0.4.0.dylib */; };
 		72F1BB57208C18A7009EDFE4 /* BVH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72F1BB56208C18A7009EDFE4 /* BVH.cpp */; };
 		72FFE2D11D28A4D8008EA6C6 /* libtbb.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72FFE2CE1D28A4D8008EA6C6 /* libtbb.dylib */; };
 		72FFE2D21D28A4D8008EA6C6 /* libtbbmalloc_proxy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72FFE2CF1D28A4D8008EA6C6 /* libtbbmalloc_proxy.dylib */; };
 		72FFE2D31D28A4D8008EA6C6 /* libtbbmalloc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72FFE2D01D28A4D8008EA6C6 /* libtbbmalloc.dylib */; };
-		B028D84325ECA75B0010547F /* libIlmImfUtil.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B028D84225ECA75B0010547F /* libIlmImfUtil.dylib */; };
 		B028D84425ECA75B0010547F /* libIlmImfUtil.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B028D84225ECA75B0010547F /* libIlmImfUtil.dylib */; };
-		B028D84825ECA7650010547F /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B028D84725ECA7650010547F /* libIlmImf.dylib */; };
 		B028D84925ECA7650010547F /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B028D84725ECA7650010547F /* libIlmImf.dylib */; };
 		B0B0FE8F2634C295008A63B6 /* easylogging++.cc in Sources */ = {isa = PBXBuildFile; fileRef = B0B0FE8E2634C294008A63B6 /* easylogging++.cc */; settings = {COMPILER_FLAGS = "-Wno-range-loop-analysis"; }; };
-		B0B0FEA12634C886008A63B6 /* libIex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEA02634C886008A63B6 /* libIex.dylib */; };
 		B0B0FEA22634C886008A63B6 /* libIex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEA02634C886008A63B6 /* libIex.dylib */; };
-		B0B0FEA42634C895008A63B6 /* libIexMath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEA32634C895008A63B6 /* libIexMath.dylib */; };
 		B0B0FEA52634C895008A63B6 /* libIexMath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEA32634C895008A63B6 /* libIexMath.dylib */; };
-		B0B0FEA72634C8A0008A63B6 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEA62634C8A0008A63B6 /* libIlmImf.dylib */; };
 		B0B0FEA82634C8A0008A63B6 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEA62634C8A0008A63B6 /* libIlmImf.dylib */; };
 		B0B0FEAA2634C8AF008A63B6 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEA92634C8AF008A63B6 /* libIlmThread.dylib */; };
 		B0B0FEAB2634C8AF008A63B6 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEA92634C8AF008A63B6 /* libIlmThread.dylib */; };
-		B0B0FEB32634C8FA008A63B6 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEB22634C8FA008A63B6 /* libHalf.dylib */; };
 		B0B0FEB42634C8FA008A63B6 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEB22634C8FA008A63B6 /* libHalf.dylib */; };
-		B0B0FEB82634CA2E008A63B6 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEB72634CA2E008A63B6 /* libImath.dylib */; };
 		B0B0FEB92634CA2E008A63B6 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B0FEB72634CA2E008A63B6 /* libImath.dylib */; };
+		B0DBD7172AD36BA9006108EA /* libglog.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBD7162AD36BA9006108EA /* libglog.dylib */; };
+		B0DBD71B2AD36C2B006108EA /* libOpenEXR.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBD71A2AD36C2B006108EA /* libOpenEXR.dylib */; };
+		B0DBD71E2AD36CA0006108EA /* libOpenEXRUtil.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBD71D2AD36CA0006108EA /* libOpenEXRUtil.dylib */; };
+		B0DBD7242AD374BB006108EA /* libImath-3_1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBD7232AD374BB006108EA /* libImath-3_1.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -157,6 +153,7 @@
 		72FFE2D01D28A4D8008EA6C6 /* libtbbmalloc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtbbmalloc.dylib; path = ../../../../../../usr/local/Cellar/tbb/2020_U3/lib/libtbbmalloc.dylib; sourceTree = "<group>"; };
 		B028D84225ECA75B0010547F /* libIlmImfUtil.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIlmImfUtil.dylib; path = ../../../../../../usr/local/Cellar/openexr/2.5.5/lib/libIlmImfUtil.dylib; sourceTree = "<group>"; };
 		B028D84725ECA7650010547F /* libIlmImf.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIlmImf.dylib; path = ../../../../../../usr/local/Cellar/openexr/2.5.5/lib/libIlmImf.dylib; sourceTree = "<group>"; };
+		B0A3F1212635C532000F3201 /* scene_furnace_test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = scene_furnace_test.json; sourceTree = "<group>"; };
 		B0B0FE8E2634C294008A63B6 /* easylogging++.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "easylogging++.cc"; sourceTree = "<group>"; };
 		B0B0FEA02634C886008A63B6 /* libIex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIex.dylib; path = ../../../../../../usr/local/lib/libIex.dylib; sourceTree = "<group>"; };
 		B0B0FEA32634C895008A63B6 /* libIexMath.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIexMath.dylib; path = ../../../../../../usr/local/lib/libIexMath.dylib; sourceTree = "<group>"; };
@@ -166,6 +163,10 @@
 		B0B0FEAF2634C8D1008A63B6 /* libIlmThread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIlmThread.dylib; path = ../../../../../../usr/local/lib/libIlmThread.dylib; sourceTree = "<group>"; };
 		B0B0FEB22634C8FA008A63B6 /* libHalf.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libHalf.dylib; path = ../../../../../../usr/local/lib/libHalf.dylib; sourceTree = "<group>"; };
 		B0B0FEB72634CA2E008A63B6 /* libImath.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libImath.dylib; path = ../../../../../../usr/local/lib/libImath.dylib; sourceTree = "<group>"; };
+		B0DBD7162AD36BA9006108EA /* libglog.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglog.dylib; path = ../../../../../../usr/local/lib/libglog.dylib; sourceTree = "<group>"; };
+		B0DBD71A2AD36C2B006108EA /* libOpenEXR.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libOpenEXR.dylib; path = ../../../../../../usr/local/lib/libOpenEXR.dylib; sourceTree = "<group>"; };
+		B0DBD71D2AD36CA0006108EA /* libOpenEXRUtil.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libOpenEXRUtil.dylib; path = ../../../../../../usr/local/lib/libOpenEXRUtil.dylib; sourceTree = "<group>"; };
+		B0DBD7232AD374BB006108EA /* libImath-3_1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libImath-3_1.dylib"; path = "../../../../../../usr/local/lib/libImath-3_1.dylib"; sourceTree = "<group>"; };
 		B0E9F286256206A7002C4E5D /* scene_2_spheres.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = scene_2_spheres.json; sourceTree = "<group>"; };
 		B0E9F287256206B5002C4E5D /* scene_bvh.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = scene_bvh.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,18 +195,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0B0FEB32634C8FA008A63B6 /* libHalf.dylib in Frameworks */,
-				72E2A3951DC9AE1600BC2B78 /* libglog.0.4.0.dylib in Frameworks */,
-				B028D84825ECA7650010547F /* libIlmImf.dylib in Frameworks */,
+				B0DBD71B2AD36C2B006108EA /* libOpenEXR.dylib in Frameworks */,
 				B0B0FEAA2634C8AF008A63B6 /* libIlmThread.dylib in Frameworks */,
 				72FFE2D11D28A4D8008EA6C6 /* libtbb.dylib in Frameworks */,
 				72FFE2D21D28A4D8008EA6C6 /* libtbbmalloc_proxy.dylib in Frameworks */,
-				B0B0FEA42634C895008A63B6 /* libIexMath.dylib in Frameworks */,
-				B0B0FEA72634C8A0008A63B6 /* libIlmImf.dylib in Frameworks */,
-				B0B0FEB82634CA2E008A63B6 /* libImath.dylib in Frameworks */,
-				B028D84325ECA75B0010547F /* libIlmImfUtil.dylib in Frameworks */,
+				B0DBD7242AD374BB006108EA /* libImath-3_1.dylib in Frameworks */,
+				B0DBD7172AD36BA9006108EA /* libglog.dylib in Frameworks */,
 				72FFE2D31D28A4D8008EA6C6 /* libtbbmalloc.dylib in Frameworks */,
-				B0B0FEA12634C886008A63B6 /* libIex.dylib in Frameworks */,
+				B0DBD71E2AD36CA0006108EA /* libOpenEXRUtil.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +236,7 @@
 				720A4D4A23808C02002CD4DF /* ScratchPad */,
 				720A4D9F23808E83002CD4DF /* FracRndr */,
 				72A714C11CBB3FD300E5B321 /* Products */,
+				B0DBD7152AD36BA9006108EA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -288,6 +286,7 @@
 		72E007451DD1B4EA00FF9F81 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				B0A3F1212635C532000F3201 /* scene_furnace_test.json */,
 				B0E9F287256206B5002C4E5D /* scene_bvh.json */,
 				B0E9F286256206A7002C4E5D /* scene_2_spheres.json */,
 				720A4DA12381FB66002CD4DF /* scene3.json */,
@@ -352,6 +351,17 @@
 				72CDBA6C1DEA47C000E9486C /* Texture.hpp */,
 			);
 			path = include;
+			sourceTree = "<group>";
+		};
+		B0DBD7152AD36BA9006108EA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B0DBD7232AD374BB006108EA /* libImath-3_1.dylib */,
+				B0DBD71D2AD36CA0006108EA /* libOpenEXRUtil.dylib */,
+				B0DBD71A2AD36C2B006108EA /* libOpenEXR.dylib */,
+				B0DBD7162AD36BA9006108EA /* libglog.dylib */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -567,7 +577,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				EXCLUDED_ARCHS = arm64;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = ansi;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -627,7 +637,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXCLUDED_ARCHS = arm64;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = ansi;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -654,9 +664,10 @@
 					"$(SRCROOT)/include",
 					/usr/local/include/,
 					/usr/local/include/OpenEXR,
+					/usr/local/include/Imath,
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -671,9 +682,10 @@
 					"$(SRCROOT)/include",
 					/usr/local/include/,
 					/usr/local/include/OpenEXR,
+					/usr/local/include/Imath,
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

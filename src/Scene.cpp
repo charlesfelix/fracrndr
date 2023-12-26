@@ -7,6 +7,7 @@
 //
 
 #include "Scene.hpp"
+#include "TriMesh.hpp"
 #include "BVH.hpp"
 #include "easylogging++.h"
 
@@ -39,11 +40,13 @@ bool Scene::hit(const Ray & ray, HitRecord & hit_record) const
 
 void Scene::setPrimitives(RenderPrimitive::ConstPtr primitives)
 {
-    // TODO: create the BVH from all the primitives in the primitive lists
+    // because we're using shared pointers we don't want to loose ownership
+    // TODO: poor design, fix it.
+    m_primitives_owner = primitives;
+    
     std::vector<RenderPrimitive::ConstPtr> prims;
     primitives->getSubPrimitives(prims);
     
-    // make BVH
     PrimitiveList::Ptr list = std::make_shared<PrimitiveList>();
     
     for (auto p: prims)
@@ -51,23 +54,11 @@ void Scene::setPrimitives(RenderPrimitive::ConstPtr primitives)
         RenderPrimitive::Ptr _p = std::const_pointer_cast<RenderPrimitive>(p);
         list->addPrimitive(_p);
     }
-    
-    RenderPrimitive::ConstPtr root = std::make_shared<BVHNode>(prims,0,prims.size());
 
-    //m_primitives = root;
-    m_primitives = primitives;
+    RenderPrimitive::ConstPtr root = std::make_shared<BVHNode>(prims, 0, prims.size() - 1);
+
+    m_primitives = root;
     m_accelerator = root;
-
-    // dump all bounds
-    std::vector<Box3f> all_bounds;
-    dynamic_cast<const BVHNode*>(root.get())->getAllBounds(all_bounds);
-    std::string fileout = "/Users/charles-felix/bvh.csv";
-    std::ofstream fout (fileout.c_str() );
-    fout << "minx,miny,minz,maxx,maxy,maxz " << std::endl;
-    for (auto b: all_bounds){
-        fout << b.min.x << "," << b.min.y << "," << b.min.z << "," << b.max.x << "," << b.max.y << "," << b.max.z  << std::endl;
-    }
-
 }
 
 void Scene::setBackground(Background::ConstPtr background)

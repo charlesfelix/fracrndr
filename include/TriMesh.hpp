@@ -17,56 +17,53 @@
 
 // thanks to pshirley
 // http://www.cs.utah.edu/~shirley/galileo/MeshTriangle.h
-
+// https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/moller-trumbore-ray-triangle-intersection
 namespace Fr {
     
-
     inline bool
     intersectTriangle(Ray r, const V3f& p0, const V3f& p1, const V3f& p2,
                       Real tmin, Real tmax, Real& t, Real& beta, Real& gamma)
     {
-        Real A = p0[0] - p1[0];
-        Real B = p0[1] - p1[1];
-        Real C = p0[2] - p1[2];
         
-        Real D = p0[0] - p2[0];
-        Real E = p0[1] - p2[1];
-        Real F = p0[2] - p2[2];
+        float u, v = 0.f;
+        V3f v0v1 = p1 - p0;
+        V3f v0v2 = p2 - p0;
+        V3f pvec = r.direction.cross(v0v2);
+        float det = v0v1.dot(pvec);
         
-        
-        Real G = r.direction[0];
-        Real H = r.direction[1];
-        Real I = r.direction[2];
-        
-        Real J = p0[0] - r.origin[0];
-        Real K = p0[1] - r.origin[1];
-        Real L = p0[2] - r.origin[2];
-        
-        Real EIHF = E*I-H*F;
-        Real GFDI = G*F-D*I;
-        Real DHEG = D*H-E*G;
-        
-        Real denom = (A*EIHF + B*GFDI + C*DHEG);
-        
-        beta = (J*EIHF + K*GFDI + L*DHEG) / denom;
-        
-        if (beta <= 0.0 || beta >= 1) return false;
-        
-        Real AKJB = A*K - J*B;
-        Real JCAL = J*C - A*L;
-        Real BLKC = B*L - K*C;
-        
-        gamma = (I*AKJB + H*JCAL + G*BLKC)/denom;
-        if (gamma <= 0.0 || beta + gamma >= 1.0) return false;
-        
-        t =  -(F*AKJB + E*JCAL + D*BLKC)/denom;
+    #define CULLING 0
+    #ifdef CULLING
+        // if the determinant is negative the triangle is backfacing
+        // if the determinant is close to 0, the ray misses the triangle
+        if (det < EPSILON) return false;
+    #else
+        // ray and triangle are parallel if det is close to 0
+        if (fabs(det) < EPSILON) return false;
+    #endif
+        float invDet = 1 / det;
+     
+        V3f tvec = r.origin - p0;
+        u = tvec.dot(pvec) * invDet;
+        if (u < 0 || u > 1) return false;
+     
+        V3f qvec = tvec.cross(v0v1);
+        v = r.direction.dot(qvec) * invDet;
+        if (v < 0 || u + v > 1) return false;
+     
+        t = v0v2.dot(qvec) * invDet;
+    
+        beta = u;
+        gamma = v;
+    
         return (t >= tmin && t <= tmax);
     }
-    
 
     class TriangleMesh : public RenderPrimitive
     {
     public:
+        DEF_SHARED_PTR_TYPES(TriangleMesh);
+
+        
         class Triangle : public RenderPrimitive
         {
         public: // member functions
@@ -103,7 +100,7 @@ namespace Fr {
         virtual bool isAggregate() const { return true; };
         virtual bool getSubPrimitives(std::vector<RenderPrimitive::ConstPtr> & subprims) const; // return true if has
         
-    private:
+    public:
         std::vector<V3f> m_positions;
         std::vector<V3f> m_normals;
         std::vector<V3f> m_triangle_normals;

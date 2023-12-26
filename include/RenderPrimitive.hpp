@@ -19,16 +19,20 @@ namespace Fr{
     
     struct HitRecord {
 
-        HitRecord():t(MAXFLOAT){}
-        HitRecord(const HitRecord & hr):t(hr.t),position(hr.position),normal(hr.normal),color(hr.color){}
+        HitRecord():t(MAXFLOAT), num_hits_accel(0), material(0L){}
+        HitRecord(const HitRecord & hr):t(hr.t),position(hr.position),
+                                        normal(hr.normal),color(hr.color),
+                                        num_hits_accel(hr.num_hits_accel),
+                                        material(hr.material){}
         Real t;
         V3f position;
         V3f normal;
         C4f color;
+        size_t num_hits_accel;
         Material * material; // do not use Material::Ptr to avoid many shared_ptr copies, using a plain pointer saved 10pct runtime
     };
     
-    class RenderPrimitive{
+    class RenderPrimitive {
         
     public:
         DEF_SHARED_PTR_TYPES(RenderPrimitive);

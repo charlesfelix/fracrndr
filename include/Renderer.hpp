@@ -32,11 +32,12 @@ namespace Fr
     };
 
     struct RenderChannels {
-        RenderChannels():color(C4f(0.f,0.f,0.f,0.f)), normal(0.f), matid(0), depth(999999999999999999999999.f){};
+        RenderChannels():color(C4f(0.f,0.f,0.f,0.f)), normal(0.f), matid(0), depth(999999999999999999999999.f), num_hits_accel(0){};
         C4f color;
         C3f normal;
         unsigned matid;
         Real depth;
+        size_t num_hits_accel;
     };
     
     class Renderer
@@ -51,6 +52,7 @@ namespace Fr
         void setCamera(const Camera::Ptr &camera);
 
         Film::ConstPtr getFilm() const;
+        
         void setFilm(const Film::Ptr &film);
         
         Scene::ConstPtr getScene() const;

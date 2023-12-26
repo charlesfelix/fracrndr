@@ -11,10 +11,12 @@
 
 using namespace Fr;
 
-PrimitiveList & PrimitiveList::addPrimitive(RenderPrimitive::Ptr &primitive)
+PrimitiveList & PrimitiveList::addPrimitive(RenderPrimitive::Ptr & primitive)
 {
     m_primitives.push_back(primitive);
+
     m_bounds.extendBy(primitive->getBounds());
+    
     return *this;
 }
 

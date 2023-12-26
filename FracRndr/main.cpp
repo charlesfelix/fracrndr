@@ -13,8 +13,6 @@
 //TODO: Texture Filtering
 //TODO: plugins http://www.boost.org/doc/libs/1_65_1/doc/html/boost_dll/tutorial.html
 
-//#include <OpenImageIO/imageio.h>
-//#include <OpenImageIO/imagebuf.h>
 
 #ifdef GLOG
     #include <glog/logging.h>
@@ -32,7 +30,12 @@
 #include "Sphere.hpp"
 #include "BVH.hpp"
 
+
 using namespace Fr;
+
+#ifndef PROJECT_DIR
+    #define PROJECT_DIR "/Users/charlesfelix/Documents/Development/GitHub/fracrndr/"
+#endif
 
 void makeCube(TriangleMesh & mesh)
 {
@@ -70,46 +73,6 @@ void makeCube(TriangleMesh & mesh)
     
 }
 
-void testBVH()
-{
-    std::vector<RenderPrimitive::ConstPtr> prims;
-    
-    for (unsigned int i = 0; i < 1000; ++i)
-    {
-        const V3f pos = { float(randomDouble(0, 10)), float(randomDouble(0, 10)), float(randomDouble(0, 10)) };
-        float radius = randomDouble(0, 0.3);
-        prims.push_back(RenderPrimitive::ConstPtr(new Sphere(pos,radius)));
-    }
-    
-    RenderPrimitive::ConstPtr root = std::make_shared<BVHNode>(prims,0,prims.size());
-    
-    return;
-}
-
-void testBoxIntersection()
-{
-    Box3f box = V3f(-0.5,-0.5,-0.5);
-    box.extendBy(V3f(0.5,0.5,0.5));
-    std::string fileout = "/Users/charles-felix/testBoxIntersection.csv";
-    std::ofstream fout (fileout.c_str() );
-
-    for (unsigned i = 0; i < 100; ++i)
-    {
-        V3f pos = { float(randomDouble(-2.0f, 2.f)), float(randomDouble(-2.f, 2.f)), float(randomDouble(-2.f, 2.f)) };
-        Ray r;
-        r.origin = pos;
-        r.direction = -pos.normalize();
-        Real tmin = 0.0001f;
-        Real tmax = MAXFLOAT;
-        bool test = intersectAABB(box,r.origin,r.direction,tmin,tmax);
-        fout << r.origin.x << "," << r.origin.y << "," << r.origin.z << "," << r.direction.x << "," << r.direction.y << "," << r.direction.z << "," << test << "," << tmin << "," <<tmax << std::endl;
-        
-    }
-    
-    
-    
-}
-
 int main(int argc, const char * argv[]) {
     
 #ifdef GLOG
@@ -118,24 +81,21 @@ int main(int argc, const char * argv[]) {
     FLAGS_v =2;
 #endif
 
-    testBoxIntersection();
+    std::ifstream f = std::ifstream("/Users/charlesfelix/Documents/Development/GitHub/fracrndr/scenes/scene3.json");
+    if (f.good())
+    {
+        std::cout << "GOOD" << std::endl;
+    }
     
-#if 0
-    //DEM();
-    test_oiio();
-#endif
-    
-#if 1
-    std::string filepath = "/Users/charlesfelix/Documents/Development/GitHub/fracrndr/scenes/scene_2_spheres.json";
+    std::string filepath = "/Users/charlesfelix/Documents/Development/GitHub/fracrndr/scenes/scene_furnace_test.json";
+    filepath = "/Users/charlesfelix/Documents/Development/GitHub/fracrndr/scenes/scene_2_spheres.json";
+    filepath = "/Users/charlesfelix/Documents/Development/GitHub/fracrndr/scenes/scene_bvh.json";
 
     Renderer ren;
     int return_code = ren.initFromFile(filepath);
     if (return_code == 0)
         ren.render();
-#endif
     
-    testBVH();
-
     return 0;
 
 }

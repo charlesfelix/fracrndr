@@ -2,7 +2,7 @@
 	"globals": {
 		"aa":10,
 		"max_ray_depth":3,
-		"outputfile": "/Users/charles-felix/Documents/Development/fracrndr/scenes/scene1/scene3_debug.exr"
+		"outputfile": "/Users/charlesfelix/Documents/Development/GitHub/fracrndr/scenes/scene1/scene3_debug.exr"
 	},
     "film": {
         "width": 512,
@@ -18,7 +18,7 @@
     },
 	"background": 
 	{
-		"imagefile": "/Users/charles-felix/Documents/Development/fracrndr/scenes/hdr/uffizi-large.exr"
+		"imagefile": "/Users/charlesfelix/Documents/Development/GitHub/fracrndr/scenes/hdr/uffizi-large.exr"
 	},
 
 	"materials":
@@ -68,8 +68,8 @@
         "bunny":
         {
             "name": "trimesh",
-            "filename": "/Users/charles-felix/Documents/Development/fracrndr/scenes/models/bunny_xlo.obj",
-            "position":[0,-1.0,0.0],
+            "filename": "/Users/charlesfelix/Documents/Development/GitHub/fracrndr/scenes/models/bunny_xlo.obj",
+            "position":[0,-1.0,-0.0],
             "scale": 7
         }
 	},

@@ -13,27 +13,28 @@
 
 
 #include <limits>
-#include <half.h>
-#include <ImathHalfLimits.h>
+#include <cfloat>
 
-#include <ImathBox.h>
-#include <ImathBoxAlgo.h>
-#include <ImathColor.h>
-#include <ImathMatrix.h>
-#include <ImathVec.h>
+#include "Imath/half.h"
 
-#include <ImathRoots.h>
-#include <ImathMatrixAlgo.h>
-#include <ImathRandom.h>
-#include <ImathPlane.h>
-#include <ImathQuat.h>
+#include "Imath/ImathBox.h"
+#include "Imath/ImathBoxAlgo.h"
+#include "Imath/ImathColor.h"
+#include "Imath/ImathMatrix.h"
+#include "Imath/ImathVec.h"
+
+#include "Imath/ImathRoots.h"
+#include "Imath/ImathMatrixAlgo.h"
+#include "Imath/ImathRandom.h"
+#include "Imath/ImathPlane.h"
+#include "Imath/ImathQuat.h"
 
 #include <cassert>
 
 #define DEF_SHARED_PTR_TYPES(Class) typedef std::shared_ptr<Class> Ptr; typedef std::shared_ptr<const Class> ConstPtr
 
 namespace Fr {
-    
+
     typedef double Real;
     typedef ::half               half;
     typedef Imath::V2i           V2i;
@@ -72,6 +73,7 @@ namespace Fr {
     
     #define FR_LUMINANCE(c) (0.2126f*c[0] + 0.7152f*c[1] + 0.0722f*c[2])
 
+    const Real EPSILON = 0.0001;
 
     // Simple Timer
     class Timer

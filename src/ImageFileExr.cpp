@@ -108,8 +108,10 @@ void ImageFileExr::readmm(const std::string & filepath, MipMapBuffer & mmbuf)
 
 void ImageFileExr::write (const std::string & filepath, const ImageBuffer & imgbuf)
 {
-
-    RgbaOutputFile file (filepath.c_str(), int(imgbuf.width()), int(imgbuf.height()), WRITE_RGBA); // 1
+    
+    Header header = Header(int(imgbuf.width()), int(imgbuf.height()));
+    
+    RgbaOutputFile file (filepath.c_str(), header, WRITE_RGBA); // 1
     
     Rgba * pixels = new Rgba[imgbuf.width()*imgbuf.height()]();
     Rgba * pixel_cur = pixels;

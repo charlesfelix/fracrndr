@@ -42,6 +42,7 @@ namespace Fr
     private:
         Scene(const Scene & );
         RenderPrimitive::ConstPtr m_primitives;
+        RenderPrimitive::ConstPtr m_primitives_owner; // ugly need to handle this gracefully
         RenderPrimitive::ConstPtr m_accelerator;
         Background::ConstPtr m_background;
         Fr::Box3d m_bounds;

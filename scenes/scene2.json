@@ -2,7 +2,7 @@
 	"globals": {
 		"aa":25,
 		"max_ray_depth":1,
-		"outputfile": "/Users/charles-felix/Documents/Development/fracrndr/scenes/scene1/debug11.exr"
+		"outputfile": "/Users/charlesfelix/Documents/Development/GitHub/fracrndr/scenes/scene1/debug11.exr"
 	},
     "film": {
         "width": 512,
@@ -18,7 +18,7 @@
 	},
 	"background": 
 	{
-		"imagefile_": "/Development/fracrndr/scenes/hdr/uffizi-large-mm.exr"
+        "imagefile": "/Users/charlesfelix/Documents/Development/GitHub/fracrndr/scenes/hdr/uffizi-large.exr"
 	},
 
 	"materials":

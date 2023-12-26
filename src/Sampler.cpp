@@ -35,6 +35,20 @@ V3f SamplerS::sampleUnitSphere() const
     return p;
 }
 
+V3f SamplerS::sampleHemisphere() const
+{
+    V3f p;
+    // cos(theta) = r1 = y
+    // cos^2(theta) + sin^2(theta) = 1 -> sin(theta) = srtf(1 - cos^2(theta))
+    const float r1 = random();
+    const float r2 = random();
+    float sinTheta = sqrtf(1 - r1*r1);
+    float phi = 2 * M_PI * r2;
+    float x = sinTheta * cosf(phi);
+    float z = sinTheta * sinf(phi);
+    return V3f(x, r1, z);
+}
+
 SamplerXorS::SamplerXorS(unsigned int state):m_state(state) {}
 
 float SamplerXorS::random() const {

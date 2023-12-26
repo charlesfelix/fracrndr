@@ -10,6 +10,7 @@
 //https://raytracing.github.io/books/RayTracingTheNextWeek.html#boundingvolumehierarchies/thebvhnodeclass
 
 #include <BVH.hpp>
+#include <TriMesh.hpp>
 
 using namespace Fr;
 
@@ -36,15 +37,12 @@ bool box_z_compare (const RenderPrimitive::ConstPtr a, const RenderPrimitive::Co
 bool BVHNode::hit(const Ray & r, Real tmin, Real tmax, HitRecord & hit_record) const
 {
     const bool test = intersectAABB(m_bounds, r.origin, r.direction, tmin, tmax);
+    ++hit_record.num_hits_accel;
     if (test)
     {
         const bool hit_left = m_left->hit(r, tmin, tmax, hit_record);
-        if (m_right) // if has 2 children
-        {
-            const bool hit_right = m_right->hit(r, tmin, hit_left ? hit_record.t : tmax, hit_record);
-            return hit_left || hit_right;
-        }
-        return hit_left;
+        const bool hit_right = bool(m_right != nullptr) && m_right->hit(r, tmin, hit_left ? hit_record.t : tmax, hit_record);
+        return hit_left || hit_right;
     }
     return false;
 }
